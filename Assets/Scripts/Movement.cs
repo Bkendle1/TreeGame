@@ -12,7 +12,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 1f;
     [SerializeField] private LayerMask groundLayer;
-    
+    [SerializeField] private float coyoteTime = 1f;
+
+    private float coyoteTimeCounter;
     private bool jumpInput;
     private bool dashInput;
     private bool isFacingRight;
@@ -80,6 +82,7 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
+        
         if (!isFacingRight && movementInput.x < 0f)
         {
             Flip();
@@ -112,12 +115,23 @@ public class Movement : MonoBehaviour
     
     private void Jump()
     {
+        //Coyote Timer
+        if (isGrounded())
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+        
         //if the player jumps off the ground, jump
-        if (jumpInput && isGrounded())
+        if (jumpInput && coyoteTimeCounter > 0f)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
         jumpInput = false;
+
     }
     
     private bool isGrounded()
@@ -132,5 +146,11 @@ public class Movement : MonoBehaviour
         Vector3 localScale = transform.localScale;
         localScale.x *= -1f;
         transform.localScale = localScale;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
     }
 }
