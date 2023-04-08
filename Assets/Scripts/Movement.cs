@@ -150,7 +150,7 @@ public class Movement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
     }
 }
