@@ -22,7 +22,8 @@ public class Movement : MonoBehaviour
     private bool isFacingRight;
     private bool hasInteracted = false;
     private bool isMoving;
-    
+    private bool submitPressed;
+
     private Rigidbody2D rb;
     private Animator anim;
     
@@ -63,6 +64,11 @@ public class Movement : MonoBehaviour
 
         controls.Player.Interaction.performed += OnInteracted;
         
+        //I know this is script is supposed to handle player movements 
+        //and that this should be in an input manager, but if this is 
+        //the only non-player input we're using, might as well put it here
+        controls.UI.Submit.performed += OnSubmitPressed;
+        
         controls.Enable();
     }
 
@@ -78,9 +84,13 @@ public class Movement : MonoBehaviour
         controls.Player.Run.canceled -= OnDashCanceled;
 
         controls.Player.Interaction.performed -= OnInteracted;
+                
+        controls.UI.Submit.performed -= OnSubmitPressed;
 
         controls.Disable();
     }
+
+    #region PlayerInputs
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
@@ -126,6 +136,27 @@ public class Movement : MonoBehaviour
         hasInteracted = false;
         return result;
     }
+    
+    #endregion
+
+    #region UI Inputs
+    private void OnSubmitPressed(InputAction.CallbackContext context)
+    {
+        submitPressed = true;
+    }
+
+    public bool GetSubmitPressed()
+    {
+        bool result = submitPressed;
+        submitPressed = false;
+        return result;
+    }
+    public void RegisterSubmitPressed() 
+    {
+        submitPressed = false;
+    }
+   
+    #endregion
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());

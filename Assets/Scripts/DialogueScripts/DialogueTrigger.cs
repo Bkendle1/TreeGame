@@ -44,7 +44,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false; 
+            playerInRange = false;
         }
     }
 }
