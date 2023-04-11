@@ -21,7 +21,8 @@ public class Movement : MonoBehaviour
     private bool dashInput;
     private bool isFacingRight;
     private bool hasInteracted = false;
-        
+    private bool isMoving;
+    
     private Rigidbody2D rb;
     private Animator anim;
     
@@ -84,21 +85,15 @@ public class Movement : MonoBehaviour
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
-        //play animations if dialogue isn't playing
-        if (!DialogueManager.Instance.dialogueIsPlaying)
-        {
-            anim.SetBool("isMoving", true);
-        }
+        isMoving = true;
+        
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
         movementInput = Vector2.zero;
-        //play animations if dialogue isn't playing
-        if (!DialogueManager.Instance.dialogueIsPlaying)
-        {
-            anim.SetBool("isMoving", false);
-        }
+        isMoving = false;
+        
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
@@ -134,7 +129,17 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
-        
+
+        //handle player movement if dialogue is playing
+        if (isMoving && !DialogueManager.Instance.dialogueIsPlaying)
+        {
+            anim.SetBool("isMoving", true);
+        } else if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            anim.SetBool("isMoving", false);
+            rb.velocity = new Vector2(0,rb.velocity.y);
+        }
+
         if (!isFacingRight && movementInput.x < 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
@@ -146,16 +151,16 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        //player can't jump or dash if dialogue is playing
+        // (player's movements are also stopped elsewhere in the script)
         if (DialogueManager.Instance.dialogueIsPlaying)
         {
-            
             return;
         }
 
-            //move player left or right
+        //move player left or right
         rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
-
+    
         Jump();
         Dash();
     }

@@ -18,9 +18,10 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange)
+        if (playerInRange && !DialogueManager.Instance.dialogueIsPlaying)
         {
             visualCue.SetActive(true);
+            //start a new story
             if (Movement.Instance.GetInteractedPressed())
             {
                 DialogueManager.Instance.EnterDialogueMode(inkJSON);
@@ -43,7 +44,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
+            playerInRange = false; 
         }
     }
 }
