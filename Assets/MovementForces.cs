@@ -18,7 +18,6 @@ public class MovementForces : MonoBehaviour
     private Vector2 position;
     private Vector2 velocity;
     private bool isGrounded = true;
-    private bool isDashing = true;
 
     private PlayerControls controls;
     private Vector2 movementInput;
@@ -67,7 +66,6 @@ public class MovementForces : MonoBehaviour
 
         if (dashInput)
         {
-            //isDashing = true;
 
             //apply force in the direction player is facing
             float dashDirection = Mathf.Sign(movementInput.x);

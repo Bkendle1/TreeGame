@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    
+    
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float dashForce = 10f;
@@ -18,7 +20,8 @@ public class Movement : MonoBehaviour
     private bool jumpInput;
     private bool dashInput;
     private bool isFacingRight;
-    
+    private bool hasInteracted = false;
+        
     private Rigidbody2D rb;
     private Animator anim;
     
@@ -26,9 +29,21 @@ public class Movement : MonoBehaviour
     private PlayerControls controls;
     private Vector2 movementInput;
 
-
+    //Singleton Setup
+    //allow classes to reference but not alter
+    public static Movement Instance { get; private set; }
+    
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -38,36 +53,62 @@ public class Movement : MonoBehaviour
     {
         controls.Player.Move.performed += OnMovePerformed;
         controls.Player.Move.canceled += OnMoveCanceled;
+        
         controls.Player.Jump.performed += OnJumpPerformed;
+        controls.Player.Jump.canceled += OnJumpCanceled;
+        
         controls.Player.Run.performed += OnDashPerformed;
         controls.Player.Run.canceled += OnDashCanceled;
+
+        controls.Player.Interaction.performed += OnInteracted;
+        
         controls.Enable();
     }
 
     private void OnDisable()
     {
-        controls.Player.Move.performed += OnMovePerformed;
-        controls.Player.Move.canceled += OnMoveCanceled;
-        controls.Player.Jump.performed += OnJumpPerformed;
-        controls.Player.Run.performed += OnDashPerformed;
+        controls.Player.Move.performed -= OnMovePerformed;
+        controls.Player.Move.canceled -= OnMoveCanceled;
+        
+        controls.Player.Jump.performed -= OnJumpPerformed;
+        controls.Player.Jump.canceled -= OnJumpCanceled;
+
+        controls.Player.Run.performed -= OnDashPerformed;
+        controls.Player.Run.canceled -= OnDashCanceled;
+
+        controls.Player.Interaction.performed -= OnInteracted;
+
         controls.Disable();
     }
 
     private void OnMovePerformed(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();
-        anim.SetBool("isMoving", true);
+        //play animations if dialogue isn't playing
+        if (!DialogueManager.Instance.dialogueIsPlaying)
+        {
+            anim.SetBool("isMoving", true);
+        }
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
         movementInput = Vector2.zero;
-        anim.SetBool("isMoving", false);
+        //play animations if dialogue isn't playing
+        if (!DialogueManager.Instance.dialogueIsPlaying)
+        {
+            anim.SetBool("isMoving", false);
+        }
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
         jumpInput = true;
+    }
+
+    private void OnJumpCanceled(InputAction.CallbackContext context)
+    {
+        coyoteTimeCounter = 0f;
     }
 
     private void OnDashPerformed(InputAction.CallbackContext context)
@@ -79,14 +120,25 @@ public class Movement : MonoBehaviour
         dashInput = false;
     }
 
+    private void OnInteracted(InputAction.CallbackContext context)
+    {
+        hasInteracted = true;
+    }
+
+    public bool GetInteractedPressed()
+    {
+        bool result = hasInteracted;
+        hasInteracted = false;
+        return result;
+    }
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
         
-        if (!isFacingRight && movementInput.x < 0f)
+        if (!isFacingRight && movementInput.x < 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
-        } else if (isFacingRight && movementInput.x > 0f)
+        } else if (isFacingRight && movementInput.x > 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
         }
@@ -94,8 +146,14 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        //move player left or right
+
+        if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            
+            return;
+        }
+
+            //move player left or right
         rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
 
         Jump();
