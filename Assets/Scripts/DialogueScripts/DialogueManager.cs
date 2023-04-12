@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
     private Coroutine displayLineCoroutine;
     private bool canContinueToNextLine = false;
     private AudioSource _audioSource;
+    private bool voicePlaying = true;
     
     private const string SPEAKER_TAG = "speaker";
 
@@ -82,7 +83,14 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-
+        
+        //listen for calls to this function
+        currentStory.BindExternalFunction("playVoiceLine", (string speaker, string voiceLine) =>
+        {
+            Debug.Log("speaker: " + speaker + " voice line: " + voiceLine); 
+            VoiceLineManager.Instance.PlayVoiceLine(speaker, voiceLine);
+        });
+        
         //reset dialogue assets
         displayNameText.text = "Name";
         
@@ -91,9 +99,12 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogueMode()
     {
+        currentStory.UnbindExternalFunction("playVoiceLine");
+            
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        
     }
 
     private void ContinueStory()
@@ -109,6 +120,7 @@ public class DialogueManager : MonoBehaviour
             
             //handle tags
             HandleTags(currentStory.currentTags);
+
         }
         else
         {
@@ -128,7 +140,8 @@ public class DialogueManager : MonoBehaviour
         canContinueToNextLine = false;
 
         bool isAddingRichTextTag = false;
-        //index needs to be 1 so the audio doesn't 
+        
+        //index needs to be 1 so there's not that loud typing sfx at the beginning of the dialogue when there's rich text
         int index = 1;
         //display each letter one at a time
         foreach (char letter in line.ToCharArray())
@@ -158,13 +171,11 @@ public class DialogueManager : MonoBehaviour
             {
                 dialogueText.text += letter;
                 index++;
-                Debug.Log(index);
                 yield return new WaitForSeconds(typingSpeed);
             }
             //play typing sfx for every other character
             if (index % 2 == 0)
             {
-                 Debug.Log(_audioClip);
                  _audioSource.PlayOneShot(_audioClip);
             }
         }
