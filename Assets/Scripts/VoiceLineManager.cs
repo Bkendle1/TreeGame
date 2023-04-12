@@ -12,7 +12,9 @@ public class VoiceLineManager : MonoBehaviour
     // Audio source to play the voice lines
     private AudioSource audioSource;
 
+    //Voice Lines for characters
     [SerializeField] private List<AudioClip> MotherNatureVoiceLines;
+    [SerializeField] private List<AudioClip> PlayerVoiceLines;
     
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class VoiceLineManager : MonoBehaviour
     private void Start()
     {
         AddVoiceLineList("MotherNature", MotherNatureVoiceLines);
+        AddVoiceLineList("Player", PlayerVoiceLines);
     }
 
     // Add a new voice line list for a character

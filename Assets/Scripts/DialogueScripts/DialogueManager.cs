@@ -27,7 +27,6 @@ public class DialogueManager : MonoBehaviour
     private Coroutine displayLineCoroutine;
     private bool canContinueToNextLine = false;
     private AudioSource _audioSource;
-    private bool voicePlaying = true;
     
     private const string SPEAKER_TAG = "speaker";
 
@@ -104,13 +103,17 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        
+        //stop voice line if player leaves dialogue
+        VoiceLineManager.Instance.StopVoiceLine();
     }
 
     private void ContinueStory()
     {
         if (currentStory.canContinue)
         {
+            //stop voice line if player chooses to continue to the next line of dialogue
+            VoiceLineManager.Instance.StopVoiceLine();
+            
             //set text for the current dialogue line
             if (displayLineCoroutine != null)
             {
@@ -251,7 +254,7 @@ public class DialogueManager : MonoBehaviour
         {
             choices[i].gameObject.SetActive(false);
         }
-
+        
         StartCoroutine(SelectFirstChoice());
     }
 
