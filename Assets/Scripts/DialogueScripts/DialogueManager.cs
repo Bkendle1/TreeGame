@@ -14,13 +14,19 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI displayNameText;
-
+    [SerializeField] private float typingSpeed = .4f; //the smaller the value, the faster the speed
+    [SerializeField] private GameObject continueIcon;
+    [SerializeField] private AudioClip _audioClip;
+    
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
     public bool dialogueIsPlaying { get; private set; }
     private Story currentStory;
+    private Coroutine displayLineCoroutine;
+    private bool canContinueToNextLine = false;
+    private AudioSource _audioSource;
     
     private const string SPEAKER_TAG = "speaker";
 
@@ -41,6 +47,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialoguePanel.SetActive(false);
+        _audioSource = GetComponent<AudioSource>();
         
         //get all of the choices text
         choicesText = new TextMeshProUGUI[choices.Length];
@@ -62,7 +69,8 @@ public class DialogueManager : MonoBehaviour
         }
         
         //handle continuing to the next line in the dialogue when submit is pressed
-        if (currentStory.currentChoices.Count == 0 
+        if (canContinueToNextLine
+            && currentStory.currentChoices.Count == 0 
             && Movement.Instance.GetSubmitPressed()) 
         {
             ContinueStory();
@@ -92,10 +100,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
-            //set tesxt for the current dialogue line
-            dialogueText.text = currentStory.Continue();
-            //display choices, if any for this dialogue line
-            DisplayChoices();
+            //set text for the current dialogue line
+            if (displayLineCoroutine != null)
+            {
+                StopCoroutine(displayLineCoroutine);
+            }
+            displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+            
             //handle tags
             HandleTags(currentStory.currentTags);
         }
@@ -105,6 +116,74 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private IEnumerator DisplayLine(string line)
+    {
+        //empty the dialogue text
+        dialogueText.text = "";
+        
+        //hide items while text is typing
+        //continueIcon.SetActive(false);
+        HideChoices();
+        
+        canContinueToNextLine = false;
+
+        bool isAddingRichTextTag = false;
+        //index needs to be 1 so the audio doesn't 
+        int index = 1;
+        //display each letter one at a time
+        foreach (char letter in line.ToCharArray())
+        {
+            //if the submit button is pressed, finish displaying
+            //the light right away
+
+            if (Movement.Instance.GetSubmitPressed())
+            {
+                dialogueText.text = line;
+                break;
+            }
+            
+            //check for rich text tag, if found, add it without waiting
+            if (letter == '<' || isAddingRichTextTag)
+            {
+                isAddingRichTextTag = true;
+                dialogueText.text += letter;
+                
+                if (letter == '>')
+                {
+                    isAddingRichTextTag = false;
+                }
+            }
+            //if not rich text, add the next letter and wait a small time
+            else
+            {
+                dialogueText.text += letter;
+                index++;
+                Debug.Log(index);
+                yield return new WaitForSeconds(typingSpeed);
+            }
+            //play typing sfx for every other character
+            if (index % 2 == 0)
+            {
+                 Debug.Log(_audioClip);
+                 _audioSource.PlayOneShot(_audioClip);
+            }
+        }
+        //continueIcon.SetActive(true);
+        
+        //display choices, if any for this dialogue line
+        //after the entire line is done typing
+        DisplayChoices();
+        canContinueToNextLine = true;
+    }
+
+    private void HideChoices()
+    {
+        foreach (GameObject choiceButton in choices)
+        {
+            choiceButton.SetActive(false);
+        }
+    }
+    
     private void HandleTags(List<string> currentTags)
     {
         //loop through each tag and handle them accordingly
@@ -176,8 +255,11 @@ public class DialogueManager : MonoBehaviour
 
     public void MakeChoice(int choiceIndex)
     {
-        currentStory.ChooseChoiceIndex(choiceIndex);    
-        Movement.Instance.RegisterSubmitPressed();
-        ContinueStory();
+        if (canContinueToNextLine)
+        {
+            currentStory.ChooseChoiceIndex(choiceIndex);    
+            Movement.Instance.RegisterSubmitPressed();
+            ContinueStory();
+        }
     }
 }

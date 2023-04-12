@@ -108,6 +108,11 @@ public class Movement : MonoBehaviour
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
+        //disable jump input so player doesn't jump after dialogue finishes
+        if(DialogueManager.Instance.dialogueIsPlaying)
+        {
+            return;
+        }
         jumpInput = true;
     }
 
