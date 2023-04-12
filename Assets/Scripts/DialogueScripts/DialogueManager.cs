@@ -6,13 +6,14 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using UnityEngine.SearchService;
 
 public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
-    
+    [SerializeField] private TextMeshProUGUI displayNameText;
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
@@ -21,6 +22,8 @@ public class DialogueManager : MonoBehaviour
     public bool dialogueIsPlaying { get; private set; }
     private Story currentStory;
     
+    private const string SPEAKER_TAG = "speaker";
+
     public static DialogueManager Instance { get; private set; }
 
     private void Awake()
@@ -72,6 +75,9 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
+        //reset dialogue assets
+        displayNameText.text = "Name";
+        
         ContinueStory();
     }
 
@@ -90,6 +96,8 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = currentStory.Continue();
             //display choices, if any for this dialogue line
             DisplayChoices();
+            //handle tags
+            HandleTags(currentStory.currentTags);
         }
         else
         {
@@ -97,6 +105,36 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void HandleTags(List<string> currentTags)
+    {
+        //loop through each tag and handle them accordingly
+        foreach (string tag in currentTags)
+        {
+            //parse the tag
+            //we're splitting the tags into their key:value pairs
+            string[] splitTag = tag.Split(":");
+            if (splitTag.Length != 2)
+            {
+                Debug.LogError("Tag couldn't be appropriately parsed: " + tag);
+            }
+
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+            
+            //handle the tag
+            switch (tagKey)
+            {
+                case SPEAKER_TAG:
+                    displayNameText.text = tagValue;
+                    Debug.Log("speaker=" + tagValue);
+                    break;
+                 default:
+                     Debug.LogWarning("Tag game in but isn't currently being handled: " + tag);
+                     break;
+            }
+        }
+    }
+    
     private void DisplayChoices()
     {
         //storing the choices in a list

@@ -165,7 +165,7 @@ public class Movement : MonoBehaviour
         if (isMoving && !DialogueManager.Instance.dialogueIsPlaying)
         {
             anim.SetBool("isMoving", true);
-        } else if (DialogueManager.Instance.dialogueIsPlaying)
+        } else if (!isMoving || DialogueManager.Instance.dialogueIsPlaying)
         {
             anim.SetBool("isMoving", false);
             rb.velocity = new Vector2(0,rb.velocity.y);
