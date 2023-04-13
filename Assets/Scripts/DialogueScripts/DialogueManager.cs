@@ -98,7 +98,7 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogueMode()
     {
-        currentStory.UnbindExternalFunction("playVoiceLine");
+        //currentStory.UnbindExternalFunction("playVoiceLine");
             
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
