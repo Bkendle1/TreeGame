@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector2 = UnityEngine.Vector2;
@@ -38,12 +39,17 @@ public class Movement : MonoBehaviour
     private bool isBurstStepping;
     private bool canBurstStep = true;
     private bool burstStepInput;
+
+    [Header("Cinemachine")] 
+    [SerializeField] private float camShakeIntensity = 4f;
+    [SerializeField] private float camShakeDuration = .1f;
     
     private bool hasInteracted = false;
     private bool submitPressed;
 
     private Rigidbody2D rb;
     private Animator anim;
+    private TrailRenderer trailRenderer;
     
     //Input Actions
     private PlayerControls controls;
@@ -67,6 +73,7 @@ public class Movement : MonoBehaviour
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     private void OnEnable()
@@ -228,9 +235,6 @@ public class Movement : MonoBehaviour
         {
             return;
         }
-
-        
-        Debug.Log(rb.velocity.y);
         
         //move player left or right
         rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
@@ -238,8 +242,7 @@ public class Movement : MonoBehaviour
         Jump();
         Dash();
         BurstStep();
-        
-        
+        Debug.Log("Is trail renderer emitting: " + trailRenderer.emitting);
     }
 
     private void Dash()
@@ -247,9 +250,15 @@ public class Movement : MonoBehaviour
         //if player presses run button and is moving, run
         if (dashInput && movementInput != Vector2.zero)
         {
+            Debug.Log("In dash");
             float dashDirection = Mathf.Sign(movementInput.x);
             rb.AddForce(Vector2.right * dashDirection * dashForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -dashForce, dashForce), rb.velocity.y);
+            trailRenderer.emitting = true;
+        }
+        else
+        {
+            trailRenderer.emitting = false;
         }
     }
 
@@ -257,6 +266,8 @@ public class Movement : MonoBehaviour
     {
         if (burstStepInput && canBurstStep)
         {
+            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
+            Flip();
             //setup cooldown timer
             burstCooldownTimer = burstCooldownDuration;
             
@@ -273,13 +284,13 @@ public class Movement : MonoBehaviour
             StartCoroutine(StopBurstStepping());
         }
 
-        
+
         if (isBurstStepping)
         {
-            Flip();
             rb.velocity = burstDirection.normalized * burstVelocity;
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
-            
+            rb.velocity = new Vector2(rb.velocity.x,
+                Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
+            trailRenderer.emitting = true;
             //rb.AddForce(burstDirection.normalized * burstVelocity, ForceMode2D.Impulse);
             return;
         }
@@ -303,6 +314,7 @@ public class Movement : MonoBehaviour
     {
         yield return new WaitForSeconds(burstDuration);
         isBurstStepping = false;
+        trailRenderer.emitting = false;
     }
     
     private void Jump()
