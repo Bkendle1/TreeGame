@@ -1,27 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class Movement : MonoBehaviour
 {
-    
-    
+    [Header("Movement")]
     [SerializeField] private float moveSpeed = 10f;
+    private bool isMoving;
+    private bool isFacingRight;
+
+    [Header("Jumping")]
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float dashForce = 10f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 1f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float coyoteTime = 1f;
-
     private float coyoteTimeCounter;
     private bool jumpInput;
+    
+    [Header("Dashing")]
+    [SerializeField] private float dashForce = 10f;
     private bool dashInput;
-    private bool isFacingRight;
+
+    [Header("BurstStep")] //this should technically be called the dash but that would require changing variables
+    [SerializeField] private float burstVelocity = 2f;
+    [SerializeField] private float burstDuration = 2f;
+    [SerializeField] private float burstCooldownDuration = 2f;
+    [SerializeField] private float maxUpwardBurstVelocity = 10f; // the limit to the player's y-velocity during burst step
+    private float burstCooldownTimer; // what we'll be counting down from 
+    private Vector2 burstDirection;
+    private bool isBurstStepping;
+    private bool canBurstStep = true;
+    private bool burstStepInput;
+    
     private bool hasInteracted = false;
-    private bool isMoving;
     private bool submitPressed;
 
     private Rigidbody2D rb;
@@ -62,6 +80,9 @@ public class Movement : MonoBehaviour
         controls.Player.Run.performed += OnDashPerformed;
         controls.Player.Run.canceled += OnDashCanceled;
 
+        controls.Player.BurstStep.performed += OnBurstStepPerformed;
+        controls.Player.BurstStep.canceled += OnBurstStepCanceled;
+        
         controls.Player.Interaction.performed += OnInteracted;
         
         //I know this is script is supposed to handle player movements 
@@ -82,6 +103,9 @@ public class Movement : MonoBehaviour
 
         controls.Player.Run.performed -= OnDashPerformed;
         controls.Player.Run.canceled -= OnDashCanceled;
+
+        controls.Player.BurstStep.performed -= OnBurstStepPerformed;
+        controls.Player.BurstStep.canceled -= OnBurstStepCanceled;
 
         controls.Player.Interaction.performed -= OnInteracted;
                 
@@ -130,6 +154,16 @@ public class Movement : MonoBehaviour
         dashInput = false;
     }
 
+    private void OnBurstStepPerformed(InputAction.CallbackContext context)
+    {
+        burstStepInput = true;
+    }
+
+    private void OnBurstStepCanceled(InputAction.CallbackContext context)
+    {
+        burstStepInput = false;
+    }
+    
     private void OnInteracted(InputAction.CallbackContext context)
     {
         hasInteracted = true;
@@ -165,6 +199,7 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
+        anim.SetBool("isBurstStepping", isBurstStepping);
 
         //handle player movement if dialogue is playing
         if (isMoving && !DialogueManager.Instance.dialogueIsPlaying)
@@ -194,11 +229,17 @@ public class Movement : MonoBehaviour
             return;
         }
 
+        
+        Debug.Log(rb.velocity.y);
+        
         //move player left or right
         rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
     
         Jump();
         Dash();
+        BurstStep();
+        
+        
     }
 
     private void Dash()
@@ -210,6 +251,58 @@ public class Movement : MonoBehaviour
             rb.AddForce(Vector2.right * dashDirection * dashForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -dashForce, dashForce), rb.velocity.y);
         }
+    }
+
+    private void BurstStep()
+    {
+        if (burstStepInput && canBurstStep)
+        {
+            //setup cooldown timer
+            burstCooldownTimer = burstCooldownDuration;
+            
+            isBurstStepping = true;
+            canBurstStep = false;
+            burstDirection = movementInput; //direction of burst will be based off of the player's  current movement direction
+            
+            //get burst direction based on where they're facing if they're not moving
+            if (burstDirection == Vector2.zero)
+            {
+                burstDirection = new Vector2(-transform.localScale.x, 0);
+            }
+            //Add stopping dash
+            StartCoroutine(StopBurstStepping());
+        }
+
+        
+        if (isBurstStepping)
+        {
+            Flip();
+            rb.velocity = burstDirection.normalized * burstVelocity;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
+            
+            //rb.AddForce(burstDirection.normalized * burstVelocity, ForceMode2D.Impulse);
+            return;
+        }
+        else
+        {
+            //decrement burst cooldown timer after burst step is complete
+            burstCooldownTimer -= Time.fixedDeltaTime;
+        }
+
+        if (burstCooldownTimer <= 0)
+        {
+            canBurstStep = true;
+        }
+        else
+        {
+            canBurstStep = false;
+        }
+    }
+
+    private IEnumerator StopBurstStepping()
+    {
+        yield return new WaitForSeconds(burstDuration);
+        isBurstStepping = false;
     }
     
     private void Jump()
@@ -232,7 +325,7 @@ public class Movement : MonoBehaviour
         jumpInput = false;
 
     }
-    
+
     private bool isGrounded()
     {
         //check if player is on the ground
@@ -241,10 +334,15 @@ public class Movement : MonoBehaviour
 
     private void Flip()
     {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
+        //prevent player from flipping sprites if they're burst stepping
+        if (!isBurstStepping)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+        
     }
 
     private void OnDrawGizmos()
