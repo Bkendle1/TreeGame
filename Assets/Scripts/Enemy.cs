@@ -33,9 +33,10 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        currentHealth -= damage;
+        
         if (currentHealth > 0)
         {
-            currentHealth -= damage;
             Debug.Log("Been hit for: " + damage + " damage.");
             // play hurt animation
             anim.SetTrigger("Hurt");

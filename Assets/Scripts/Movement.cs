@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
     
     private bool hasInteracted = false;
     private bool submitPressed;
-
+    
     private Rigidbody2D rb;
     private Animator anim;
     private TrailRenderer trailRenderer;
@@ -90,6 +90,7 @@ public class Movement : MonoBehaviour
         controls.Player.BurstStep.performed += OnBurstStepPerformed;
         controls.Player.BurstStep.canceled += OnBurstStepCanceled;
         
+        
         controls.Player.Interaction.performed += OnInteracted;
         
         //I know this is script is supposed to handle player movements 
@@ -114,6 +115,8 @@ public class Movement : MonoBehaviour
         controls.Player.BurstStep.performed -= OnBurstStepPerformed;
         controls.Player.BurstStep.canceled -= OnBurstStepCanceled;
 
+        
+        
         controls.Player.Interaction.performed -= OnInteracted;
                 
         controls.UI.Submit.performed -= OnSubmitPressed;
@@ -175,6 +178,7 @@ public class Movement : MonoBehaviour
     {
         hasInteracted = true;
     }
+    
 
     public bool GetInteractedPressed()
     {
@@ -242,7 +246,6 @@ public class Movement : MonoBehaviour
         Jump();
         Dash();
         BurstStep();
-        Debug.Log("Is trail renderer emitting: " + trailRenderer.emitting);
     }
 
     private void Dash()
