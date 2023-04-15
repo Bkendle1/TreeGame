@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b3fbd3b9b324e4ba3d12301103464c, type: 3}
   m_Name: Branch_Weapon
   m_EditorClassIdentifier: 
-  m_attackDamage: 10
+  m_attackDamage: 50
   m_attackRange: 2.23
-  m_attackSpeed: 5
+  m_attackSpeed: 0.35
   m_knockbackPower: 0
   m_weaponSprite: {fileID: 21300000, guid: a9270879ab5758f4da38bc60880460ca, type: 3}
   m_projectileSprite: {fileID: 21300000, guid: 6baa2442afe45e043b5bc81a68bb24ff, type: 3}

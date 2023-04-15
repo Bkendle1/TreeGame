@@ -44,6 +44,9 @@ TagManager:
   - name: BG
     uniqueID: 217169689
     locked: 0
+  - name: Enemies
+    uniqueID: 581859745
+    locked: 0
   - name: Characters
     uniqueID: 4090395379
     locked: 0

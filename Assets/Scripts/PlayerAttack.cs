@@ -13,8 +13,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] WeaponProp playerWeaponProperties;
-
-    private float timeBtwAttackTimer;
+    [SerializeField] private Transform weaponTransform;
+    
+    [Header("Cinemachine")] 
+    [SerializeField] private float camShakeIntensity = 4f;
+    [SerializeField] private float camShakeDuration = .1f;
+    
+    private bool canAttack = true;
     private bool attackInput;
     
     private Animator anim;
@@ -24,12 +29,10 @@ public class PlayerAttack : MonoBehaviour
     {
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
-        
     }
 
     private void Start()
     {
-        _weaponSprite.enabled = enabled;
         _weaponSprite.sprite = playerWeaponProperties.GetWeaponSprite;
     }
 
@@ -65,6 +68,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnPrimaryFireCanceled(InputAction.CallbackContext context)
     {
         attackInput = false;
+
     }
     
     private void OnSecondaryFirePerformed(InputAction.CallbackContext context)
@@ -74,23 +78,25 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (timeBtwAttackTimer <= 0)
+        if (attackInput && canAttack)
         {
-            timeBtwAttackTimer = playerWeaponProperties.GetAttackSpeed;
-            if (attackInput)
-            {
-                Attack();
-            }
+            Attack();
+            canAttack = false;
+            Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
         }
-        else
-        {
-            timeBtwAttackTimer -= Time.deltaTime;
-        }
+
+        //weaponTransform.transform.rotation.z = Mathf.Lerp(100, -45, playerWeaponProperties.GetAttackSpeed);
     }
 
+    
     private void Attack()
     {
         anim.SetTrigger("Attack");
+        
+        //Weapon swing animation
+        _weaponSprite.enabled = enabled;
+        
+        
         
         //Detect objects in enemy layer
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerWeaponProperties.GetAttackRange, enemyLayer);
@@ -98,11 +104,18 @@ public class PlayerAttack : MonoBehaviour
         //Damage enemies hit
         foreach (Collider2D enemy in hitEnemies)
         {
+            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
             Debug.Log("Hit: " + enemy.name);
             enemy.GetComponent<Enemy>().TakeDamage(playerWeaponProperties.GetAttackDamage);
         }
-    }
 
+    }
+    private void ResetAttack()
+    {
+        canAttack = true;
+        // _weaponSprite.enabled = false;
+
+    }
     private void OnDrawGizmos()
     {
         if (attackPoint == null)
