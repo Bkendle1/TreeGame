@@ -84,10 +84,8 @@ public class PlayerAttack : MonoBehaviour
             canAttack = false;
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
         }
-
-        //weaponTransform.transform.rotation.z = Mathf.Lerp(100, -45, playerWeaponProperties.GetAttackSpeed);
+        
     }
-
     
     private void Attack()
     {
@@ -95,9 +93,7 @@ public class PlayerAttack : MonoBehaviour
         
         //Weapon swing animation
         _weaponSprite.enabled = enabled;
-        
-        
-        
+
         //Detect objects in enemy layer
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerWeaponProperties.GetAttackRange, enemyLayer);
         
@@ -108,14 +104,14 @@ public class PlayerAttack : MonoBehaviour
             Debug.Log("Hit: " + enemy.name);
             enemy.GetComponent<Enemy>().TakeDamage(playerWeaponProperties.GetAttackDamage);
         }
-
     }
+    
     private void ResetAttack()
     {
         canAttack = true;
         // _weaponSprite.enabled = false;
-
     }
+    
     private void OnDrawGizmos()
     {
         if (attackPoint == null)

@@ -2458,7 +2458,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944292656}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3982,7 +3982,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   playerWeaponProperties: {fileID: 11400000, guid: a86b50ace61b8cd4bb3dd54213734580, type: 2}
-  weaponTransform: {fileID: 0}
+  weaponTransform: {fileID: 944292658}
   camShakeIntensity: 4
   camShakeDuration: 0.1
 --- !u!1001 &6001555827022362631

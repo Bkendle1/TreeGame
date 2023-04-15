@@ -292,6 +292,10 @@ public class Movement : MonoBehaviour
                 Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
             trailRenderer.emitting = true;
             //rb.AddForce(burstDirection.normalized * burstVelocity, ForceMode2D.Impulse);
+            
+            //disable collisions between player layer (gameObject.layer) and objects in enemy layer (7)
+            Physics2D.IgnoreLayerCollision(gameObject.layer, 7,true);
+            
             return;
         }
         else
@@ -315,6 +319,10 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(burstDuration);
         isBurstStepping = false;
         trailRenderer.emitting = false;
+        
+        //re-enable collisions between player layer (gameObject.layer) and objects in enemy layer (7)
+        Physics2D.IgnoreLayerCollision(gameObject.layer, 7,false);
+
     }
     
     private void Jump()
