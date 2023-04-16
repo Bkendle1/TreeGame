@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = System.Numerics.Vector3;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private Animator weaponAnimator;
+    private Animator weaponAnimator;
     private WeaponProp playerWeaponProperties;
     private SpriteRenderer _weaponSprite;
     
@@ -31,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
     {
         _weaponSprite.sprite = playerWeaponProperties.GetWeaponSprite;
     }
-
+    
     private void OnEnable()
     {
         controls.Player.PrimaryFire.performed += OnPrimaryFirePerformed;
@@ -76,8 +77,10 @@ public class PlayerAttack : MonoBehaviour
             canAttack = false;
             
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
-            
         }
+
+        SetupWeapon();
+        Debug.Log(weaponAnimator);
     }
     
     private void Attack()
@@ -85,33 +88,26 @@ public class PlayerAttack : MonoBehaviour
         
         anim.SetTrigger("Attack");
         
-        //Enable collider so weapon can attack enemies
-        //_weaponSprite.GetComponent<CircleCollider2D>().enabled = true;
-        
         //Trigger weapon swing animation
         weaponAnimator.SetTrigger("Attack");
         weaponAnimator.speed = playerWeaponProperties.GetAttackSpeed;
         
         //Enable weapon sprite
         _weaponSprite.enabled = enabled;
-        
-
-        //Detect objects in enemy layer
-        //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerWeaponProperties.GetAttackRange, enemyLayer);
-
-        //Damage enemies hit
-        // foreach (Collider2D enemy in hitEnemies)
-        // {
-        //     CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
-        //     Debug.Log("Hit: " + enemy.name);
-        //     enemy.GetComponent<Enemy>().TakeDamage(playerWeaponProperties.GetAttackDamage);
-        // }
     }
     
     //allow player to attack again
     private void ResetAttack()
     {
         canAttack = true;
+    }
+
+    //for now its being called in the update, but it needs to be called wherever the player changes weapons
+    private void SetupWeapon()
+    {
+        weaponAnimator = GetComponentInChildren<Weapon>().GetComponent<Animator>();
+        playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
+        _weaponSprite = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
     }
     
 }

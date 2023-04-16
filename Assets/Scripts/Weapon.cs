@@ -16,9 +16,10 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         weaponRadius = GetComponent<CircleCollider2D>();
-        weaponRadius.radius = weaponProperties.GetAttackRange;
+        SetupWeapon();
     }
     
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
@@ -31,6 +32,11 @@ public class Weapon : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower, ForceMode2D.Impulse);
             //other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower;
         }
+    }
+
+    private void SetupWeapon()
+    {
+        weaponRadius.radius = weaponProperties.GetAttackRange;
     }
     
 }
