@@ -13,6 +13,7 @@ public class WeaponProp : ScriptableObject
     [SerializeField] private Sprite m_weaponSprite;
     [SerializeField] private Sprite m_projectileSprite;
     [SerializeField] private GameObject m_impactEffect;
+    [SerializeField] private GameObject m_slashEffect;
     
     public int GetAttackDamage => m_attackDamage;
     public float GetAttackRange => m_attackRange;
@@ -22,4 +23,5 @@ public class WeaponProp : ScriptableObject
     public Sprite GetWeaponSprite => m_weaponSprite;
     public Sprite GetProjectileSprite => m_projectileSprite;
     public GameObject GetImpactEffect => m_impactEffect;
+    public GameObject GetSlashEffect => m_slashEffect;
 }

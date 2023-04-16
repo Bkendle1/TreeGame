@@ -26,6 +26,10 @@ public class Weapon : MonoBehaviour
             Debug.Log("Enemy hit");
             other.gameObject.GetComponent<Enemy>().TakeDamage(weaponProperties.GetAttackDamage);
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
+            Debug.Log(transform.parent.localScale);
+            //apply knockback force in the direction player is facing
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower, ForceMode2D.Impulse);
+            //other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower;
         }
     }
     

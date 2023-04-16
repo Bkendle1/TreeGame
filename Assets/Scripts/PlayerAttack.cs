@@ -9,7 +9,6 @@ using Vector3 = System.Numerics.Vector3;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private Transform attackPoint;
     [SerializeField] private Animator weaponAnimator;
     private WeaponProp playerWeaponProperties;
     private SpriteRenderer _weaponSprite;
@@ -25,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
         playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
-        _weaponSprite = GetComponentInChildren<SpriteRenderer>();
+        _weaponSprite = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -77,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
             canAttack = false;
             
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
+            
         }
     }
     
@@ -86,7 +86,7 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("Attack");
         
         //Enable collider so weapon can attack enemies
-        _weaponSprite.GetComponent<CircleCollider2D>().enabled = true;
+        //_weaponSprite.GetComponent<CircleCollider2D>().enabled = true;
         
         //Trigger weapon swing animation
         weaponAnimator.SetTrigger("Attack");
@@ -94,6 +94,7 @@ public class PlayerAttack : MonoBehaviour
         
         //Enable weapon sprite
         _weaponSprite.enabled = enabled;
+        
 
         //Detect objects in enemy layer
         //Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, playerWeaponProperties.GetAttackRange, enemyLayer);
@@ -111,16 +112,6 @@ public class PlayerAttack : MonoBehaviour
     private void ResetAttack()
     {
         canAttack = true;
-        _weaponSprite.GetComponent<CircleCollider2D>().enabled = false;
     }
     
-    private void OnDrawGizmos()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-        
-        Gizmos.DrawWireSphere(attackPoint.position,playerWeaponProperties.GetAttackRange);
-    }
 }
