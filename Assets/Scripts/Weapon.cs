@@ -22,7 +22,6 @@ public class Weapon : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
         {
-            Debug.Log("Enemy hit");
             other.gameObject.GetComponent<Enemy>().TakeDamage(weaponProperties.GetAttackDamage);
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
             //apply knockback force in the direction player is facing

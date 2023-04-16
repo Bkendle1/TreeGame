@@ -9,6 +9,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyProp enemyProperties;
     [SerializeField] private float _fadeSpeed = 2f;
     [SerializeField] private float timeBeforeFade = 2f;
+    
+    [Header("Hit Properties")]
+    [SerializeField] private float flashDuration;
+    private Color originalColor;
+    private Coroutine flashRoutine;
+
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
@@ -19,7 +25,7 @@ public class Enemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
-        
+        originalColor = spriteRenderer.color;
         SetupEnemySettings();
     }
 
@@ -39,17 +45,32 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Been hit for: " + damage + " damage.");
             
-            //
+            // Flash Effect
+            Flash();
             
-            // play hurt animation
+            // Play hurt animation
             anim.SetTrigger("Hurt");
         }
         else
         {
             Die();
+            Flash();
         }
     }
 
+    private void Flash()
+    {
+        // If the flashRoutine is not null, then its currently running 
+        // so if flashRoutine is called again, we'll stop the coroutine that's
+        // still running so only one flashRoutine is running at a time
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+        }
+            
+        flashRoutine = StartCoroutine("FlashRoutine");
+
+    }
     private void Die()
     {
         //Die animation
@@ -78,6 +99,22 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private IEnumerator FlashRoutine()
+    {
+        // Swap to flash material.
+        spriteRenderer.color= Color.red;
+        
+        // Pause the execution of this function for "duration" seconds.
+        yield return new WaitForSeconds(flashDuration);
+        
+        // After the pause, swap back to the original material.
+        spriteRenderer.color = originalColor;
+        
+        // Set the routine to null, signaling that it's finished.
+        flashRoutine = null;
+    }
+    
     private void SetupEnemySettings()
     {
         spriteRenderer.sprite = enemyProperties.GetEnemySprite;

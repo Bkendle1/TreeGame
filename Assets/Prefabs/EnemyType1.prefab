@@ -52,6 +52,7 @@ MonoBehaviour:
   enemyProperties: {fileID: 11400000, guid: 6da4ef8c07f14c64780259ef8b9f90bb, type: 2}
   _fadeSpeed: 2
   timeBeforeFade: 2
+  flashDuration: 0.2
 --- !u!212 &6001555828268916478
 SpriteRenderer:
   m_ObjectHideFlags: 0
