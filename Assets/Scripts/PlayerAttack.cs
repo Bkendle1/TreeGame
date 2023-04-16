@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour
 {
     private Animator weaponAnimator;
     private WeaponProp playerWeaponProperties;
-    private SpriteRenderer _weaponSprite;
+    private SpriteRenderer _weaponSpriteRenderer;
     
     private bool canAttack = true;
     private bool attackInput;
@@ -24,13 +24,11 @@ public class PlayerAttack : MonoBehaviour
     {
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
-        playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
-        _weaponSprite = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        _weaponSprite.sprite = playerWeaponProperties.GetWeaponSprite;
+        SetupWeapon();
     }
     
     private void OnEnable()
@@ -78,14 +76,14 @@ public class PlayerAttack : MonoBehaviour
             
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
         }
-
-        SetupWeapon();
-        Debug.Log(weaponAnimator);
     }
     
     private void Attack()
     {
+        //Setup weapon in case a new weapon was equipped
+        SetupWeapon();
         
+        //trigger player attack animation
         anim.SetTrigger("Attack");
         
         //Trigger weapon swing animation
@@ -93,7 +91,8 @@ public class PlayerAttack : MonoBehaviour
         weaponAnimator.speed = playerWeaponProperties.GetAttackSpeed;
         
         //Enable weapon sprite
-        _weaponSprite.enabled = enabled;
+        _weaponSpriteRenderer.enabled = enabled;
+
     }
     
     //allow player to attack again
@@ -107,7 +106,8 @@ public class PlayerAttack : MonoBehaviour
     {
         weaponAnimator = GetComponentInChildren<Weapon>().GetComponent<Animator>();
         playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
-        _weaponSprite = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
+        _weaponSpriteRenderer = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
+        _weaponSpriteRenderer.sprite = playerWeaponProperties.GetWeaponSprite;
     }
     
 }

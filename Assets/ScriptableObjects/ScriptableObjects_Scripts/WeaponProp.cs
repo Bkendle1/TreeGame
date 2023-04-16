@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponProp : ScriptableObject
 {
     [SerializeField] private int m_attackDamage;
-    [SerializeField] private float m_attackRange;
+    [SerializeField] private float m_attackRange; // this will affect the scale of the game object not their collider size
     [SerializeField] private float m_attackSpeed; // how fast the attack is executed 
     [SerializeField] private float m_timeBtwAttacks; // how much time passes between attacks
     [SerializeField] private float m_knockbackPower;

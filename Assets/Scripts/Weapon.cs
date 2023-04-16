@@ -6,7 +6,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] public WeaponProp weaponProperties;
-    private CircleCollider2D weaponRadius;
 
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
@@ -15,7 +14,6 @@ public class Weapon : MonoBehaviour
     
     private void Start()
     {
-        weaponRadius = GetComponent<CircleCollider2D>();
         SetupWeapon();
     }
     
@@ -27,16 +25,15 @@ public class Weapon : MonoBehaviour
             Debug.Log("Enemy hit");
             other.gameObject.GetComponent<Enemy>().TakeDamage(weaponProperties.GetAttackDamage);
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
-            Debug.Log(transform.parent.localScale);
             //apply knockback force in the direction player is facing
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower, ForceMode2D.Impulse);
-            //other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.parent.localScale.x,0) * weaponProperties.GetKnockBackPower;
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.parent.parent.localScale.x,0) * weaponProperties.GetKnockBackPower, ForceMode2D.Impulse);
+            //other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.parent.parent.localScale.x,0) * weaponProperties.GetKnockBackPower;
         }
     }
 
     private void SetupWeapon()
     {
-        weaponRadius.radius = weaponProperties.GetAttackRange;
+        transform.localScale = new Vector3(weaponProperties.GetAttackRange,weaponProperties.GetAttackRange,weaponProperties.GetAttackRange);
     }
     
 }

@@ -90,6 +90,13 @@ public class DialogueManager : MonoBehaviour
             VoiceLineManager.Instance.PlayVoiceLine(speaker, voiceLine);
         });
         
+        currentStory.BindExternalFunction("weaponSwap", (int weaponIndex) =>
+        {
+            Debug.Log("Changing weapon");
+            //Reference SelectWeapon() from WeaponSwap class
+            FindObjectOfType<WeaponSwap>().SelectWeapon(weaponIndex);
+        });
+        
         //reset dialogue assets
         displayNameText.text = "Name";
         
@@ -99,7 +106,7 @@ public class DialogueManager : MonoBehaviour
     private void ExitDialogueMode()
     { 
         currentStory.UnbindExternalFunction("playVoiceLine");
-            
+        currentStory.UnbindExternalFunction("weaponSwap");
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";

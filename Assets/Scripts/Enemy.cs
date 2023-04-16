@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
         if (currentHealth > 0)
         {
             Debug.Log("Been hit for: " + damage + " damage.");
+            
+            //
+            
             // play hurt animation
             anim.SetTrigger("Hurt");
         }

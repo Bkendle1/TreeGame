@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b3fbd3b9b324e4ba3d12301103464c, type: 3}
-  m_Name: Oak_Weapon
+  m_Name: Redwood_Weapon
   m_EditorClassIdentifier: 
-  m_attackDamage: 30
+  m_attackDamage: 50
   m_attackRange: 0.75
-  m_attackSpeed: 1
-  m_timeBtwAttacks: 2
-  m_knockbackPower: 25
-  m_weaponSprite: {fileID: 21300000, guid: b01b8002d81c57d46b8cb688e4134300, type: 3}
-  m_projectileSprite: {fileID: 21300000, guid: 96a50322013e8674ea256ebc59c1d56e, type: 3}
+  m_attackSpeed: 0.75
+  m_timeBtwAttacks: 1.25
+  m_knockbackPower: 30
+  m_weaponSprite: {fileID: 21300000, guid: 65d7c18dd647cc647b97e3e64b302411, type: 3}
+  m_projectileSprite: {fileID: 21300000, guid: 69889b01b11692d4c82dff73bb4f1bc7, type: 3}
   m_impactEffect: {fileID: 0}
-  m_slashEffect: {fileID: 6907860414469500486, guid: 11fbb67bdbe616e4a8ab4544466fc568, type: 3}
+  m_slashEffect: {fileID: 0}
