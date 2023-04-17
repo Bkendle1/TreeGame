@@ -39,10 +39,13 @@ public class Movement : MonoBehaviour
     private bool isBurstStepping;
     private bool canBurstStep = true;
     private bool burstStepInput;
-
+   
+    
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
+    
+    [SerializeField] private BoxCollider2D ColliderBlocker;
     
     private bool hasInteracted = false;
     private bool submitPressed;
@@ -74,6 +77,13 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
+    }
+
+    private void Start()
+    {
+        //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
+        //a kinematic rigid body preventing the player from pushing enemies and vice versa
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), ColliderBlocker, true);
     }
 
     private void OnEnable()
@@ -239,12 +249,12 @@ public class Movement : MonoBehaviour
         {
             return;
         }
-        
-        //move player left or right
-        rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
     
-        Jump();
+        //move player left or right
+        rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y); 
+        
         Dash();
+        Jump();
         BurstStep();
     }
 
@@ -253,7 +263,6 @@ public class Movement : MonoBehaviour
         //if player presses run button and is moving, run
         if (dashInput && movementInput != Vector2.zero)
         {
-            Debug.Log("In dash");
             float dashDirection = Mathf.Sign(movementInput.x);
             rb.AddForce(Vector2.right * dashDirection * dashForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -dashForce, dashForce), rb.velocity.y);
@@ -298,7 +307,8 @@ public class Movement : MonoBehaviour
             
             //disable collisions between player layer (gameObject.layer) and objects in enemy layer (7)
             Physics2D.IgnoreLayerCollision(gameObject.layer, 7,true);
-            
+            Physics2D.IgnoreLayerCollision(gameObject.layer, 9,true);
+
             return;
         }
         else
@@ -325,6 +335,7 @@ public class Movement : MonoBehaviour
         
         //re-enable collisions between player layer (gameObject.layer) and objects in enemy layer (7)
         Physics2D.IgnoreLayerCollision(gameObject.layer, 7,false);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, 9,false);
 
     }
     
