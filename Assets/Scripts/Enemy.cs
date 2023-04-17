@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyProp enemyProperties;
     [SerializeField] private float _fadeSpeed = 2f;
     [SerializeField] private float timeBeforeFade = 2f;
-
+    
     [SerializeField] private BoxCollider2D ColliderBlocker;
     
     [Header("Hit Properties")]
@@ -88,10 +88,9 @@ public class Enemy : MonoBehaviour
         Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
         
         //Ignore collision between the player's layer (8) and this gameObject's layer (gameObject.layer)
-        //as well as this game object's child layer CollisionBlocker (transform.GetChild(0).gameObject.layer)
         Physics2D.IgnoreLayerCollision(8, gameObject.layer);
-        Physics2D.IgnoreLayerCollision(8, transform.GetChild(0).gameObject.layer);
-
+        //Disable child's collision blocker collider 
+        ColliderBlocker.enabled = false;
     }
 
     private IEnumerator FadeOut()
