@@ -1290,7 +1290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.68, y: 0.59300023, z: -10}
+  m_LocalPosition: {x: 3.679945, y: 0.55972, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1360,15 +1360,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2718,6 +2718,8 @@ MonoBehaviour:
   burstDuration: 2
   burstCooldownDuration: 2
   maxUpwardBurstVelocity: 10
+  KBForce: 10
+  KBDuration: 0.2
   camShakeIntensity: 4
   camShakeDuration: 0.1
   ColliderBlocker: {fileID: 0}
@@ -2938,11 +2940,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.49492812, y: 9.223896}
-      - {x: -84.869354, y: 9.763144}
+    - - {x: -2.646209, y: 6.3153744}
+      - {x: -85.388916, y: 6.290857}
       - {x: -84.6957, y: -5.6176395}
       - {x: 62.705666, y: -5.5536785}
-      - {x: 62.58348, y: 9.189313}
+      - {x: 62.58348, y: 6.2756667}
 --- !u!1 &943366548
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,6 +4893,8 @@ MonoBehaviour:
   burstDuration: 0.3
   burstCooldownDuration: 1
   maxUpwardBurstVelocity: 15
+  KBForce: 2
+  KBDuration: 0.2
   camShakeIntensity: 4
   camShakeDuration: 0.1
   ColliderBlocker: {fileID: 879569236}
@@ -5099,22 +5103,6 @@ PrefabInstance:
     - target: {fileID: 6001555828268916465, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_Name
       value: EnemyType1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001555828268916478, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
-      propertyPath: m_Size.x
-      value: 6.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001555828268916478, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
-      propertyPath: m_Size.y
-      value: 6.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001555828268916478, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6001555828268916478, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916479, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: playerLayer.m_Bits

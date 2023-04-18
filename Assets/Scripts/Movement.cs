@@ -39,7 +39,10 @@ public class Movement : MonoBehaviour
     private bool isBurstStepping;
     private bool canBurstStep = true;
     private bool burstStepInput;
-   
+
+    [Header("KnockBack")] 
+    [SerializeField] private float KBForce = 10f;
+    [SerializeField] private float KBDuration = .2f;
     
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
@@ -140,7 +143,6 @@ public class Movement : MonoBehaviour
     {
         movementInput = context.ReadValue<Vector2>();
         isMoving = true;
-        
     }
 
     private void OnMoveCanceled(InputAction.CallbackContext context)
@@ -231,7 +233,7 @@ public class Movement : MonoBehaviour
             anim.SetBool("isMoving", false);
             rb.velocity = new Vector2(0,rb.velocity.y);
         }
-
+        
         if (!isFacingRight && movementInput.x < 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
@@ -379,6 +381,7 @@ public class Movement : MonoBehaviour
         
     }
 
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;

@@ -21,13 +21,16 @@ public class DialogueTrigger : MonoBehaviour
         if (playerInRange && !DialogueManager.Instance.dialogueIsPlaying)
         {
             visualCue.SetActive(true);
+            
+            //TODO: Disable interact input from player (E key) once dialogue starts so the dialogue doesn't repeat
+            
             //start a new story
             if (Movement.Instance.GetInteractedPressed())
             {
                 DialogueManager.Instance.EnterDialogueMode(inkJSON);
             }
         }
-        else
+        else if (DialogueManager.Instance.dialogueIsPlaying)
         {
             visualCue.SetActive(false);
         }
@@ -40,6 +43,7 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = true;
         }
     }
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -47,4 +51,5 @@ public class DialogueTrigger : MonoBehaviour
             playerInRange = false;
         }
     }
+    
 }

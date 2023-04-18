@@ -69,6 +69,12 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        //player can't attack if dialogue is playing
+        if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            return;
+        }
+        
         if (attackInput && canAttack)
         {
             Attack();

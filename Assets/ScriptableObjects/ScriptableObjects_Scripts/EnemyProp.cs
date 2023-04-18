@@ -25,5 +25,4 @@ public class EnemyProp : ScriptableObject
     public AudioClip GetHurtSFX => m_hurtSFX;
     public GameObject GetDeathEffect => m_deathEffect;
 
-
 }
