@@ -54,10 +54,10 @@ public class Movement : MonoBehaviour
     [HideInInspector] public bool KnockFromRight;
 
     [Header("Stamina")]
-    [SerializeField] private int maxStamina = 10;
+    [SerializeField] public int maxStamina = 10;
     [SerializeField] private StaminaBar staminaBar;
-    [Tooltip("Rate at which stamina increases")] [SerializeField]
-    private int increaseValue = 2;
+    [Tooltip("Rate at which stamina increases")] 
+    [SerializeField] private int increaseValue = 2;
     private int currentStamina;
     private bool hasStaminaToUse;
     
@@ -458,6 +458,14 @@ public class Movement : MonoBehaviour
         }
         jumpInput = false;
 
+    }
+    
+    public void SetMaxStamina(int value)
+    {
+        //increase max stamina
+        maxStamina += value;
+        //update stamina UI so max value is new max stamina
+        staminaBar.SetMaxStamina(maxStamina);
     }
 
     private bool isGrounded()

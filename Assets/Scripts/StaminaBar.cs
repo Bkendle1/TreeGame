@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class StaminaBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private Image fill;
-
     public void SetMaxStamina(int stamina)
     {
         slider.maxValue = stamina;
