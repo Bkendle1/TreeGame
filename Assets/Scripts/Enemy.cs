@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -35,21 +36,25 @@ public class Enemy : MonoBehaviour
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
-    
+    private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
     
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
         originalColor = spriteRenderer.color;
+        
         
         //set up health bar's max hp
         healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
         
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the enemy from pushing the player and vice versa
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), ColliderBlocker, true);
+        Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
         
         SetupEnemySettings();
     }
@@ -103,10 +108,14 @@ public class Enemy : MonoBehaviour
         //Die animation
         anim.SetBool("isDead", true);
 
-        Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
+        //Disable box collider but also change rigidbody type
+        //to static so the enemy doesn't fall 
+        //through the ground kinematic work also
+        boxCollider.enabled = false;
+        rb.bodyType = RigidbodyType2D.Static;
         
-        //Ignore collision between the player's layer (8) and this gameObject's layer (gameObject.layer)
-        Physics2D.IgnoreLayerCollision(8, gameObject.layer);
+        Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
+
         //Disable child's collision blocker collider 
         ColliderBlocker.enabled = false;
     }

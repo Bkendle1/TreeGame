@@ -390,7 +390,8 @@ public class Movement : MonoBehaviour
         //if the player jumps off the ground, jump
         if (jumpInput && coyoteTimeCounter > 0f)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
         jumpInput = false;
 

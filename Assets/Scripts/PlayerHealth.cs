@@ -34,6 +34,18 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
+    private void Update()
+    {
+        if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            healthBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            healthBar.gameObject.SetActive(true);
+        }
+    }
+
     public void TakeDamage(int value)
     {
         //play hurt sfx
@@ -51,6 +63,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             //Death
+            Debug.Log("YOU DIED! GAME OVER!");
         }
         Debug.Log("Mabel has taken " + value + " points of damage!");
         Debug.Log("Mabel has: " + currentHealth + " points of HP left.");
