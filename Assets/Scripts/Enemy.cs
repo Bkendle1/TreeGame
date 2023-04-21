@@ -8,12 +8,16 @@ using UnityEngine.InputSystem.Processors;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyProp enemyProperties;
+    
+    [Header("Fade")]
+    [Tooltip("How fast the enemy fades away after death.")]
     [SerializeField] private float _fadeSpeed = 2f;
+    [Tooltip("How long to wait before enemy fades away.")]
     [SerializeField] private float timeBeforeFade = 2f;
     
-    [SerializeField] private BoxCollider2D ColliderBlocker;
     
-    [Header("Hit Properties")]
+    [Header("Hurt Properties")]
+    [Tooltip("How long enemy flashes red.")]
     [SerializeField] private float flashDuration;
     private Color originalColor;
     private Coroutine flashRoutine;
@@ -21,12 +25,17 @@ public class Enemy : MonoBehaviour
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
+
+    [Header("Health")] 
+    [SerializeField] private HealthBar healthBar;
+    private int currentHealth;
     
+    
+    [SerializeField] private BoxCollider2D ColliderBlocker;
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
     
-    private int currentHealth;
     
     void Start()
     {
@@ -34,6 +43,9 @@ public class Enemy : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         originalColor = spriteRenderer.color;
+        
+        //set up health bar's max hp
+        healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
         
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the enemy from pushing the player and vice versa
@@ -53,7 +65,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-
+        healthBar.SetHealth(currentHealth);
         if (currentHealth > 0)
         {
             Debug.Log("Been hit for: " + damage + " damage.");
@@ -85,7 +97,9 @@ public class Enemy : MonoBehaviour
     
     private void Die()
     {
-        
+        //Disable health bar on death
+        healthBar.gameObject.SetActive(false);
+
         //Die animation
         anim.SetBool("isDead", true);
 
