@@ -8,9 +8,9 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Health")] 
     [Tooltip("Player's max health")]
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] public int maxHealth = 100;
     [SerializeField] private HealthBar healthBar;
-    private int currentHealth;
+    public int currentHealth { get; private set; }
 
     [Header("Hurt")]
     [Tooltip("How long the player will be in their hurt color")]
@@ -73,11 +73,28 @@ public class PlayerHealth : MonoBehaviour
     {
         //play hurt sfx
 
+        //heal player
         currentHealth += value;
+        
+        //update health bar
+        healthBar.SetHealth(currentHealth);
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         } 
+    }
+
+    public void SetMaxHealth(int value)
+    {
+        //increase max health
+        maxHealth += value;
+        //update health UI so max value is new max health
+        healthBar.SetMaxHealth(maxHealth);
+        //restore player's health to new max health
+        currentHealth = maxHealth;
+        //update health UI
+        healthBar.SetHealth(currentHealth);
+
     }
     
     //Blinking effect for when player is hit

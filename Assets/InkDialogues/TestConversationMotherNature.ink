@@ -8,7 +8,7 @@ EXTERNAL weaponSwap(weaponIndex)
     + [Who are you?]
         ~playVoiceLine("Player", "firstofall")
         First of all, who are you!? #speaker: Mabel
-    + [Let me get this straight...]
+    + [So basically...]
         ~playVoiceLine("Player","letmegetthisstraight")
         So let me get this straight, you summoned me to fight this Mal-Wart? #speaker: Mabel
     + [Change Weapon.]
