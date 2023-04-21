@@ -65,6 +65,8 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine("FadeOut");
         }
+        
+        //TODO: When adding the flip sprite function, make sure to include the health bar so it doesn't look weird when flipped
     }
 
     public void TakeDamage(int damage)

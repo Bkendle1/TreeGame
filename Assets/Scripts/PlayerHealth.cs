@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private HealthBar healthBar;
     private int currentHealth;
-    
+
     [Header("Hurt")]
     [Tooltip("How long the player will be in their hurt color")]
     [SerializeField] private float hurtDuration = 1f;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using Cinemachine;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Quaternion = System.Numerics.Quaternion;
@@ -46,8 +48,16 @@ public class Movement : MonoBehaviour
     [SerializeField] public float KBDuration = .2f;
     [HideInInspector] public float KBTimer;
     [HideInInspector] public bool KnockFromRight;
-    
-    
+
+    [Header("Stamina")]
+    [SerializeField] private int maxStamina = 10;
+    [SerializeField] private StaminaBar staminaBar;
+    [Tooltip("Rate at which stamina decreases")] [SerializeField]
+    private int decreaseValue = 2;
+    [Tooltip("Rate at which stamina increases")] [SerializeField]
+    private int increaseValue = 2;
+    private int currentStamina;
+    private bool hasStaminaToUse;
     
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
@@ -92,6 +102,8 @@ public class Movement : MonoBehaviour
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the player from pushing enemies and vice versa
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), ColliderBlocker, true);
+        currentStamina = maxStamina;
+        staminaBar.SetMaxStamina(maxStamina);
     }
 
     private void OnEnable()
@@ -175,10 +187,14 @@ public class Movement : MonoBehaviour
     private void OnDashPerformed(InputAction.CallbackContext context)
     {
         dashInput = true;
+        trailRenderer.emitting = true;
+        
     }
+
     private void OnDashCanceled(InputAction.CallbackContext context)
     {
         dashInput = false;
+        trailRenderer.emitting = false;
     }
 
     private void OnBurstStepPerformed(InputAction.CallbackContext context)
@@ -247,6 +263,17 @@ public class Movement : MonoBehaviour
         {
             Flip();
         }
+
+        //if the player depletes all stamina, pause use of stamina until its refilled to max
+        if (currentStamina <= 0 && hasStaminaToUse)
+        {
+            hasStaminaToUse = false;
+            currentStamina += increaseValue;
+            staminaBar.IncreaseStamina(increaseValue);
+        } else if (!hasStaminaToUse && currentStamina == maxStamina)
+        {
+            hasStaminaToUse = true;
+        }
     }
 
     private void FixedUpdate()
@@ -263,9 +290,10 @@ public class Movement : MonoBehaviour
         {
             //move player left or right
             rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
-            Dash();
+            
             Jump();
             BurstStep();
+            Dash();
         }
         else // apply knock back (KB)
         {
@@ -290,23 +318,34 @@ public class Movement : MonoBehaviour
             }
             KBTimer -= Time.deltaTime;
         }
-
-
     }
 
     private void Dash()
     {
         //if player presses run button and is moving, run
-        if (dashInput && movementInput != Vector2.zero)
+        if (dashInput && movementInput != Vector2.zero && hasStaminaToUse)
         {
+            //decrease stamina
+            currentStamina -= decreaseValue;
+            
+            //update stamina bar UI
+            staminaBar.DecreaseStamina(decreaseValue);
+            
             float dashDirection = Mathf.Sign(movementInput.x);
             rb.AddForce(Vector2.right * dashDirection * dashForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -dashForce, dashForce), rb.velocity.y);
-            trailRenderer.emitting = true;
         }
         else
         {
-            trailRenderer.emitting = false;
+            //increase stamina
+            currentStamina += increaseValue;
+            if (currentStamina >= maxStamina)
+            {
+                currentStamina = maxStamina;
+            }
+            
+            //update stamina bar UI
+            staminaBar.IncreaseStamina(increaseValue);
         }
     }
     
@@ -339,6 +378,7 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x,
                 Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
             trailRenderer.emitting = true;
+            Debug.Log("Is trail renderer emitting? " + trailRenderer.emitting);
             //rb.AddForce(burstDirection.normalized * burstVelocity, ForceMode2D.Impulse);
             
             //disable collisions between player layer (gameObject.layer) and objects in enemy layer (7)
