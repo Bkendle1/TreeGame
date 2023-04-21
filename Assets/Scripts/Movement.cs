@@ -31,12 +31,16 @@ public class Movement : MonoBehaviour
     [Header("Dashing")]
     [SerializeField] private float dashForce = 10f;
     private bool dashInput;
+    [Tooltip("Rate at which stamina decreases when dashing")] [SerializeField]
+    private int dash_decreaseValue = 2;
 
     [Header("BurstStep")] //this should technically be called the dash but that would require changing variables
     [SerializeField] private float burstVelocity = 2f;
     [SerializeField] private float burstDuration = 2f;
     [SerializeField] private float burstCooldownDuration = 2f;
     [SerializeField] private float maxUpwardBurstVelocity = 10f; // the limit to the player's y-velocity during burst step
+    [Tooltip("Rate at which stamina decreases when burst stepping")] [SerializeField]
+    private int burstStep_decreaseValue = 2;
     private float burstCooldownTimer; // what we'll be counting down from 
     private Vector2 burstDirection;
     private bool isBurstStepping;
@@ -52,8 +56,6 @@ public class Movement : MonoBehaviour
     [Header("Stamina")]
     [SerializeField] private int maxStamina = 10;
     [SerializeField] private StaminaBar staminaBar;
-    [Tooltip("Rate at which stamina decreases")] [SerializeField]
-    private int decreaseValue = 2;
     [Tooltip("Rate at which stamina increases")] [SerializeField]
     private int increaseValue = 2;
     private int currentStamina;
@@ -187,9 +189,7 @@ public class Movement : MonoBehaviour
     private void OnDashPerformed(InputAction.CallbackContext context)
     {
         dashInput = true;
-        trailRenderer.emitting = true;
-        
-    }
+    }        
 
     private void OnDashCanceled(InputAction.CallbackContext context)
     {
@@ -240,7 +240,7 @@ public class Movement : MonoBehaviour
     }
    
     #endregion
-    
+
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
@@ -250,22 +250,33 @@ public class Movement : MonoBehaviour
         if (isMoving && !DialogueManager.Instance.dialogueIsPlaying)
         {
             anim.SetBool("isMoving", true);
-        } else if (!isMoving || DialogueManager.Instance.dialogueIsPlaying)
+        }
+        else if (!isMoving || DialogueManager.Instance.dialogueIsPlaying)
         {
             anim.SetBool("isMoving", false);
-            rb.velocity = new Vector2(0,rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
-        
+
         if (!isFacingRight && movementInput.x < 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
-        } else if (isFacingRight && movementInput.x > 0f && !DialogueManager.Instance.dialogueIsPlaying)
+        }
+        else if (isFacingRight && movementInput.x > 0f && !DialogueManager.Instance.dialogueIsPlaying)
         {
             Flip();
         }
 
-        //if the player depletes all stamina, pause use of stamina until its refilled to max
-        if (currentStamina <= 0 && hasStaminaToUse)
+        if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            staminaBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            staminaBar.gameObject.SetActive(true);
+        }
+
+    //if the player depletes all stamina, pause use of stamina until its refilled to max
+    if (currentStamina <= 0 && hasStaminaToUse)
         {
             hasStaminaToUse = false;
             currentStamina += increaseValue;
@@ -283,6 +294,12 @@ public class Movement : MonoBehaviour
         if (DialogueManager.Instance.dialogueIsPlaying)
         {
             return;
+        }
+        
+        //stop emitting trail if player tries to burst step or dash with no stamina
+        if (!hasStaminaToUse)
+        {
+            trailRenderer.emitting = false;
         }
         
         //can control player if they're not being knocked back
@@ -326,11 +343,13 @@ public class Movement : MonoBehaviour
         if (dashInput && movementInput != Vector2.zero && hasStaminaToUse)
         {
             //decrease stamina
-            currentStamina -= decreaseValue;
+            currentStamina -= dash_decreaseValue;
             
             //update stamina bar UI
-            staminaBar.DecreaseStamina(decreaseValue);
+            staminaBar.DecreaseStamina(dash_decreaseValue);
             
+            trailRenderer.emitting = true;
+
             float dashDirection = Mathf.Sign(movementInput.x);
             rb.AddForce(Vector2.right * dashDirection * dashForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -dashForce, dashForce), rb.velocity.y);
@@ -351,7 +370,7 @@ public class Movement : MonoBehaviour
     
     private void BurstStep()
     {
-        if (burstStepInput && canBurstStep)
+        if (burstStepInput && canBurstStep && hasStaminaToUse)
         {
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
             Flip();
@@ -374,11 +393,15 @@ public class Movement : MonoBehaviour
 
         if (isBurstStepping)
         {
+            //decrease stamina when burst stepping
+            currentStamina -= burstStep_decreaseValue;
+            //update stamina UI
+            staminaBar.DecreaseStamina(burstStep_decreaseValue);
+            
             rb.velocity = burstDirection.normalized * burstVelocity;
             rb.velocity = new Vector2(rb.velocity.x,
                 Mathf.Clamp(rb.velocity.y, -maxUpwardBurstVelocity, maxUpwardBurstVelocity));
             trailRenderer.emitting = true;
-            Debug.Log("Is trail renderer emitting? " + trailRenderer.emitting);
             //rb.AddForce(burstDirection.normalized * burstVelocity, ForceMode2D.Impulse);
             
             //disable collisions between player layer (gameObject.layer) and objects in enemy layer (7)

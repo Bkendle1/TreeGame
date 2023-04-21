@@ -3025,17 +3025,18 @@ MonoBehaviour:
     m_Bits: 64
   coyoteTime: 0.2
   dashForce: 20
+  dash_decreaseValue: 2
   burstVelocity: 2
   burstDuration: 2
   burstCooldownDuration: 2
   maxUpwardBurstVelocity: 10
+  burstStep_decreaseValue: 2
   KBForce: 10
   KBDuration: 0.2
   KBTimer: 0
   KnockFromRight: 0
   maxStamina: 10
   staminaBar: {fileID: 0}
-  decreaseValue: 2
   increaseValue: 2
   camShakeIntensity: 4
   camShakeDuration: 0.1
@@ -5777,17 +5778,18 @@ MonoBehaviour:
     m_Bits: 64
   coyoteTime: 0.2
   dashForce: 20
+  dash_decreaseValue: 2
   burstVelocity: 30
   burstDuration: 0.3
   burstCooldownDuration: 1
   maxUpwardBurstVelocity: 15
+  burstStep_decreaseValue: 10
   KBForce: 12
   KBDuration: 0.2
   KBTimer: 0
   KnockFromRight: 0
-  maxStamina: 100
+  maxStamina: 500
   staminaBar: {fileID: 1782992510}
-  decreaseValue: 10
   increaseValue: 2
   camShakeIntensity: 4
   camShakeDuration: 0.1
