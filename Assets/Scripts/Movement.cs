@@ -47,12 +47,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public float KBTimer;
     [HideInInspector] public bool KnockFromRight;
     
-    [Header("Blink")] 
-    [Range(0,225)]
-    [Tooltip("DISABLED The alpha value of the sprite, how transparent should the sprite become.")]
-    [SerializeField] private float blinkOpacity = 70f;
-    [SerializeField] private float blinkDuration = 1f;
-    private Color originalColor;
+    
     
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
@@ -66,7 +61,6 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private TrailRenderer trailRenderer;
-    private SpriteRenderer spriteRenderer;
     
     //Input Actions
     private PlayerControls controls;
@@ -91,7 +85,6 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -99,7 +92,6 @@ public class Movement : MonoBehaviour
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the player from pushing enemies and vice versa
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), ColliderBlocker, true);
-        originalColor = spriteRenderer.color;
     }
 
     private void OnEnable()
@@ -280,12 +272,20 @@ public class Movement : MonoBehaviour
             //if player is hit from right, apply force towards the left
             if (KnockFromRight)
             {
-                rb.velocity = new Vector2(-KBForce, KBForce);
+                //rb.velocity = new Vector2(-KBForce, KBForce);
+                
+                //set velocity to 45 degrees multiplied by KBForce in the left direction
+                rb.velocity = UnityEngine.Quaternion.AngleAxis(45f, Vector2.right) * Vector2.left * KBForce;
+                
                 //rb.AddForce(new Vector2(-KBForce, KBForce), ForceMode2D.Impulse);
             }
             else // else apply force towards the right
             {
-                rb.velocity = new Vector2(KBForce, KBForce);
+                //rb.velocity = new Vector2(KBForce, KBForce);
+                
+                //set velocity to 45 degrees multiplied by KBForce in the right direction
+                rb.velocity = UnityEngine.Quaternion.AngleAxis(45f, Vector2.right) * Vector2.right * KBForce;
+                
                 //rb.AddForce(new Vector2(KBForce, KBForce), ForceMode2D.Impulse);
             }
             KBTimer -= Time.deltaTime;
@@ -414,28 +414,7 @@ public class Movement : MonoBehaviour
         }
         
     }
-
-    public void TakeDamage(float value)
-    {
-        StartCoroutine("Blink");
-        Debug.Log("Mabel has taken " + value + " points of damage!");
-    }
     
-    //Blinking effect for when player is hit
-    private IEnumerator Blink()
-    {
-
-        // Swap to faded color, i need to add a material that can be transparent
-        //spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.b, spriteRenderer.color.b, blinkOpacity);;
-
-        spriteRenderer.color = Color.red;
-        
-        // Pause the execution of this function for "duration" seconds.
-        yield return new WaitForSeconds(blinkDuration);
-        
-        // After the pause, swap back to the original material.
-        spriteRenderer.color = originalColor;
-    }
 
     private void OnDrawGizmos()
     {

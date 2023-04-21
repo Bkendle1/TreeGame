@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyProp : ScriptableObject
 {
     [SerializeField] private int m_healthAmount;
-    [SerializeField] private float m_attackDamage;
+    [SerializeField] private int m_attackDamage;
     [SerializeField] private float m_patrolSpeed;
     [SerializeField] private float m_chaseSpeed;
     [SerializeField] private float m_attackSpeed;
@@ -16,7 +16,7 @@ public class EnemyProp : ScriptableObject
     [SerializeField] private GameObject m_deathEffect;
     
     public int GetHealthAmount => m_healthAmount;
-    public float GetAttackDamage => m_attackDamage;
+    public int GetAttackDamage => m_attackDamage;
     public float GetPatrolSpeed => m_patrolSpeed;
     public float GetChaseSpeed => m_chaseSpeed;
     public float GetAttackSpeed => m_attackSpeed;
