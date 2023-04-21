@@ -55,6 +55,8 @@ MonoBehaviour:
   timeBeforeFade: 2
   ColliderBlocker: {fileID: 8379936529896882897}
   flashDuration: 0.2
+  camShakeIntensity: 4
+  camShakeDuration: 0.1
 --- !u!212 &6001555828268916478
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -152,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.481047, y: 1.6370647}
+  m_Size: {x: 1.6, y: 1.7}
   m_EdgeRadius: 0
 --- !u!82 &3551836462145408087
 AudioSource:
@@ -327,7 +329,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1.6, y: 1.7}
   m_EdgeRadius: 0
 --- !u!50 &1275308824276998822
 Rigidbody2D:

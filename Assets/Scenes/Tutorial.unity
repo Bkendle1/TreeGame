@@ -2720,6 +2720,10 @@ MonoBehaviour:
   maxUpwardBurstVelocity: 10
   KBForce: 10
   KBDuration: 0.2
+  KBTimer: 0
+  KnockFromRight: 0
+  blinkOpacity: 70
+  blinkDuration: 1
   camShakeIntensity: 4
   camShakeDuration: 0.1
   ColliderBlocker: {fileID: 0}
@@ -4893,8 +4897,12 @@ MonoBehaviour:
   burstDuration: 0.3
   burstCooldownDuration: 1
   maxUpwardBurstVelocity: 15
-  KBForce: 2
+  KBForce: 10
   KBDuration: 0.2
+  KBTimer: 0
+  KnockFromRight: 0
+  blinkOpacity: 10
+  blinkDuration: 0.5
   camShakeIntensity: 4
   camShakeDuration: 0.1
   ColliderBlocker: {fileID: 879569236}

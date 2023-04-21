@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
 
@@ -17,6 +18,10 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     private Coroutine flashRoutine;
 
+    [Header("Cinemachine")]                               
+    [SerializeField] private float camShakeIntensity = 4f;
+    [SerializeField] private float camShakeDuration = .1f;
+    
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
@@ -67,7 +72,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void Flash()
-        {
+    {
         // If the flashRoutine is not null, then its currently running 
         // so if flashRoutine is called again, we'll stop the coroutine that's
         // still running so only one flashRoutine is running at a time
@@ -75,10 +80,9 @@ public class Enemy : MonoBehaviour
         {
             StopCoroutine(flashRoutine);
         }
-            
         flashRoutine = StartCoroutine("FlashRoutine");
-
     }
+    
     private void Die()
     {
         
@@ -130,7 +134,22 @@ public class Enemy : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            var playerMovement = col.gameObject.GetComponent<Movement>();
             Debug.Log("Collided with player");
+            playerMovement.KBTimer = col.gameObject.GetComponent<Movement>().KBDuration;
+            playerMovement.TakeDamage(enemyProperties.GetAttackDamage);
+            
+            
+            if (col.transform.position.x <= transform.position.x)
+            {
+                playerMovement.KnockFromRight = true;
+            }
+            else
+            {
+                playerMovement.KnockFromRight = false;
+            }
+
+            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
         }
     }
     

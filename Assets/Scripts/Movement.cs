@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Quaternion = System.Numerics.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -42,7 +43,16 @@ public class Movement : MonoBehaviour
 
     [Header("KnockBack")] 
     [SerializeField] private float KBForce = 10f;
-    [SerializeField] private float KBDuration = .2f;
+    [SerializeField] public float KBDuration = .2f;
+    [HideInInspector] public float KBTimer;
+    [HideInInspector] public bool KnockFromRight;
+    
+    [Header("Blink")] 
+    [Range(0,225)]
+    [Tooltip("DISABLED The alpha value of the sprite, how transparent should the sprite become.")]
+    [SerializeField] private float blinkOpacity = 70f;
+    [SerializeField] private float blinkDuration = 1f;
+    private Color originalColor;
     
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
@@ -56,6 +66,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private TrailRenderer trailRenderer;
+    private SpriteRenderer spriteRenderer;
     
     //Input Actions
     private PlayerControls controls;
@@ -80,6 +91,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -87,6 +99,7 @@ public class Movement : MonoBehaviour
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the player from pushing enemies and vice versa
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), ColliderBlocker, true);
+        originalColor = spriteRenderer.color;
     }
 
     private void OnEnable()
@@ -219,6 +232,7 @@ public class Movement : MonoBehaviour
     }
    
     #endregion
+    
     private void Update()
     {
         anim.SetBool("isGrounded", isGrounded());
@@ -251,13 +265,33 @@ public class Movement : MonoBehaviour
         {
             return;
         }
-    
-        //move player left or right
-        rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y); 
         
-        Dash();
-        Jump();
-        BurstStep();
+        //can control player if they're not being knocked back
+        if (KBTimer <= 0)
+        {
+            //move player left or right
+            rb.velocity = new Vector2(movementInput.x * moveSpeed, rb.velocity.y);
+            Dash();
+            Jump();
+            BurstStep();
+        }
+        else // apply knock back (KB)
+        {
+            //if player is hit from right, apply force towards the left
+            if (KnockFromRight)
+            {
+                rb.velocity = new Vector2(-KBForce, KBForce);
+                //rb.AddForce(new Vector2(-KBForce, KBForce), ForceMode2D.Impulse);
+            }
+            else // else apply force towards the right
+            {
+                rb.velocity = new Vector2(KBForce, KBForce);
+                //rb.AddForce(new Vector2(KBForce, KBForce), ForceMode2D.Impulse);
+            }
+            KBTimer -= Time.deltaTime;
+        }
+
+
     }
 
     private void Dash()
@@ -275,7 +309,7 @@ public class Movement : MonoBehaviour
             trailRenderer.emitting = false;
         }
     }
-
+    
     private void BurstStep()
     {
         if (burstStepInput && canBurstStep)
@@ -381,7 +415,28 @@ public class Movement : MonoBehaviour
         
     }
 
+    public void TakeDamage(float value)
+    {
+        StartCoroutine("Blink");
+        Debug.Log("Mabel has taken " + value + " points of damage!");
+    }
     
+    //Blinking effect for when player is hit
+    private IEnumerator Blink()
+    {
+
+        // Swap to faded color, i need to add a material that can be transparent
+        //spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.b, spriteRenderer.color.b, blinkOpacity);;
+
+        spriteRenderer.color = Color.red;
+        
+        // Pause the execution of this function for "duration" seconds.
+        yield return new WaitForSeconds(blinkDuration);
+        
+        // After the pause, swap back to the original material.
+        spriteRenderer.color = originalColor;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
