@@ -19,7 +19,7 @@ public class PlatformFall : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInParent<Animator>();
+        anim = GetComponent<Animator>();
         initialPosition = transform.position;
     }
 
@@ -39,15 +39,21 @@ public class PlatformFall : MonoBehaviour
 
     private IEnumerator DropPlatform()
     {
-        anim.SetTrigger("Shake");
+        // shake platform before falling
+        anim.SetBool("canShake", true);
         yield return new WaitForSeconds(dropTime);
+        //stop shake and disable animator so platform can fall
+        anim.SetBool("canShake", false);
+        anim.enabled = false;
+        //allow platform to fall
         rb.isKinematic = false;
-        boxCollider.enabled = false;
     }
 
     private IEnumerator OnBecameInvisible()
     {
         yield return new WaitForSeconds(returnTime);
+        boxCollider.enabled = false;
+        anim.enabled = true;
         transform.position = initialPosition;
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
