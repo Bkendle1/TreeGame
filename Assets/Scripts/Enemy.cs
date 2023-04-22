@@ -161,7 +161,7 @@ public class Enemy : MonoBehaviour
         {
             var playerMovement = col.gameObject.GetComponent<Movement>();
             Debug.Log("Collided with player");
-            playerMovement.KBTimer = col.gameObject.GetComponent<Movement>().KBDuration;
+            playerMovement.KBTimer = playerMovement.KBDuration;
             col.gameObject.GetComponent<PlayerHealth>().TakeDamage(enemyProperties.GetAttackDamage);
             
             

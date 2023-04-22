@@ -69,8 +69,7 @@ public class PlayerHealth : MonoBehaviour
             //Death
             Die();
         }
-        Debug.Log("Mabel has taken " + value + " points of damage!");
-        Debug.Log("Mabel has: " + currentHealth + " points of HP left.");
+
     }
 
     private void Die()
