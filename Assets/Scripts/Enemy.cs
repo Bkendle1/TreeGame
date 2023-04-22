@@ -160,7 +160,6 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             var playerMovement = col.gameObject.GetComponent<Movement>();
-            Debug.Log("Collided with player");
             playerMovement.KBTimer = playerMovement.KBDuration;
             col.gameObject.GetComponent<PlayerHealth>().TakeDamage(enemyProperties.GetAttackDamage);
             

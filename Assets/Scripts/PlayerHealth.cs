@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("Hurt")]
     [Tooltip("How long the player will be in their hurt color")]
     [SerializeField] private float hurtDuration = 1f;
+    [Tooltip("How long player is invincible for make sure hurtDuration and hurt animation all match up.")]
+    [SerializeField] private float iFrameDuration = 1f;
     private Color originalColor;
 
     private Animator anim;
@@ -34,7 +36,10 @@ public class PlayerHealth : MonoBehaviour
         //set up health bar's max hp
         healthBar.SetMaxHealth(maxHealth);
         gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
-
+        
+        //make sure collisions between player (8) and enemies (7) are active
+        //because take damage doesn't re-enable them if the player dies
+        Physics2D.IgnoreLayerCollision(7, 8, false);
     }
 
     private void Update()
@@ -54,8 +59,11 @@ public class PlayerHealth : MonoBehaviour
     {
         //play hurt sfx
         
+        //start blinking
+        StartCoroutine(Blink());
         
-        StartCoroutine("Blink");
+        //start iFrames
+        StartCoroutine(Invulnerable());
         
         anim.SetTrigger("Hurt");
         
@@ -116,4 +124,12 @@ public class PlayerHealth : MonoBehaviour
         // After the pause, swap back to the original material.
         spriteRenderer.color = originalColor;
     }
+
+    private IEnumerator Invulnerable()
+    {
+        Physics2D.IgnoreLayerCollision(7, 8, true);
+        yield return new WaitForSeconds(iFrameDuration);
+        Physics2D.IgnoreLayerCollision(7, 8, false);
+    }
+    
 }
