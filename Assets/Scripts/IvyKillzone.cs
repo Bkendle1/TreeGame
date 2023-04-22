@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Killzone : MonoBehaviour
+public class IvyKillzone : MonoBehaviour
 {
     [SerializeField] private int damageValue = 10;
     [Tooltip("Time to wait before hurting the player again")]
