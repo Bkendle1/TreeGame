@@ -15,6 +15,7 @@ public class VoiceLineManager : MonoBehaviour
     //Voice Lines for characters
     [SerializeField] private List<AudioClip> MotherNatureVoiceLines;
     [SerializeField] private List<AudioClip> PlayerVoiceLines;
+    [SerializeField] private List<AudioClip> BirdVoiceLines;
     
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class VoiceLineManager : MonoBehaviour
     {
         AddVoiceLineList("MotherNature", MotherNatureVoiceLines);
         AddVoiceLineList("Player", PlayerVoiceLines);
+        AddVoiceLineList("Bird", BirdVoiceLines);
     }
 
     // Add a new voice line list for a character
