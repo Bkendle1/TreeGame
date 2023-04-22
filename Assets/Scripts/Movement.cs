@@ -466,6 +466,8 @@ public class Movement : MonoBehaviour
         maxStamina += value;
         //update stamina UI so max value is new max stamina
         staminaBar.SetMaxStamina(maxStamina);
+        //restore stamina
+        currentStamina = maxStamina;
     }
 
     private bool isGrounded()

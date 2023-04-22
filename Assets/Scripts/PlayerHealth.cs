@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         //set up health bar's max hp
         healthBar.SetMaxHealth(maxHealth);
+        gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
+
     }
 
     private void Update()
@@ -44,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.gameObject.SetActive(true);
         }
+        
     }
 
     public void TakeDamage(int value)
@@ -63,12 +67,18 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             //Death
-            Debug.Log("YOU DIED! GAME OVER!");
+            Die();
         }
         Debug.Log("Mabel has taken " + value + " points of damage!");
         Debug.Log("Mabel has: " + currentHealth + " points of HP left.");
     }
-        
+
+    private void Die()
+    {
+        Debug.Log("YOU DIED! GAME OVER!");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
     public void Heal(int value)
     {
         //play hurt sfx
@@ -92,9 +102,6 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         //restore player's health to new max health
         currentHealth = maxHealth;
-        //update health UI
-        healthBar.SetHealth(currentHealth);
-
     }
     
     //Blinking effect for when player is hit
