@@ -31,6 +31,7 @@ public class PlatformFall : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Player"))
             {
+                Debug.Log("about to fall");
                 StartCoroutine(DropPlatform());
             }
         }
@@ -51,6 +52,7 @@ public class PlatformFall : MonoBehaviour
 
     private IEnumerator OnBecameInvisible()
     {
+        Debug.Log("Invisible");
         yield return new WaitForSeconds(returnTime);
         boxCollider.enabled = false;
         anim.enabled = true;
