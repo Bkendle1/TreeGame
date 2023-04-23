@@ -1,7 +1,7 @@
 EXTERNAL playVoiceLine(speaker, voiceLine)
 
 ~playVoiceLine("Bird", "cheep")
-<color=\#4F86C1>Uhh, cheep cheep?</color> #speaker: Bird
+<color=\#4F86C1>Uhm, cheep cheep?</color> #speaker: Bird
 -> main
 === main ===
     ~playVoiceLine("Player", "holdonasecond")

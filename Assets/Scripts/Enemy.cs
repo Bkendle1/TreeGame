@@ -31,6 +31,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private HealthBar healthBar;
     private int currentHealth;
     
+    [Header("Patrol")] 
+    [SerializeField] private Transform castPos;
+    [Tooltip("How far the enemy can see.")]
+    [SerializeField] private float baseCastDistance;
+    private bool isFacingRight = true;
+
+    private bool isStunned;
     
     [SerializeField] private BoxCollider2D ColliderBlocker;
     private AudioSource _audioSource;
@@ -38,6 +45,8 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
+    
+    
     
     void Start()
     {
@@ -65,12 +74,49 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine("FadeOut");
         }
-        
-        //TODO: When adding the flip sprite function, make sure to include the health bar so it doesn't look weird when flipped
     }
 
+    private void FixedUpdate()
+    {
+        float patrolSpeed = enemyProperties.GetPatrolSpeed;
+
+        if (!isFacingRight)
+        {
+            patrolSpeed = -enemyProperties.GetPatrolSpeed;
+        }
+
+        if (rb.velocity.x != 0)
+        {
+            anim.SetBool("isPatrolling", true);
+        }
+        else
+        {
+            anim.SetBool("isPatrolling", false);
+        }
+        //if enemy isn't stunned move
+        if (!isStunned)
+        {
+            //move enemy
+            rb.velocity = new Vector2(patrolSpeed, rb.velocity.y);
+        }
+        
+        if (IsHittingWall() || IsNearEdge())
+        {
+            Flip();
+        }
+        
+    }
+
+    private IEnumerator ResetStun()
+    {
+        yield return new WaitForSeconds(enemyProperties.GetStunDuration);
+        isStunned = false; 
+    }
+    
     public void TakeDamage(int damage)
     {
+        isStunned = true;
+        StartCoroutine(ResetStun());
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
         if (currentHealth > 0)
@@ -122,6 +168,69 @@ public class Enemy : MonoBehaviour
         ColliderBlocker.enabled = false;
     }
 
+    private bool IsHittingWall()
+    {
+        bool hittingWall  = false;
+        float castDistance = baseCastDistance;
+        
+        //define cast distance for left and right
+        if (!isFacingRight)
+        {
+            castDistance = -baseCastDistance;
+        }
+        
+        //determine the end point based on the cast distance
+        Vector3 targetPosition = castPos.position;
+        targetPosition.x += castDistance;
+
+        //see line cast
+        Debug.DrawLine(castPos.position, targetPosition, Color.cyan);
+        
+        //check if linecast hits an object in the ground layer
+        if (Physics2D.Linecast(castPos.position, targetPosition, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            hittingWall = true;
+        }
+        return hittingWall;
+    }
+    
+    private bool IsNearEdge()
+    {
+        bool nearEdge  = true;
+        
+        float castDistance = baseCastDistance;
+        
+        //determine the end point based on the cast distance
+        Vector3 targetPosition = castPos.position;
+        targetPosition.y -= castDistance;
+
+        //see line cast
+        Debug.DrawLine(castPos.position, targetPosition, Color.magenta);
+        
+        //check if linecast doesn't an object in the ground layer, meaning there's an edge
+        if (Physics2D.Linecast(castPos.position, targetPosition, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            nearEdge = false;
+        }
+        
+        return nearEdge;
+    }
+    
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+     
+        // flip game object sprite
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1f;
+        transform.localScale = localScale;
+
+        // flip health bar sprite        
+        Vector3 healthBarScale = healthBar.transform.localScale;
+        healthBarScale.x *= -1f;
+        healthBar.transform.localScale = healthBarScale;
+    }
+    
     private IEnumerator FadeOut()
     {
         yield return new WaitForSeconds(timeBeforeFade);
@@ -176,7 +285,6 @@ public class Enemy : MonoBehaviour
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
         }
     }
-    
 
     private void SetupEnemySettings()
     {

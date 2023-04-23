@@ -1736,15 +1736,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalScale.x
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.85
+      value: 31.07
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.88
+      value: -3.76
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916464, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5269,7 +5269,7 @@ GameObject:
   - component: {fileID: 1701643742}
   - component: {fileID: 1701643741}
   m_Layer: 6
-  m_Name: Tilemap_Base
+  m_Name: Tilemap_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12222,7 +12222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4718415162040819810, guid: 27a0db8c054236044b85cb884c76e6a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.5499992
+      value: -3.22
       objectReference: {fileID: 0}
     - target: {fileID: 4718415162040819810, guid: 27a0db8c054236044b85cb884c76e6a3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12558,6 +12558,10 @@ PrefabInstance:
     - target: {fileID: 6001555828268916465, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_Name
       value: EnemyType1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001555828268916465, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6001555828268916478, guid: e71be02db62a9604bb1bfca0c6faf66c, type: 3}
       propertyPath: m_WasSpriteAssigned

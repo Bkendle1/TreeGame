@@ -19,7 +19,8 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("How long player is invincible for make sure hurtDuration and hurt animation all match up.")]
     [SerializeField] private float iFrameDuration = 1f;
     private Color originalColor;
-
+    
+    
     private Animator anim;
     private SpriteRenderer spriteRenderer;
 
