@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float flashDuration;
     private Color originalColor;
     private Coroutine flashRoutine;
+    
 
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float baseCastDistance;
     private bool isFacingRight = true;
 
+    private Coroutine resetStunCoroutine;
     private bool isStunned;
     
     [SerializeField] private BoxCollider2D ColliderBlocker;
@@ -45,7 +47,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    
+    private NPCState m_state = NPCState.Patrol;
     
     
     void Start()
@@ -78,13 +80,23 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float patrolSpeed = enemyProperties.GetPatrolSpeed;
-
-        if (!isFacingRight)
+        //TODO the enemy gets stunned if they're hit once but the stun doesn't reset if they're hit successively
+        //TODO sort out current logic into their respective states  
+        switch (m_state)
         {
-            patrolSpeed = -enemyProperties.GetPatrolSpeed;
-        }
+            case NPCState.Patrol:
+                Patrol();
+                Debug.Log("Patrolling");
+                break;
+            case NPCState.Chase:
+                Debug.Log("Chasing player");
+                break;
+            case NPCState.Attack:
+                Debug.Log("Attacking player");
+                break;
 
+        }
+        
         if (rb.velocity.x != 0)
         {
             anim.SetBool("isPatrolling", true);
@@ -93,13 +105,8 @@ public class Enemy : MonoBehaviour
         {
             anim.SetBool("isPatrolling", false);
         }
-        //if enemy isn't stunned move
-        if (!isStunned)
-        {
-            //move enemy
-            rb.velocity = new Vector2(patrolSpeed, rb.velocity.y);
-        }
         
+        // flip is there's a wall or edge
         if (IsHittingWall() || IsNearEdge())
         {
             Flip();
@@ -107,16 +114,27 @@ public class Enemy : MonoBehaviour
         
     }
 
-    private IEnumerator ResetStun()
+    private void Patrol()
     {
-        yield return new WaitForSeconds(enemyProperties.GetStunDuration);
-        isStunned = false; 
+        
+        float patrolSpeed = enemyProperties.GetPatrolSpeed;
+
+        if (!isFacingRight)
+        {
+            patrolSpeed = -enemyProperties.GetPatrolSpeed;
+        }
+        
+        //if enemy isn't stunned move
+        if (!isStunned)
+        {
+            //move enemy
+            
+                rb.velocity = new Vector2(patrolSpeed, rb.velocity.y);
+        }
     }
     
     public void TakeDamage(int damage)
     {
-        isStunned = true;
-        StartCoroutine(ResetStun());
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
         if (currentHealth > 0)
@@ -134,8 +152,27 @@ public class Enemy : MonoBehaviour
             Die();
             Flash();
         }
+
+        if (!isStunned)
+        {
+            isStunned = true;
+
+            if (resetStunCoroutine != null)
+            {
+                StopCoroutine(resetStunCoroutine);
+            }
+
+            resetStunCoroutine = StartCoroutine(ResetStun());
+        }
+        
     }
 
+    private IEnumerator ResetStun()
+    {
+        yield return new WaitForSeconds(enemyProperties.GetStunDuration);
+        isStunned = false; 
+    }
+    
     private void Flash()
     {
         // If the flashRoutine is not null, then its currently running 
@@ -292,3 +329,5 @@ public class Enemy : MonoBehaviour
         currentHealth = enemyProperties.GetHealthAmount;
     }
 }
+
+public enum NPCState {Patrol, Chase, Attack}

@@ -58,7 +58,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int value)
     {
-        //play hurt sfx
+        //TODO play hurt sfx
         
         //start blinking
         StartCoroutine(Blink());
@@ -89,8 +89,10 @@ public class PlayerHealth : MonoBehaviour
     
     public void Heal(int value)
     {
-        //play hurt sfx
-
+        //TODO play heal sfx
+        
+        Debug.Log("healed for: " + value);
+        
         //heal player
         currentHealth += value;
         

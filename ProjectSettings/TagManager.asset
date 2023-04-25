@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - MotherNature
   layers:
   - Default
   - TransparentFX

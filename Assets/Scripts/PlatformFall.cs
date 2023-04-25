@@ -48,21 +48,11 @@ public class PlatformFall : MonoBehaviour
         anim.enabled = false;
         //allow platform to fall
         rb.isKinematic = false;
-    }
-
-    private IEnumerator OnBecameInvisible()
-    {
-        Debug.Log("Invisible");
         yield return new WaitForSeconds(returnTime);
-        boxCollider.enabled = false;
         anim.enabled = true;
         transform.position = initialPosition;
         rb.isKinematic = true;
         rb.velocity = Vector2.zero;
     }
-
-    private void OnBecameVisible()
-    {
-        boxCollider.enabled = true;
-    }
+    
 }

@@ -50,7 +50,7 @@ public class VoiceLineManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Voice line list for " + characterName + " already exists!");
+            Debug.LogWarning("Voice line list for: " + characterName + " already exists!");
         }
     }
 
@@ -69,12 +69,12 @@ public class VoiceLineManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Voice line " + voiceLineName + " not found for " + characterName + "!");
+                Debug.LogWarning("Voice line: " + voiceLineName + " not found for " + characterName + "!");
             }
         }
         else
         {
-            Debug.LogWarning("No voice line list found for " + characterName + "!");
+            Debug.LogWarning("No voice line list found for: " + characterName + "!");
         }
     }
     //Stop playing voice line

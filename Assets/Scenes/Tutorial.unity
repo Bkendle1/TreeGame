@@ -3187,6 +3187,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1154733041}
     m_Modifications:
+    - target: {fileID: 632413763228305656, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13
+      objectReference: {fileID: 0}
+    - target: {fileID: 632413763228305656, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5923098628026490630, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
       propertyPath: m_Name
       value: checkpoint_tree (1)
@@ -4944,7 +4952,7 @@ GameObject:
   - component: {fileID: 1585869116}
   m_Layer: 0
   m_Name: MotherNatureHierarchy
-  m_TagString: Untagged
+  m_TagString: MotherNature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11519,6 +11527,7 @@ GameObject:
   - component: {fileID: 2068857014}
   - component: {fileID: 2068857017}
   - component: {fileID: 2068857018}
+  - component: {fileID: 2068857019}
   m_Layer: 0
   m_Name: MotherNature
   m_TagString: Untagged
@@ -11653,6 +11662,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualCue: {fileID: 167650324}
   inkJSON: {fileID: 4900000, guid: 605b5775dba4b4a48b4661b50dac2eaf, type: 3}
+--- !u!114 &2068857019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068857013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e45ea456c57c64686c1cfd57261d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2077635225
 GameObject:
   m_ObjectHideFlags: 0
@@ -12422,9 +12443,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1154733041}
     m_Modifications:
+    - target: {fileID: 632413763228305656, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5923098628026490630, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
       propertyPath: m_Name
       value: checkpoint_tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923098628026490630, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5923098628026490648, guid: 54daea4fcbb665a49aa1b411b25a40ee, type: 3}
       propertyPath: m_RootOrder
