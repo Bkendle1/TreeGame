@@ -10,10 +10,13 @@ public class EnemyProp : ScriptableObject
     [SerializeField] private float m_patrolSpeed;
     [SerializeField] private float m_chaseSpeed;
     [SerializeField] private float m_attackSpeed;
-    [SerializeField] private float m_stunDuration; //how long enemy is stunned when they're hit
+    [Tooltip("How long enemy is stunned when they're hit.")]
+    [SerializeField] private float m_stunDuration;
     [SerializeField] private Sprite m_enemySprite;
     [SerializeField] private AudioClip m_hurtSFX;
     [SerializeField] private GameObject m_deathEffect;
+    [Tooltip("How fast enemy projectiles are.")]
+    [SerializeField] private float projectileSpeed;
     
     public int GetHealthAmount => m_healthAmount;
     public int GetAttackDamage => m_attackDamage;

@@ -31,17 +31,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float camShakeDuration = .1f;
 
     [Header("Health")] 
-    [SerializeField] private HealthBar healthBar;
+    [SerializeField] public HealthBar healthBar;
     private int currentHealth;
     
-    [Header("Patrol")] 
-    [SerializeField] private Transform castPos;
-    [Tooltip("How far the enemy can see.")]
-    [SerializeField] private float baseCastDistance;
+    
+    private Coroutine resetStunCoroutine;
+    public bool isStunned;
     private bool isFacingRight = true;
 
-    private Coroutine resetStunCoroutine;
-    private bool isStunned;
     
     [SerializeField] private BoxCollider2D ColliderBlocker;
     private AudioSource _audioSource;
@@ -73,6 +70,7 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.LiveLost += ResetEnemy;
 
     }
+    
     //TODO enemy still fades away sometimes
     private void ResetEnemy()
     {
@@ -104,43 +102,7 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         //TODO the enemy gets stunned if they're hit once but the stun doesn't reset if they're hit successively
-        //TODO sort out current logic into their respective states  
-        Patrol();
-        
-        if (rb.velocity.x != 0)
-        {
-            anim.SetBool("isPatrolling", true);
-        }
-        else
-        {
-            anim.SetBool("isPatrolling", false);
-        }
-        
-        // flip is there's a wall or edge
-        if (IsHittingWall() || IsNearEdge())
-        {
-            Flip();
-        }
-        
-    }
 
-    private void Patrol()
-    {
-        
-        float patrolSpeed = enemyProperties.GetPatrolSpeed;
-
-        if (!isFacingRight)
-        {
-            patrolSpeed = -enemyProperties.GetPatrolSpeed;
-        }
-        
-        //if enemy isn't stunned move
-        if (!isStunned)
-        {
-            //move enemy
-            
-                rb.velocity = new Vector2(patrolSpeed, rb.velocity.y);
-        }
     }
     
     public void TakeDamage(int damage)
@@ -221,54 +183,6 @@ public class Enemy : MonoBehaviour
         ColliderBlocker.enabled = false;
     }
 
-    private bool IsHittingWall()
-    {
-        bool hittingWall  = false;
-        float castDistance = baseCastDistance;
-        
-        //define cast distance for left and right
-        if (!isFacingRight)
-        {
-            castDistance = -baseCastDistance;
-        }
-        
-        //determine the end point based on the cast distance
-        Vector3 targetPosition = castPos.position;
-        targetPosition.x += castDistance;
-
-        //see line cast
-        Debug.DrawLine(castPos.position, targetPosition, Color.cyan);
-        
-        //check if linecast hits an object in the ground layer
-        if (Physics2D.Linecast(castPos.position, targetPosition, 1 << LayerMask.NameToLayer("Ground")))
-        {
-            hittingWall = true;
-        }
-        return hittingWall;
-    }
-    
-    private bool IsNearEdge()
-    {
-        bool nearEdge  = true;
-        
-        float castDistance = baseCastDistance;
-        
-        //determine the end point based on the cast distance
-        Vector3 targetPosition = castPos.position;
-        targetPosition.y -= castDistance;
-
-        //see line cast
-        Debug.DrawLine(castPos.position, targetPosition, Color.magenta);
-        
-        //check if linecast doesn't an object in the ground layer, meaning there's an edge
-        if (Physics2D.Linecast(castPos.position, targetPosition, 1 << LayerMask.NameToLayer("Ground")))
-        {
-            nearEdge = false;
-        }
-        
-        return nearEdge;
-    }
-    
     private void Flip()
     {
         isFacingRight = !isFacingRight;
