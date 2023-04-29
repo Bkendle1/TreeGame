@@ -8,7 +8,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
-public class Enemy : MonoBehaviour
+public class Enemy : PoolObject
 {
     [SerializeField] public EnemyProp enemyProperties;
     
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    
+    private Pooling deathEffectPool;
     
     void Start()
     {
@@ -70,7 +70,12 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.LiveLost += ResetEnemy;
 
     }
-    
+
+    private void OnDestroy()
+    {
+        PoolManager.DeletePool(enemyProperties.GetDeathEffect.gameObject.name);
+    }
+
     //TODO enemy still fades away sometimes
     private void ResetEnemy()
     {
@@ -88,6 +93,8 @@ public class Enemy : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         healthBar.gameObject.SetActive(true);
         healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
+        
+
 
     }
     
@@ -172,13 +179,8 @@ public class Enemy : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
         
         //Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
-        GameObject deathEffect = ObjectPool.Instance.GetPooledObject();
-        if (deathEffect != null)
-        {
-            deathEffect.transform.position = transform.localPosition;
-            deathEffect.SetActive(true);
-        }
-        
+        deathEffectPool.Get(transform.localPosition, transform.localRotation);
+
         //Disable child's collision blocker collider 
         ColliderBlocker.enabled = false;
     }
@@ -260,5 +262,12 @@ public class Enemy : MonoBehaviour
     {
         spriteRenderer.sprite = enemyProperties.GetEnemySprite;
         currentHealth = enemyProperties.GetHealthAmount;
+        if (!PoolManager.DoesPoolExist(enemyProperties.GetDeathEffect.gameObject.name))
+        {
+            Debug.Log("POOL CREATED");
+            PoolManager.CreatePool(enemyProperties.GetDeathEffect.gameObject.name, enemyProperties.GetDeathEffect, 10);
+        }
+
+        deathEffectPool = PoolManager.GetPool(enemyProperties.GetDeathEffect.gameObject.name);
     }
 }

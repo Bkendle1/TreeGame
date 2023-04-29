@@ -13,6 +13,7 @@ public class BulletScript : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private float timer;
+    private Vector2 direction;
     
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
@@ -23,23 +24,11 @@ public class BulletScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         
-        Vector2 direction = player.transform.position - transform.position;
+        direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         
         float rotationAngle = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotationAngle + 90);
-        
-    }
-
-
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > destructionTimer)
-        {
-            gameObject.SetActive(false);
-            timer = 0;
-        }
         
     }
 

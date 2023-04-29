@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 /// <summary>
 /// This is for the CEO enemy, this script and the enemy attack script shouldn't be on the same game object as they both check
 /// for the player is in the attack range.
 /// </summary>
-public class EnemyShooting : MonoBehaviour
+public class EnemyShooting : PoolObject
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPos;
@@ -15,12 +16,21 @@ public class EnemyShooting : MonoBehaviour
     private EnemyProp enemyProperties;
     private Transform player;
     private Animator anim;
+
+    private Pooling projectilePool;
     
     void Start()
     {
         enemyProperties = GetComponent<Enemy>().enemyProperties;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
+
+        if (!PoolManager.DoesPoolExist(bullet.gameObject.name))
+        {
+            PoolManager.CreatePool(bullet.gameObject.name, bullet, 10);
+        }
+
+        projectilePool = PoolManager.GetPool(bullet.gameObject.name);
     }
 
     // Update is called once per frame
@@ -41,13 +51,7 @@ public class EnemyShooting : MonoBehaviour
     //TODO the blood splatter pool doesn't generate and i think its because the object pool is a singleton, idk if im using the pooling system wrong here but i thought i had to make a pool for each effect
     public void Shoot()
     {
-        GameObject bullet = ObjectPool.Instance.GetPooledObject();
-        if (bullet != null)
-        {
-            bullet.transform.position = bulletSpawnPos.position;
-            bullet.transform.rotation = Quaternion.identity;
-            bullet.SetActive(true);
-        }
+        projectilePool.Get(bulletSpawnPos.position, Quaternion.identity);
     }
 
     public void ResetAttackTrigger()
@@ -55,7 +59,12 @@ public class EnemyShooting : MonoBehaviour
         anim.ResetTrigger("Attack");
         // anim.speed = 1;
     }
-    
+
+    private void OnDestroy()
+    {
+        PoolManager.DeletePool(bullet.gameObject.name);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, enemyProperties.GetAttackRange);
