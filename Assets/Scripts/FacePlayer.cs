@@ -5,7 +5,7 @@ using UnityEngine;
 public class FacePlayer : MonoBehaviour
 {
 
-    private bool isFacingRight;
+    private bool isFacingRight = true;
     private Transform player;
     
     void Start()

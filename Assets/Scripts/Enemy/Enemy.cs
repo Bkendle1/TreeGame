@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyProp enemyProperties;
+    [SerializeField] public EnemyProp enemyProperties;
     
     [Header("Fade")]
     [Tooltip("How fast the enemy fades away after death.")]

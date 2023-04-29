@@ -22,3 +22,4 @@ MonoBehaviour:
   m_hurtSFX: {fileID: 0}
   m_deathEffect: {fileID: 2989052336247690466, guid: a6eef2613c6676a4e99b8dbc6dc73fd8, type: 3}
   projectileSpeed: 0
+  attackRange: 5

@@ -11985,7 +11985,7 @@ Transform:
   m_GameObject: {fileID: 2068857013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1585869116}
@@ -13074,6 +13074,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4066976399454239084, guid: 2097ff25aa2a90448a0f58b4dc4286c8, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066976399454239084, guid: 2097ff25aa2a90448a0f58b4dc4286c8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066976399454239084, guid: 2097ff25aa2a90448a0f58b4dc4286c8, type: 3}
+      propertyPath: m_Offset.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066976399454239084, guid: 2097ff25aa2a90448a0f58b4dc4286c8, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7012177951589765135, guid: 2097ff25aa2a90448a0f58b4dc4286c8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

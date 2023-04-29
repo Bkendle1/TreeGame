@@ -17,6 +17,8 @@ public class EnemyProp : ScriptableObject
     [SerializeField] private GameObject m_deathEffect;
     [Tooltip("How fast enemy projectiles are.")]
     [SerializeField] private float projectileSpeed;
+    [Tooltip("The range at which the player must be in for the enemy to start its attack sequence.")]
+    [SerializeField] private float attackRange;
     
     public int GetHealthAmount => m_healthAmount;
     public int GetAttackDamage => m_attackDamage;
@@ -27,5 +29,6 @@ public class EnemyProp : ScriptableObject
     public Sprite GetEnemySprite => m_enemySprite;
     public AudioClip GetHurtSFX => m_hurtSFX;
     public GameObject GetDeathEffect => m_deathEffect;
-
+    public float GetProjectileSpeed => projectileSpeed;
+    public float GetAttackRange => attackRange;
 }
