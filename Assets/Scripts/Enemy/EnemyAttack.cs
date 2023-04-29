@@ -32,6 +32,7 @@ public class EnemyAttack : MonoBehaviour
         if (Vector2.Distance(player.position, transform.position) <= enemyProperties.GetAttackRange)
         {
             anim.SetTrigger("Attack");
+            anim.speed = enemyProperties.GetAttackSpeed;
         }
     }
 
@@ -68,5 +69,6 @@ public class EnemyAttack : MonoBehaviour
     public void ResetAttackTrigger()
     {
         anim.ResetTrigger("Attack");
+        anim.speed = 1;
     }
 }

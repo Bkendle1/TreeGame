@@ -7,14 +7,25 @@ public class FacePlayer : MonoBehaviour
 
     private bool isFacingRight = true;
     private Transform player;
+    private Enemy enemy;
     
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        enemy = GetComponent<Enemy>();
     }
 
     void Update()
     {
+        //if the enemy is dead, don't flip sprite
+        if (enemy != null)
+        {
+            if (enemy.currentHealth <= 0)
+            {
+                return;
+            }
+        }
+        
         //if player is on the right and you're facing left
         if (player.transform.position.x > transform.position.x && !isFacingRight)
         {
@@ -24,6 +35,8 @@ public class FacePlayer : MonoBehaviour
         {
             Flip();
         }
+
+        
     }
     
     private void Flip()

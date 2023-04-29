@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Health")] 
     [SerializeField] public HealthBar healthBar;
-    private int currentHealth;
+    public int currentHealth;
     
     
     private Coroutine resetStunCoroutine;
