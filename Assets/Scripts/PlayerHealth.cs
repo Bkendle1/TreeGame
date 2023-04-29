@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] public int maxHealth = 100;
     [SerializeField] private HealthBar healthBar;
     public int currentHealth { get; private set; }
-
+    
     [Header("Hurt")]
     [Tooltip("How long the player will be in their hurt color")]
     [SerializeField] private float hurtDuration = 1f;
@@ -84,7 +84,8 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("YOU DIED! GAME OVER!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.Instance.UpdateLives(-1);
     }
     
     public void Heal(int value)

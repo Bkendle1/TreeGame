@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - MotherNature
+  - Grass
+  - Wood
+  - Dirt
   layers:
   - Default
   - TransparentFX

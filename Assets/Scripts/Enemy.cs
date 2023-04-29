@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 public class Enemy : MonoBehaviour
 {
@@ -47,7 +49,6 @@ public class Enemy : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    private NPCState m_state = NPCState.Patrol;
     
     
     void Start()
@@ -68,8 +69,30 @@ public class Enemy : MonoBehaviour
         Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
         
         SetupEnemySettings();
-    }
+        
+        GameManager.Instance.LiveLost += ResetEnemy;
 
+    }
+    //TODO enemy still fades away sometimes
+    private void ResetEnemy()
+    {
+        Debug.Log("enemy reset after player died");
+        StopCoroutine(FadeOut());
+        //reset sprite
+        spriteRenderer.material.color = originalColor;
+        //re-enable sprite renderer
+        spriteRenderer.enabled = true;
+        //refill health
+        currentHealth = enemyProperties.GetHealthAmount;
+        anim.SetBool("isDead", false);
+        boxCollider.enabled = true;
+        ColliderBlocker.enabled = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        healthBar.gameObject.SetActive(true);
+        healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
+
+    }
+    
     private void Update()
     {
         if (currentHealth <= 0)
@@ -82,20 +105,7 @@ public class Enemy : MonoBehaviour
     {
         //TODO the enemy gets stunned if they're hit once but the stun doesn't reset if they're hit successively
         //TODO sort out current logic into their respective states  
-        switch (m_state)
-        {
-            case NPCState.Patrol:
-                Patrol();
-                Debug.Log("Patrolling");
-                break;
-            case NPCState.Chase:
-                Debug.Log("Chasing player");
-                break;
-            case NPCState.Attack:
-                Debug.Log("Attacking player");
-                break;
-
-        }
+        Patrol();
         
         if (rb.velocity.x != 0)
         {
@@ -199,8 +209,14 @@ public class Enemy : MonoBehaviour
         boxCollider.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
         
-        Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
-
+        //Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
+        GameObject deathEffect = ObjectPool.Instance.GetPooledObject();
+        if (deathEffect != null)
+        {
+            deathEffect.transform.position = transform.localPosition;
+            deathEffect.SetActive(true);
+        }
+        
         //Disable child's collision blocker collider 
         ColliderBlocker.enabled = false;
     }
@@ -282,7 +298,10 @@ public class Enemy : MonoBehaviour
 
         if (newSpriteColor.a <= 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            spriteRenderer.enabled = false;
+            
+            enemyProperties.GetDeathEffect.SetActive(false);
         }
     }
 
@@ -329,5 +348,3 @@ public class Enemy : MonoBehaviour
         currentHealth = enemyProperties.GetHealthAmount;
     }
 }
-
-public enum NPCState {Patrol, Chase, Attack}

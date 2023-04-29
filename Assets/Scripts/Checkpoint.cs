@@ -21,7 +21,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (playerInRange)
         {
-            Debug.Log("Player is in checkpoint");
             visualCue.SetActive(true);
             if (Movement.Instance.GetInteractedPressed())
             {

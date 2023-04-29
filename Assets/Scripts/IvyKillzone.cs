@@ -7,7 +7,6 @@ public class IvyKillzone : MonoBehaviour
 {
     [SerializeField] private int damageValue = 10;
     [Tooltip("Time to wait before hurting the player again")]
-    [SerializeField] private float timeBtwDamage = 1f;
     
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
