@@ -25,7 +25,6 @@ public class Checkpoint : MonoBehaviour
             if (Movement.Instance.GetInteractedPressed())
             {
                 //TODO play sfx
-                
                 motherNature.position = teleportPosition.position;
             }
         }
@@ -40,10 +39,10 @@ public class Checkpoint : MonoBehaviour
         if (col.GetComponent<PlayerHealth>() != null)
         {
             playerInRange = true;
-            int healAmt = col.GetComponent<PlayerHealth>().maxHealth;
+            //int healAmt = col.GetComponent<PlayerHealth>().maxHealth;
             GameManager.Instance.lastCheckPointPos = transform.position;
             //restore player health to max
-            col.GetComponent<PlayerHealth>().Heal(healAmt);
+            col.GetComponent<PlayerHealth>().Heal(999);
         }
     }
 

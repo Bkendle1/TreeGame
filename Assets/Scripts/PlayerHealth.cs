@@ -59,6 +59,12 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int value)
     {
         //TODO play hurt sfx
+
+        //if the damage is more than the player's max health, set it to 0 
+        if (value >= maxHealth)
+        {
+            currentHealth = 0;
+        }
         
         //start blinking
         StartCoroutine(Blink());
