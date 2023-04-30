@@ -60,7 +60,7 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, enemyProperties.GetAttackRange);
     }

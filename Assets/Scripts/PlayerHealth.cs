@@ -86,6 +86,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("YOU DIED! GAME OVER!");
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManager.Instance.UpdateLives(-1);
+        //Respawn player at new position
+        gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
     }
     
     public void Heal(int value)

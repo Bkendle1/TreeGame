@@ -32,6 +32,7 @@ public class EnemyShooting : PoolObject
 
         projectilePool = PoolManager.GetPool(bullet.gameObject.name);
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -65,7 +66,7 @@ public class EnemyShooting : PoolObject
         PoolManager.DeletePool(bullet.gameObject.name);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, enemyProperties.GetAttackRange);
     }

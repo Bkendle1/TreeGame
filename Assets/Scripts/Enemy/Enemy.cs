@@ -37,16 +37,19 @@ public class Enemy : PoolObject
     
     private Coroutine resetStunCoroutine;
     public bool isStunned;
-    private bool isFacingRight = true;
 
     
     [SerializeField] private BoxCollider2D ColliderBlocker;
+    [Tooltip("Name of the enemy, in the Resources folder, that you want to respawn.")]
+    [SerializeField] private string enemyName;
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
     private Pooling deathEffectPool;
+    private UnityEngine.Object enemyRef;
+    private Vector3 startPos;
     
     void Start()
     {
@@ -56,7 +59,8 @@ public class Enemy : PoolObject
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         originalColor = spriteRenderer.color;
-        
+        enemyRef = Resources.Load(enemyName);
+        startPos = transform.position;
         
         //set up health bar's max hp
         healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
@@ -67,37 +71,10 @@ public class Enemy : PoolObject
         
         SetupEnemySettings();
         
-        GameManager.Instance.LiveLost += ResetEnemy;
+        //GameManager.Instance.LiveLost += RespawnEnemy;
 
     }
 
-    private void OnDestroy()
-    {
-        PoolManager.DeletePool(enemyProperties.GetDeathEffect.gameObject.name);
-    }
-
-    //TODO enemy still fades away sometimes
-    private void ResetEnemy()
-    {
-        Debug.Log("enemy reset after player died");
-        StopCoroutine(FadeOut());
-        //reset sprite
-        spriteRenderer.material.color = originalColor;
-        //re-enable sprite renderer
-        spriteRenderer.enabled = true;
-        //refill health
-        currentHealth = enemyProperties.GetHealthAmount;
-        anim.SetBool("isDead", false);
-        boxCollider.enabled = true;
-        ColliderBlocker.enabled = false;
-        rb.bodyType = RigidbodyType2D.Dynamic;
-        healthBar.gameObject.SetActive(true);
-        healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
-        
-
-
-    }
-    
     private void Update()
     {
         if (currentHealth <= 0)
@@ -183,21 +160,17 @@ public class Enemy : PoolObject
 
         //Disable child's collision blocker collider 
         ColliderBlocker.enabled = false;
+        
+        //Invoke("RespawnEnemy", 1f);
     }
-
-    private void Flip()
+    
+    //TODO enemy still fades away sometimes
+    private void RespawnEnemy()
     {
-        isFacingRight = !isFacingRight;
-     
-        // flip game object sprite
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
-
-        // flip health bar sprite        
-        Vector3 healthBarScale = healthBar.transform.localScale;
-        healthBarScale.x *= -1f;
-        healthBar.transform.localScale = healthBarScale;
+        //Respawn enemy
+        GameObject enemyClone = (GameObject)Instantiate(enemyRef);
+        enemyClone.transform.position = startPos;
+        Destroy(gameObject);
     }
     
     private IEnumerator FadeOut()
@@ -264,10 +237,14 @@ public class Enemy : PoolObject
         currentHealth = enemyProperties.GetHealthAmount;
         if (!PoolManager.DoesPoolExist(enemyProperties.GetDeathEffect.gameObject.name))
         {
-            Debug.Log("POOL CREATED");
             PoolManager.CreatePool(enemyProperties.GetDeathEffect.gameObject.name, enemyProperties.GetDeathEffect, 10);
         }
-
+        
         deathEffectPool = PoolManager.GetPool(enemyProperties.GetDeathEffect.gameObject.name);
+    }
+    
+    private void OnDestroy()
+    {
+        PoolManager.DeletePool(enemyProperties.GetDeathEffect.gameObject.name);
     }
 }

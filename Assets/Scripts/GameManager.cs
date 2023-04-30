@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         if (m_lives + value <= 0)
         {
             //Game Over
+            m_lives = 0;
         }
 
         if (value < 0)
