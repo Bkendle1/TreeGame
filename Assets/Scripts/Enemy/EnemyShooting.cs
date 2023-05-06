@@ -49,7 +49,6 @@ public class EnemyShooting : PoolObject
         }
     }
     
-    //TODO the blood splatter pool doesn't generate and i think its because the object pool is a singleton, idk if im using the pooling system wrong here but i thought i had to make a pool for each effect
     public void Shoot()
     {
         projectilePool.Get(bulletSpawnPos.position, Quaternion.identity);

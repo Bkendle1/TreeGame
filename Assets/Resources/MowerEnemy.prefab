@@ -400,6 +400,7 @@ MonoBehaviour:
   isStunned: 0
   ColliderBlocker: {fileID: 8332354298655263564}
   enemyName: MowerEnemy
+  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
 --- !u!50 &6097931950020745056
 Rigidbody2D:
   serializedVersion: 4

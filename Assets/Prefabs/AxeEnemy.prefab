@@ -734,8 +734,11 @@ MonoBehaviour:
   camShakeIntensity: 4
   camShakeDuration: 0.1
   healthBar: {fileID: 4509264164867145135}
+  currentHealth: 0
   isStunned: 0
   ColliderBlocker: {fileID: 6899094011864617441}
+  enemyName: 
+  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
 --- !u!50 &8700054706078158285
 Rigidbody2D:
   serializedVersion: 4

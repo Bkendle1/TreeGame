@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     
     public static GameManager Instance;
     public Vector2 lastCheckPointPos;
-
+    private Vector2 startingPoint;
+    
     [SerializeField] private UIText m_expUI = null;
     private int m_exp;
     
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        startingPoint = lastCheckPointPos;
     }
 
     private void Start()
@@ -58,6 +61,8 @@ public class GameManager : MonoBehaviour
         {
             //Game Over
             m_lives = 0;
+            //reset to last checkpoint to starting point
+            lastCheckPointPos = startingPoint;
             SceneManager.LoadScene("GameOver");
         }
 

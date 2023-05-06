@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class Enemy : PoolObject
 {
@@ -38,7 +40,14 @@ public class Enemy : PoolObject
     private Coroutine resetStunCoroutine;
     public bool isStunned;
 
-    
+    [Header("Experience Points")]
+    [SerializeField] private GameObject expAcorn;
+    [Tooltip("Minimum number of exp dropped.(Inclusive)")]
+    [SerializeField] private int expMin = 3;
+    [Tooltip("Maximum number of exp dropped.(Inclusive)")]
+    [SerializeField] private float expMax = 10f;
+
+    [Header("Miscellaneous")]
     [SerializeField] private BoxCollider2D ColliderBlocker;
     [Tooltip("Name of the enemy, in the Resources folder, that you want to respawn.")]
     [SerializeField] private string enemyName;
@@ -48,8 +57,11 @@ public class Enemy : PoolObject
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
     private Pooling deathEffectPool;
+    private Pooling expPool;
     private UnityEngine.Object enemyRef;
     private Vector3 startPos;
+
+    
     
     void Start()
     {
@@ -143,6 +155,11 @@ public class Enemy : PoolObject
     
     private void Die()
     {
+        for (int i = 0; i < Random.Range(expMin,expMax); i++)
+        {
+            expPool.Get(transform.position, Quaternion.identity);
+        }
+        
         //Disable health bar on death
         healthBar.gameObject.SetActive(false);
 
@@ -155,7 +172,6 @@ public class Enemy : PoolObject
         boxCollider.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
         
-        //Instantiate(enemyProperties.GetDeathEffect, transform.localPosition, transform.localRotation);
         deathEffectPool.Get(transform.localPosition, transform.localRotation);
 
         //Disable child's collision blocker collider 
@@ -239,12 +255,19 @@ public class Enemy : PoolObject
         {
             PoolManager.CreatePool(enemyProperties.GetDeathEffect.gameObject.name, enemyProperties.GetDeathEffect, 10);
         }
-        
+
+        if (!PoolManager.DoesPoolExist(expAcorn.gameObject.name))
+        {
+            PoolManager.CreatePool(expAcorn.gameObject.name, expAcorn, 30);
+        }
+
+        expPool = PoolManager.GetPool(expAcorn.gameObject.name);
         deathEffectPool = PoolManager.GetPool(enemyProperties.GetDeathEffect.gameObject.name);
     }
     
     private void OnDestroy()
     {
         PoolManager.DeletePool(enemyProperties.GetDeathEffect.gameObject.name);
+        PoolManager.DeletePool(expAcorn.gameObject.name);
     }
 }

@@ -280,6 +280,7 @@ MonoBehaviour:
   isStunned: 0
   ColliderBlocker: {fileID: 2869823343618609018}
   enemyName: CEO_Enemy
+  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
 --- !u!114 &2409332605994062745
 MonoBehaviour:
   m_ObjectHideFlags: 0

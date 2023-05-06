@@ -562,7 +562,11 @@ MonoBehaviour:
   healthBar: {fileID: 474471342931697851}
   currentHealth: 0
   isStunned: 0
+  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
+  expMin: 3
+  expMax: 10
   ColliderBlocker: {fileID: 7475754940828290293}
+  enemyName: 
 --- !u!114 &6990490005797408790
 MonoBehaviour:
   m_ObjectHideFlags: 0
