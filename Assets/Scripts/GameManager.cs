@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,11 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private UIText m_expUI = null;
     [Tooltip("This is exposed in the Inspector for testing purposes.")]
-    [SerializeField] public int m_exp;
+    [SerializeField] private int m_exp;
+    [Tooltip("The rate at which the experience counter decrements.")]
+    [SerializeField] private float decrementRate = .05f;
+        
+    public int GetCurrentExpAmount => m_exp;
     
     [SerializeField] private UIText m_livesUI = null;
     [SerializeField] private int m_lives = 3;
@@ -52,10 +57,28 @@ public class GameManager : MonoBehaviour
 
     public void UpdateExp(int value)
     {
-        m_exp += value;
-        m_expUI.UpdateUI(m_exp);
+        if (value < 0)
+        {
+            int targetNumber = m_exp + value;
+            StartCoroutine(Decrement(targetNumber));
+        }
+        else
+        {
+            m_exp += value;
+            m_expUI.UpdateUI(m_exp);
+        }
+        StopCoroutine("Decrement");
     }
-    
+
+    private IEnumerator Decrement(int targetNumber)
+    {
+        while (m_exp > targetNumber)
+        {
+            m_exp--;
+            m_expUI.UpdateUI(m_exp);
+            yield return new WaitForSeconds(decrementRate);
+        }
+    }
     public void UpdateLives(int value)
     {
         if (m_lives + value <= 0)

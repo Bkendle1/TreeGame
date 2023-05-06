@@ -75,6 +75,9 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
         }
+
+        Debug.Log("UPDATE: " + currentStory.variablesState["currentMoney"]);
+        currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
@@ -90,27 +93,19 @@ public class DialogueManager : MonoBehaviour
             VoiceLineManager.Instance.PlayVoiceLine(speaker, voiceLine);
         });
         
-        currentStory.variablesState["currentMoney"] = GameManager.Instance.m_exp;
-        Debug.Log("Current money: " + currentStory.variablesState["currentMoney"]);
         //this method is used for both swapping weapons and upgrading them
         currentStory.BindExternalFunction("weaponSwap", (int weaponIndex, bool upgradeWeapon, int price) =>
         {
-            Debug.Log("Changing weapon");
+            Debug.Log("Current money: " + currentStory.variablesState["currentMoney"]);
             //Reference SelectWeapon() from WeaponSwap class
             FindObjectOfType<WeaponSwap>().SelectWeapon(weaponIndex, upgradeWeapon);
             if (upgradeWeapon)
             {
                 //Decrement current exp
-                GameManager.Instance.m_exp -= price;
-                //Update UI for exp
-                GameManager.Instance.UpdateExp(-GameManager.Instance.m_exp);
+                GameManager.Instance.UpdateExp(-price);
             }
         });
-        
-        
-        
-        
-        
+
         //reset dialogue assets
         displayNameText.text = "Name";
         
