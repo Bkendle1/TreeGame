@@ -174,7 +174,7 @@ public class Movement : MonoBehaviour
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
         //disable jump input so player doesn't jump after dialogue finishes
-        if(DialogueManager.Instance.dialogueIsPlaying)
+        if(DialogueManager.Instance.dialogueIsPlaying || PauseMenu.Instance.isPaused)
         {
             return;
         }
@@ -227,7 +227,7 @@ public class Movement : MonoBehaviour
     {
         submitPressed = true;
     }
-
+    
     public bool GetSubmitPressed()
     {
         bool result = submitPressed;
@@ -246,6 +246,12 @@ public class Movement : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded());
         anim.SetBool("isBurstStepping", isBurstStepping);
 
+        // if game is paused, prevent player from moving in place
+        if (PauseMenu.Instance.isPaused)
+        {
+            return;
+        }
+        
         //handle player movement if dialogue is playing
         if (isMoving && !DialogueManager.Instance.dialogueIsPlaying)
         {
@@ -275,8 +281,8 @@ public class Movement : MonoBehaviour
             staminaBar.gameObject.SetActive(true);
         }
 
-    //if the player depletes all stamina, pause use of stamina until its refilled to max
-    if (currentStamina <= 0 && hasStaminaToUse)
+        //if the player depletes all stamina, pause use of stamina until its refilled to max
+        if (currentStamina <= 0 && hasStaminaToUse)
         {
             hasStaminaToUse = false;
             currentStamina += increaseValue;
@@ -291,7 +297,7 @@ public class Movement : MonoBehaviour
     {
         //player can't jump or dash if dialogue is playing
         // (player's movements are also stopped elsewhere in the script)
-        if (DialogueManager.Instance.dialogueIsPlaying)
+        if (DialogueManager.Instance.dialogueIsPlaying || GameManager.Instance.IsGamePaused)
         {
             return;
         }
@@ -440,6 +446,8 @@ public class Movement : MonoBehaviour
     
     private void Jump()
     {
+        
+        
         //Coyote Timer
         if (isGrounded())
         {

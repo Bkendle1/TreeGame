@@ -69,8 +69,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        //player can't attack if dialogue is playing
-        if (DialogueManager.Instance.dialogueIsPlaying)
+        //player can't attack if dialogue is playing or the game is paused
+        if (DialogueManager.Instance.dialogueIsPlaying || PauseMenu.Instance.isPaused)
         {
             return;
         }
