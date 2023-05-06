@@ -7,30 +7,24 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private GameObject pauseMenu;
     public bool isPaused = false;
-
-    public static PauseMenu Instance;
+    private RectTransform[] children;
     
     private void Awake()
     {
         //make sure time is at its normal speed 
         Time.timeScale = 1f;
-        pauseMenu = GameObject.Find("PauseMenu");
-
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        //get reference to objects in the pause menu
+        children = GetComponentsInChildren<RectTransform>();
     }
 
     private void Start()
     {
-        pauseMenu.SetActive(false);
+        //make sure all children are deactivated at start
+        foreach (RectTransform child in children)
+        {
+            child.gameObject.SetActive(false);
+        }  
     }
 
     private void Update()
@@ -50,7 +44,11 @@ public class PauseMenu : MonoBehaviour
 
     private void PauseGame()
     {
-        pauseMenu.SetActive(true);
+        //activate children
+        foreach (RectTransform child in children)
+        {
+            child.gameObject.SetActive(true);
+        }        
         //freeze time
         Time.timeScale = 0f;
         isPaused = true;
@@ -58,7 +56,11 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
+        //deactivate children
+        foreach (RectTransform child in children)
+        {
+            child.gameObject.SetActive(false);
+        }
         //unfreeze time
         Time.timeScale = 1f;
         isPaused = false;

@@ -19,11 +19,13 @@ public class PlayerAttack : MonoBehaviour
     
     private Animator anim;
     private PlayerControls controls;
+    private PauseMenu pauseMenu;
     
     void Awake()
     {
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     private void Start()
@@ -70,7 +72,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         //player can't attack if dialogue is playing or the game is paused
-        if (DialogueManager.Instance.dialogueIsPlaying || PauseMenu.Instance.isPaused)
+        if (DialogueManager.Instance.dialogueIsPlaying)
         {
             return;
         }
@@ -86,6 +88,12 @@ public class PlayerAttack : MonoBehaviour
     
     private void Attack()
     {
+        if(pauseMenu.isPaused)
+        {
+            Debug.Log("Pause ACTIVATED");
+            return;
+        }
+        
         //Setup weapon in case a new weapon was equipped
         SetupWeapon();
         
