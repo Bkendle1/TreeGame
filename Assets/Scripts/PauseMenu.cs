@@ -12,14 +12,15 @@ public class PauseMenu : MonoBehaviour
     
     private void Awake()
     {
-        //make sure time is at its normal speed 
-        Time.timeScale = 1f;
+        
         //get reference to objects in the pause menu
         children = GetComponentsInChildren<RectTransform>();
     }
 
     private void Start()
     {
+        //make sure time is at its normal speed 
+        ResumeGame();
         //make sure all children are deactivated at start
         foreach (RectTransform child in children)
         {

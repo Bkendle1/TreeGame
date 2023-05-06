@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private UIText m_expUI = null;
     [Tooltip("This is exposed in the Inspector for testing purposes.")]
-    [SerializeField] private int m_exp;
-    public int GetCurrentExpAmount => m_exp;
+    [SerializeField] public int m_exp;
     
     [SerializeField] private UIText m_livesUI = null;
     [SerializeField] private int m_lives = 3;

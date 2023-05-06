@@ -90,17 +90,25 @@ public class DialogueManager : MonoBehaviour
             VoiceLineManager.Instance.PlayVoiceLine(speaker, voiceLine);
         });
         
-        currentStory.BindExternalFunction("weaponSwap", (int weaponIndex, bool upgradeWeapon) =>
+        currentStory.variablesState["currentMoney"] = GameManager.Instance.m_exp;
+        Debug.Log("Current money: " + currentStory.variablesState["currentMoney"]);
+        //this method is used for both swapping weapons and upgrading them
+        currentStory.BindExternalFunction("weaponSwap", (int weaponIndex, bool upgradeWeapon, int price) =>
         {
             Debug.Log("Changing weapon");
             //Reference SelectWeapon() from WeaponSwap class
             FindObjectOfType<WeaponSwap>().SelectWeapon(weaponIndex, upgradeWeapon);
+            if (upgradeWeapon)
+            {
+                //Decrement current exp
+                GameManager.Instance.m_exp -= price;
+                //Update UI for exp
+                GameManager.Instance.UpdateExp(-GameManager.Instance.m_exp);
+            }
         });
         
         
-        currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
         
-        Debug.Log("Current money: " + currentStory.variablesState["currentMoney"]);
         
         
         //reset dialogue assets

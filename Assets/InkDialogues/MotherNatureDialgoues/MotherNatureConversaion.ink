@@ -1,5 +1,5 @@
 EXTERNAL playVoiceLine(speaker, voiceLine)
-EXTERNAL weaponSwap(weaponIndex, upgradeWeapon)
+EXTERNAL weaponSwap(weaponIndex, upgradeWeapon, price)
 
 CONST branchUpgradePrice = 10
 CONST oakUpgradePrice = 20
@@ -26,7 +26,7 @@ VAR currentMoney = 0
             -else:
                 All right, here you go!
                 //call method to upgrade weapon
-                ~weaponSwap(0, true)
+                ~weaponSwap(0, true, branchUpgradePrice)
                 -> main
             }
         ** [Oak ({oakUpgradePrice})]
@@ -36,7 +36,7 @@ VAR currentMoney = 0
             -else:
                 All right, here you go!
                 //call method to upgrade weapon
-                ~weaponSwap(1, true)
+                ~weaponSwap(1, true, oakUpgradePrice)
                 -> main
             }
         ** [Redwood ({redwoodUpgradePrice})]
@@ -46,7 +46,7 @@ VAR currentMoney = 0
             -else:
                 All right, here you go!
                 //call method to upgrade weapon
-                ~weaponSwap(2, true)
+                ~weaponSwap(2, true, redwoodUpgradePrice)
                 -> main
             }
         ** ->
@@ -68,16 +68,16 @@ VAR currentMoney = 0
     <color=\#005A04>Sure, what weapon would you like?</color> #speaker: Mother Nature
     + [Branch]
         ~playVoiceLine("MotherNature","isthateverything")
-        ~weaponSwap(0, false)
+        ~weaponSwap(0, false, 0)
         <color=\#005A04>Great, is that everything?</color>
         -> main
     + [Oak]
         ~playVoiceLine("MotherNature","isthateverything")
-        ~weaponSwap(1, false)
+        ~weaponSwap(1, false, 0)
         <color=\#005A04>Great, is that everything?</color>
         -> main
     + [Redwood]
         ~playVoiceLine("MotherNature","isthateverything")
-        ~weaponSwap(2, false)
+        ~weaponSwap(2, false, 0)
         <color=\#005A04>Great, is that everything?</color>
         -> main
