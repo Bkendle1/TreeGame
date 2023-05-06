@@ -75,8 +75,6 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
         }
-
-        Debug.Log("UPDATE: " + currentStory.variablesState["currentMoney"]);
         currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
     }
 

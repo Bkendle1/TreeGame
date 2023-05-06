@@ -12,36 +12,37 @@ public class ExpCollectible : PoolObject
     [SerializeField] private float moveSpeed = 5f;
     [Tooltip("How long the exp acorn stays before it disappears.")]
     [SerializeField] private float m_timeToLive = 3f;
+    [Tooltip("How close the player must be before exp acorn flies to them.")]
+    [SerializeField] private float magnetDistance = 4f;
     private Rigidbody2D rb;
-    private bool hasTarget;
-    private Vector3 targetPosition;
+    private Transform player;
+    private bool hasStarted = true;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Invoke("TurnOff", m_timeToLive);
-        rb.velocity = new Vector2(Random.Range(-5, 10), Random.Range(5,10));
-
+        player = FindObjectOfType<Movement>().transform;
     }
 
     private void FixedUpdate()
     {
-        if (hasTarget)
+        if (Vector2.Distance(transform.position, player.transform.position) <= 5)
         {
-            // Vector2 targetDirection = (targetPosition - transform.position).normalized;
-            // rb.velocity = new Vector2(targetDirection.x, targetDirection.y) * moveSpeed;
-            transform.position = Vector2.MoveTowards(transform.position,targetPosition, 3);
+            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position,
+                player.transform.position, moveSpeed);
         }
-    }
 
-    public void SetTarget(Vector3 position)
-    {
-        targetPosition = position;
-        hasTarget = true;
+        if (hasStarted)
+        {
+            rb.AddForce(new Vector2(Random.Range(-5, 10), Random.Range(5,10)), ForceMode2D.Impulse);
+            hasStarted = false;
+        }
     }
 
     private void TurnOff()
     {
+        hasStarted = true;
         ReturnToPool();
     }
     

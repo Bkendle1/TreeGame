@@ -100,8 +100,6 @@ public class PlayerHealth : MonoBehaviour
     {
         //TODO play heal sfx
         
-        Debug.Log("healed for: " + value);
-        
         //heal player
         currentHealth += value;
         

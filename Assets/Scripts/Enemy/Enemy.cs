@@ -158,7 +158,7 @@ public class Enemy : PoolObject
 
         for (int i = 0; i < Random.Range(expMin,expMax); i++)
         {
-            expPool.Get(transform.position, Quaternion.identity);
+            expPool.Get(new Vector2(transform.position.x, transform.position.y + 1), Quaternion.identity);
         }
         
         //Disable health bar on death

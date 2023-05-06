@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     {
         m_livesUI.UpdateUI(m_lives);
         m_expUI.UpdateUI(m_exp);
-        Debug.Log(m_lives);
     }
 
     public void UpdateExp(int value)

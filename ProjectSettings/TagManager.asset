@@ -13,7 +13,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pickups
   - Water
   - UI
   - Ground
@@ -52,12 +52,12 @@ TagManager:
   - name: Enemies
     uniqueID: 581859745
     locked: 0
+  - name: Pickups
+    uniqueID: 2967123851
+    locked: 0
   - name: Obstacles
     uniqueID: 3646446901
     locked: 0
   - name: Characters
     uniqueID: 4090395379
-    locked: 0
-  - name: Pickups
-    uniqueID: 2967123851
     locked: 0
