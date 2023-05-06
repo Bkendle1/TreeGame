@@ -73,7 +73,6 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private TrailRenderer trailRenderer;
-    private PauseMenu pauseMenu;
     
     //Input Actions
     private PlayerControls controls;
@@ -98,7 +97,6 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
-        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     private void Start()
@@ -176,7 +174,7 @@ public class Movement : MonoBehaviour
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
         //disable jump input so player doesn't jump after dialogue finishes
-        if(DialogueManager.Instance.dialogueIsPlaying || pauseMenu.isPaused)
+        if(DialogueManager.Instance.dialogueIsPlaying || PauseMenu.isPaused)
         {
             return;
         }
@@ -249,7 +247,7 @@ public class Movement : MonoBehaviour
         anim.SetBool("isBurstStepping", isBurstStepping);
 
         // if game is paused, prevent player from moving in place
-        if (pauseMenu.isPaused)
+        if (PauseMenu.isPaused)
         {
             return;
         }

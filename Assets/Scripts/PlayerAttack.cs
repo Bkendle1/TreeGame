@@ -19,13 +19,11 @@ public class PlayerAttack : MonoBehaviour
     
     private Animator anim;
     private PlayerControls controls;
-    private PauseMenu pauseMenu;
     
     void Awake()
     {
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
-        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     private void Start()
@@ -88,7 +86,7 @@ public class PlayerAttack : MonoBehaviour
     
     private void Attack()
     {
-        if(pauseMenu.isPaused)
+        if(PauseMenu.isPaused)
         {
             Debug.Log("Pause ACTIVATED");
             return;
