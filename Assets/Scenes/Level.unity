@@ -2723,6 +2723,7 @@ MonoBehaviour:
   weaponProperties: {fileID: 11400000, guid: 05b32df518adaec45864082347fc98b1, type: 2}
   camShakeIntensity: 4
   camShakeDuration: 0.1
+  spriteRenderer: {fileID: 569307225}
 --- !u!58 &569307223
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14873,6 +14874,7 @@ MonoBehaviour:
   weaponProperties: {fileID: 11400000, guid: cec198c0d8a9b1445bd5374003368564, type: 2}
   camShakeIntensity: 4
   camShakeDuration: 0.1
+  spriteRenderer: {fileID: 919832190}
 --- !u!58 &919832188
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15326,6 +15328,7 @@ MonoBehaviour:
   weaponProperties: {fileID: 11400000, guid: a86b50ace61b8cd4bb3dd54213734580, type: 2}
   camShakeIntensity: 4
   camShakeDuration: 0.1
+  spriteRenderer: {fileID: 944292657}
 --- !u!1 &958392013
 GameObject:
   m_ObjectHideFlags: 0

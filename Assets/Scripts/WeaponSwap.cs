@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WeaponSwap : MonoBehaviour
 {
-    public void SelectWeapon(int weaponIndex)
+    public void SelectWeapon(int weaponIndex, bool upgradeWeapon)
     {
         int i = 0;
         
@@ -12,6 +12,10 @@ public class WeaponSwap : MonoBehaviour
             if (i == weaponIndex)
             {
                 weapon.gameObject.SetActive(true);
+                if (upgradeWeapon)
+                {
+                    weapon.gameObject.GetComponent<Weapon>().UpgradeWeapon();
+                }
             }
             else
             {

@@ -209,6 +209,10 @@ public class Movement : MonoBehaviour
     
     private void OnInteracted(InputAction.CallbackContext context)
     {
+        if (DialogueManager.Instance.dialogueIsPlaying)
+        {
+            return;
+        }
         hasInteracted = true;
     }
     

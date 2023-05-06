@@ -90,12 +90,18 @@ public class DialogueManager : MonoBehaviour
             VoiceLineManager.Instance.PlayVoiceLine(speaker, voiceLine);
         });
         
-        currentStory.BindExternalFunction("weaponSwap", (int weaponIndex) =>
+        currentStory.BindExternalFunction("weaponSwap", (int weaponIndex, bool upgradeWeapon) =>
         {
             Debug.Log("Changing weapon");
             //Reference SelectWeapon() from WeaponSwap class
-            FindObjectOfType<WeaponSwap>().SelectWeapon(weaponIndex);
+            FindObjectOfType<WeaponSwap>().SelectWeapon(weaponIndex, upgradeWeapon);
         });
+        
+        
+        currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
+        
+        Debug.Log("Current money: " + currentStory.variablesState["currentMoney"]);
+        
         
         //reset dialogue assets
         displayNameText.text = "Name";
@@ -107,6 +113,7 @@ public class DialogueManager : MonoBehaviour
     { 
         currentStory.UnbindExternalFunction("playVoiceLine");
         currentStory.UnbindExternalFunction("weaponSwap");
+        
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";

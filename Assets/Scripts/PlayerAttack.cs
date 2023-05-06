@@ -119,8 +119,5 @@ public class PlayerAttack : MonoBehaviour
         weaponAnimator = GetComponentInChildren<Weapon>().GetComponent<Animator>();
         playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
         _weaponSpriteRenderer = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
-        _weaponSpriteRenderer.sprite = playerWeaponProperties.GetWeaponSprite;
     }
-
-
 }

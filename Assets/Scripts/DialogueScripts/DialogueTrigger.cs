@@ -23,8 +23,6 @@ public class DialogueTrigger : MonoBehaviour
         {
             visualCue.SetActive(true);
             
-            //TODO: Disable interact input from player (E key) once dialogue starts so the dialogue doesn't repeat
-            
             //start a new story
             if (Movement.Instance.GetInteractedPressed())
             {

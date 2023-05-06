@@ -10,14 +10,18 @@ public class Weapon : MonoBehaviour
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
-
+    [SerializeField] private SpriteRenderer spriteRenderer;
     
     private void Start()
     {
         SetupWeapon();
     }
-    
 
+    public void UpgradeWeapon()
+    {
+        spriteRenderer.sprite = weaponProperties.GetUpgradedWeaponSprite;
+    }    
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<Enemy>() != null)

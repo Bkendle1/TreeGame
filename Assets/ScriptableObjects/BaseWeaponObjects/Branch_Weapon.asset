@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b3fbd3b9b324e4ba3d12301103464c, type: 3}
-  m_Name: Redwood_Weapon
+  m_Name: Branch_Weapon
   m_EditorClassIdentifier: 
-  m_attackDamage: 50
-  m_attackRange: 0.75
-  m_attackSpeed: 0.75
-  m_timeBtwAttacks: 1.25
-  m_knockbackPower: 30
-  m_weaponSprite: {fileID: 21300000, guid: 65d7c18dd647cc647b97e3e64b302411, type: 3}
-  m_projectileSprite: {fileID: 21300000, guid: 69889b01b11692d4c82dff73bb4f1bc7, type: 3}
+  m_attackDamage: 10
+  m_attackRange: 0.5
+  m_attackSpeed: 2
+  m_timeBtwAttacks: 0.5
+  m_knockbackPower: 20
+  m_weaponSprite: {fileID: 21300000, guid: a9270879ab5758f4da38bc60880460ca, type: 3}
+  m_upgradedWeaponSprite: {fileID: 21300000, guid: 32a89c27ba1b6634cba669d111912916, type: 3}
+  m_projectileSprite: {fileID: 21300000, guid: 6baa2442afe45e043b5bc81a68bb24ff, type: 3}
   m_impactEffect: {fileID: 0}
-  m_slashEffect: {fileID: 0}

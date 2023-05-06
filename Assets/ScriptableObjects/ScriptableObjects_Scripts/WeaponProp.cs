@@ -11,9 +11,9 @@ public class WeaponProp : ScriptableObject
     [SerializeField] private float m_timeBtwAttacks; // how much time passes between attacks
     [SerializeField] private float m_knockbackPower;
     [SerializeField] private Sprite m_weaponSprite;
+    [SerializeField] private Sprite m_upgradedWeaponSprite;
     [SerializeField] private Sprite m_projectileSprite;
     [SerializeField] private GameObject m_impactEffect;
-    [SerializeField] private GameObject m_slashEffect;
     
     public int GetAttackDamage => m_attackDamage;
     public float GetAttackRange => m_attackRange;
@@ -21,7 +21,7 @@ public class WeaponProp : ScriptableObject
     public float GetKnockBackPower => m_knockbackPower;
     public float GetTimeBtwAttacks => m_timeBtwAttacks;
     public Sprite GetWeaponSprite => m_weaponSprite;
+    public Sprite GetUpgradedWeaponSprite => m_upgradedWeaponSprite;
     public Sprite GetProjectileSprite => m_projectileSprite;
     public GameObject GetImpactEffect => m_impactEffect;
-    public GameObject GetSlashEffect => m_slashEffect;
 }

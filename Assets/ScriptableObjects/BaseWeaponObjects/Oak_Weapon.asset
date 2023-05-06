@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b3fbd3b9b324e4ba3d12301103464c, type: 3}
-  m_Name: Branch_Weapon
+  m_Name: Oak_Weapon
   m_EditorClassIdentifier: 
-  m_attackDamage: 10
-  m_attackRange: 0.5
-  m_attackSpeed: 2
-  m_timeBtwAttacks: 0.5
-  m_knockbackPower: 20
-  m_weaponSprite: {fileID: 21300000, guid: a9270879ab5758f4da38bc60880460ca, type: 3}
-  m_projectileSprite: {fileID: 21300000, guid: 6baa2442afe45e043b5bc81a68bb24ff, type: 3}
+  m_attackDamage: 30
+  m_attackRange: 0.75
+  m_attackSpeed: 1
+  m_timeBtwAttacks: 2
+  m_knockbackPower: 25
+  m_weaponSprite: {fileID: 21300000, guid: b01b8002d81c57d46b8cb688e4134300, type: 3}
+  m_upgradedWeaponSprite: {fileID: 21300000, guid: 7dc076f4f753e88419e48142c5e106e6, type: 3}
+  m_projectileSprite: {fileID: 21300000, guid: 96a50322013e8674ea256ebc59c1d56e, type: 3}
   m_impactEffect: {fileID: 0}
-  m_slashEffect: {fileID: 6907860414469500486, guid: 11fbb67bdbe616e4a8ab4544466fc568, type: 3}
