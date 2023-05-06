@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1958645034281041591}
   - component: {fileID: 1958645034281041588}
   - component: {fileID: 1958645034281041589}
-  - component: {fileID: 5221932081688199842}
   m_Layer: 0
   m_Name: exp_acorn
   m_TagString: Untagged
@@ -157,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointValue: 1
   moveSpeed: 8
+  m_timeToLive: 3
 --- !u!114 &1958645034281041589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,16 +171,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateDirection: {x: 0, y: 0, z: -1}
   rotateSpeed: 100
---- !u!114 &5221932081688199842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958645034281041549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18575bf3d3a030547963d86f01d8db64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_timeToLive: 3

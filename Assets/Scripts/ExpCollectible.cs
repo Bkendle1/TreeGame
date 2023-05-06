@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ExpCollectible : MonoBehaviour
+public class ExpCollectible : PoolObject
 {
     [Tooltip("How much each exp acorn is worth.")]
     [SerializeField] private int pointValue = 1;
     [Tooltip("How fast the exp acorn moves towards the player.")]
     [SerializeField] private float moveSpeed = 5f;
+    [Tooltip("How long the exp acorn stays before it disappears.")]
+    [SerializeField] private float m_timeToLive = 3f;
     private Rigidbody2D rb;
     private bool hasTarget;
     private Vector3 targetPosition;
@@ -18,6 +20,7 @@ public class ExpCollectible : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Invoke("TurnOff", m_timeToLive);
     }
 
     private void FixedUpdate()
@@ -42,13 +45,18 @@ public class ExpCollectible : MonoBehaviour
         targetPosition = position;
         hasTarget = true;
     }
+
+    private void TurnOff()
+    {
+        ReturnToPool();
+    }
     
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {
             GameManager.Instance.UpdateExp(pointValue);
-            Destroy(gameObject);
+            ReturnToPool();
         }
     }
 }

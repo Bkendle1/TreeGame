@@ -155,6 +155,7 @@ public class Enemy : PoolObject
     
     private void Die()
     {
+
         for (int i = 0; i < Random.Range(expMin,expMax); i++)
         {
             expPool.Get(transform.position, Quaternion.identity);
