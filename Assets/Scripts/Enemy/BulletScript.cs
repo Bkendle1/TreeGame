@@ -38,14 +38,14 @@ public class BulletScript : MonoBehaviour
     {
         Invoke("Deactivate", deactivationTimer);
     }
-    
+
     private void Deactivate()
     {
+        Destroy(gameObject);
         // if (bulletPool != null)
         // {
         //     bulletPool.ReturnGameObject(gameObject);
         // }
-        Destroy(gameObject);
     }
 
     private void OnDisable()

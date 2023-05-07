@@ -45,11 +45,11 @@ public class EnemyShooting : MonoBehaviour
     //Gets called as an animation event
     public void Shoot()
     {
-       Instantiate(bullet, bulletSpawnPos.position, Quaternion.identity);
+        Instantiate(bullet, bulletSpawnPos.position, Quaternion.identity);
        
-       // GameObject projectile = projectilePool.GetObject(bullet);
-       // projectile.transform.rotation = Quaternion.identity;
-       // projectile.transform.position = bulletSpawnPos.position;
+        //GameObject projectile = projectilePool.GetObject(bullet);
+        //projectile.transform.rotation = Quaternion.identity;
+        //projectile.transform.position = bulletSpawnPos.position;
     }
     
     //Gets called as an animation event
