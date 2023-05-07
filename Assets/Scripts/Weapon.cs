@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    
+
     private void Start()
     {
         SetupWeapon();

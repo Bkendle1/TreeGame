@@ -5,6 +5,7 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
+using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = System.Numerics.Vector3;
 
@@ -19,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     
     private Animator anim;
     private PlayerControls controls;
+    [SerializeField] private Transform shootPos;
     
     void Awake()
     {
@@ -29,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         SetupWeapon();
+        
     }
     
     private void OnEnable()
@@ -39,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
         controls.Player.SecondaryFire.performed += OnSecondaryFirePerformed;
         
         controls.Enable();
+        
     }
 
     private void OnDisable()
@@ -80,17 +84,25 @@ public class PlayerAttack : MonoBehaviour
             Attack();
             canAttack = false;
             
+            
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
         }
     }
     
     private void Attack()
     {
+        //if game is paused, don't attack
         if(PauseMenu.isPaused)
         {
-            Debug.Log("Pause ACTIVATED");
             return;
         }
+
+        //check if the weapon has been upgraded
+        if (_weaponSpriteRenderer.sprite == playerWeaponProperties.GetUpgradedWeaponSprite)
+        {
+            Instantiate(playerWeaponProperties.GetProjectile, shootPos.transform.position, Quaternion.identity);
+        }
+
         
         //Setup weapon in case a new weapon was equipped
         SetupWeapon();
@@ -119,5 +131,6 @@ public class PlayerAttack : MonoBehaviour
         weaponAnimator = GetComponentInChildren<Weapon>().GetComponent<Animator>();
         playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
         _weaponSpriteRenderer = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
+        
     }
 }

@@ -27,7 +27,8 @@ public class ExpCollectible : PoolObject
 
     private void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) <= 5)
+        Debug.Log(Vector2.Distance(transform.position, player.transform.position));
+        if (Vector2.Distance(transform.position, player.transform.position) <= magnetDistance)
         {
             gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position,
                 player.transform.position, moveSpeed);

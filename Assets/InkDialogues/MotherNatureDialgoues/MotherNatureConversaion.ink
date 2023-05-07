@@ -6,8 +6,6 @@ CONST oakUpgradePrice = 20
 CONST redwoodUpgradePrice = 30
 VAR currentMoney = 0
 
--> start
-=== start ===
 ~playVoiceLine("MotherNature", "allrightchild")
 <color=\#005A04>All right child, are you ready to embark on your adventure? </color> #speaker: Mother Nature
 -> main
@@ -18,40 +16,41 @@ VAR currentMoney = 0
         First of all, who are you!? #speaker: Mabel
     + [Upgrade Weapon]
         //~playVoiceLine("MotherNature","letmegetthisstraight")
-        What weapon shall I upgrade? #speaker: MotherNature
+        <color=\#005A04>What weapon shall I upgrade?</color> #speaker: MotherNature
         ** [Branch ({branchUpgradePrice})]
             {currentMoney < branchUpgradePrice:
-                I'm sorry, but you need to collect more acorns.
+                <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                 -> main
             -else:
-                All right, here you go!
+                <color=\#005A04>All right, here you go!</color>
                 //call method to upgrade weapon
                 ~weaponSwap(0, true, branchUpgradePrice)
                 -> main
             }
         ** [Oak ({oakUpgradePrice})]
             {currentMoney < oakUpgradePrice:
-                    I'm sorry, but you need to collect more acorns.
+                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                     -> main
             -else:
-                All right, here you go!
+                <color=\#005A04>All right, here you go!</color>
                 //call method to upgrade weapon
                 ~weaponSwap(1, true, oakUpgradePrice)
                 -> main
             }
         ** [Redwood ({redwoodUpgradePrice})]
             {currentMoney < redwoodUpgradePrice:
-                    I'm sorry, but you need to collect more acorns.
+                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                     -> main
             -else:
-                All right, here you go!
+                <color=\#005A04>All right, here you go!</color>
                 //call method to upgrade weapon
                 ~weaponSwap(2, true, redwoodUpgradePrice)
                 -> main
             }
-        ** ->
-            I'm sorry, but you need to collect more acorns.
-            -> END
+        ++ [Nevermind]
+            ~playVoiceLine("MotherNature", "allrightchild")
+            <color=\#005A04>All right child, are you ready to embark on your adventure? </color> #speaker: Mother Nature
+            -> main
     + [Change Weapon.]
         -> WeaponSwap
     + [No thanks.]

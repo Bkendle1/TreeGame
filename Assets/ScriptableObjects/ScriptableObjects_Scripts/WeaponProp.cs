@@ -12,7 +12,7 @@ public class WeaponProp : ScriptableObject
     [SerializeField] private float m_knockbackPower;
     [SerializeField] private Sprite m_weaponSprite;
     [SerializeField] private Sprite m_upgradedWeaponSprite;
-    [SerializeField] private Sprite m_projectileSprite;
+    [SerializeField] private GameObject m_projectile;
     [SerializeField] private GameObject m_impactEffect;
     
     public int GetAttackDamage => m_attackDamage;
@@ -22,6 +22,6 @@ public class WeaponProp : ScriptableObject
     public float GetTimeBtwAttacks => m_timeBtwAttacks;
     public Sprite GetWeaponSprite => m_weaponSprite;
     public Sprite GetUpgradedWeaponSprite => m_upgradedWeaponSprite;
-    public Sprite GetProjectileSprite => m_projectileSprite;
+    public GameObject GetProjectile => m_projectile;
     public GameObject GetImpactEffect => m_impactEffect;
 }

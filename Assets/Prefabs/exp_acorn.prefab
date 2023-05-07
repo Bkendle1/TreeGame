@@ -140,6 +140,7 @@ MonoBehaviour:
   pointValue: 1
   moveSpeed: 0.25
   m_timeToLive: 3
+  magnetDistance: 3
 --- !u!1 &4029095191179500545
 GameObject:
   m_ObjectHideFlags: 0

@@ -84,7 +84,6 @@ public class Enemy : PoolObject
         SetupEnemySettings();
         
         //GameManager.Instance.LiveLost += RespawnEnemy;
-
     }
 
     private void Update()
@@ -95,12 +94,6 @@ public class Enemy : PoolObject
         }
     }
 
-    private void FixedUpdate()
-    {
-        //TODO the enemy gets stunned if they're hit once but the stun doesn't reset if they're hit successively
-
-    }
-    
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;

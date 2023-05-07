@@ -19,5 +19,5 @@ MonoBehaviour:
   m_knockbackPower: 25
   m_weaponSprite: {fileID: 21300000, guid: b01b8002d81c57d46b8cb688e4134300, type: 3}
   m_upgradedWeaponSprite: {fileID: 21300000, guid: 7dc076f4f753e88419e48142c5e106e6, type: 3}
-  m_projectileSprite: {fileID: 21300000, guid: 96a50322013e8674ea256ebc59c1d56e, type: 3}
+  m_projectile: {fileID: 2648299020803413699, guid: 8c0557d33a9a78e4780184ccbc07e1c4, type: 3}
   m_impactEffect: {fileID: 0}
