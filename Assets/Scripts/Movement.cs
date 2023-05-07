@@ -327,21 +327,13 @@ public class Movement : MonoBehaviour
             //if player is hit from right, apply force towards the left
             if (KnockFromRight)
             {
-                //rb.velocity = new Vector2(-KBForce, KBForce);
-                
                 //set velocity to 45 degrees multiplied by KBForce in the left direction
                 rb.velocity = UnityEngine.Quaternion.AngleAxis(45f, Vector2.right) * Vector2.left * KBForce;
-                
-                //rb.AddForce(new Vector2(-KBForce, KBForce), ForceMode2D.Impulse);
             }
             else // else apply force towards the right
             {
-                //rb.velocity = new Vector2(KBForce, KBForce);
-                
                 //set velocity to 45 degrees multiplied by KBForce in the right direction
                 rb.velocity = UnityEngine.Quaternion.AngleAxis(45f, Vector2.right) * Vector2.right * KBForce;
-                
-                //rb.AddForce(new Vector2(KBForce, KBForce), ForceMode2D.Impulse);
             }
             KBTimer -= Time.deltaTime;
         }

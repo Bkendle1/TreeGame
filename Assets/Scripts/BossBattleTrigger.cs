@@ -9,7 +9,8 @@ public class BossBattleTrigger : MonoBehaviour
 
     private BoxCollider2D boxCol;
     private Enemy enemy;
-    
+
+    [SerializeField] private GameObject enemyHealthBar;
     private void Start()
     {
         enemy = GetComponentInParent<Enemy>();
@@ -35,7 +36,7 @@ public class BossBattleTrigger : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            enemy.healthBar.enabled = true;
+            enemyHealthBar.SetActive(true);
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;
