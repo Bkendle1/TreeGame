@@ -56,8 +56,8 @@ public class Enemy : PoolObject
     private Animator anim;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
-    private Pooling deathEffectPool;
-    private Pooling expPool;
+    private ObjectPoolAdvanced deathEffectPool;
+    private ObjectPoolAdvanced expPool;
     private UnityEngine.Object enemyRef;
     private Vector3 startPos;
 
@@ -73,7 +73,8 @@ public class Enemy : PoolObject
         originalColor = spriteRenderer.color;
         enemyRef = Resources.Load(enemyName);
         startPos = transform.position;
-        
+        expPool = FindObjectOfType<ObjectPoolAdvanced>();
+        deathEffectPool = FindObjectOfType<ObjectPoolAdvanced>();
         //set up health bar's max hp
         healthBar.SetMaxHealth(enemyProperties.GetHealthAmount);
         
@@ -82,7 +83,7 @@ public class Enemy : PoolObject
         Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
         
         SetupEnemySettings();
-        
+        Debug.Log(enemyProperties.GetDeathEffect);
         //GameManager.Instance.LiveLost += RespawnEnemy;
     }
 
@@ -151,7 +152,10 @@ public class Enemy : PoolObject
 
         for (int i = 0; i < Random.Range(expMin,expMax); i++)
         {
-            expPool.Get(new Vector2(transform.position.x, transform.position.y + 1), Quaternion.identity);
+            //expPool.Get(new Vector2(transform.position.x, transform.position.y + 1), Quaternion.identity);
+            GameObject acorn = expPool.GetObject(expAcorn);
+            acorn.transform.rotation = transform.rotation;
+            acorn.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
         }
         
         //Disable health bar on death
@@ -165,8 +169,10 @@ public class Enemy : PoolObject
         //through the ground kinematic work also
         boxCollider.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
-        
-        deathEffectPool.Get(transform.localPosition, transform.localRotation);
+
+        GameObject deathEffect = deathEffectPool.GetObject(enemyProperties.GetDeathEffect);
+        deathEffect.transform.rotation = transform.rotation;
+        deathEffect.transform.position = transform.position;
 
         //Disable child's collision blocker collider 
         ColliderBlocker.enabled = false;
@@ -245,18 +251,6 @@ public class Enemy : PoolObject
     {
         spriteRenderer.sprite = enemyProperties.GetEnemySprite;
         currentHealth = enemyProperties.GetHealthAmount;
-        if (!PoolManager.DoesPoolExist(enemyProperties.GetDeathEffect.gameObject.name))
-        {
-            PoolManager.CreatePool(enemyProperties.GetDeathEffect.gameObject.name, enemyProperties.GetDeathEffect, 10);
-        }
-
-        if (!PoolManager.DoesPoolExist(expAcorn.gameObject.name))
-        {
-            PoolManager.CreatePool(expAcorn.gameObject.name, expAcorn, 30);
-        }
-
-        expPool = PoolManager.GetPool(expAcorn.gameObject.name);
-        deathEffectPool = PoolManager.GetPool(enemyProperties.GetDeathEffect.gameObject.name);
     }
     
     private void OnDestroy()

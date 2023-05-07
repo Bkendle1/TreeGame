@@ -21,7 +21,10 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     private PlayerControls controls;
     [SerializeField] private Transform shootPos;
+
     private GameObject projectile;
+    private ObjectPoolAdvanced projectilePool;
+    
     void Awake()
     {
         controls = new PlayerControls();
@@ -31,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     private void Start()
     {
         SetupWeapon();
-        
+        projectilePool = FindObjectOfType<ObjectPoolAdvanced>();
     }
     
     private void OnEnable()
@@ -102,7 +105,9 @@ public class PlayerAttack : MonoBehaviour
         //check if the weapon has been upgraded
         if (_weaponSpriteRenderer.sprite == playerWeaponProperties.GetUpgradedWeaponSprite)
         {
-            Instantiate(projectile, shootPos.transform.position, Quaternion.identity);
+            GameObject obj = projectilePool.GetObject(projectile);
+            obj.transform.rotation = shootPos.rotation;
+            obj.transform.position = shootPos.position;
         }
 
         //trigger player attack animation

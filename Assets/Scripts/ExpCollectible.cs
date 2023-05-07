@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ExpCollectible : PoolObject
+public class ExpCollectible : MonoBehaviour
 {
     [Tooltip("How much each exp acorn is worth.")]
     [SerializeField] private int pointValue = 1;
@@ -16,35 +16,40 @@ public class ExpCollectible : PoolObject
     [SerializeField] private float magnetDistance = 4f;
     private Rigidbody2D rb;
     private Transform player;
-    private bool hasStarted = true;
+    private ObjectPoolAdvanced objectPool;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Invoke("TurnOff", m_timeToLive);
         player = FindObjectOfType<Movement>().transform;
+        objectPool = FindObjectOfType<ObjectPoolAdvanced>();
+        rb.AddForce(new Vector2(Random.Range(-5, 10), Random.Range(5,10)), ForceMode2D.Impulse);
     }
 
     private void FixedUpdate()
     {
-        Debug.Log(Vector2.Distance(transform.position, player.transform.position));
         if (Vector2.Distance(transform.position, player.transform.position) <= magnetDistance)
         {
             gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position,
                 player.transform.position, moveSpeed);
         }
-
-        if (hasStarted)
-        {
-            rb.AddForce(new Vector2(Random.Range(-5, 10), Random.Range(5,10)), ForceMode2D.Impulse);
-            hasStarted = false;
-        }
     }
 
-    private void TurnOff()
+    private void OnEnable()
     {
-        hasStarted = true;
-        ReturnToPool();
+        if (rb != null)
+        {
+            rb.AddForce(new Vector2(Random.Range(-5, 10), Random.Range(5,10)), ForceMode2D.Impulse);
+        }
+        Invoke("Deactivate", m_timeToLive);
+    }
+
+    private void Deactivate()
+    {
+        if (objectPool != null)
+        {
+            objectPool.ReturnGameObject(gameObject);
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D col)
@@ -52,7 +57,7 @@ public class ExpCollectible : PoolObject
         if (col.CompareTag("Player"))
         {
             GameManager.Instance.UpdateExp(pointValue);
-            ReturnToPool();
+            Deactivate();
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5580438366711224009}
   - component: {fileID: 4231459455618372869}
   - component: {fileID: 7291778757201831572}
-  - component: {fileID: 1950940970613502081}
+  - component: {fileID: 262154619026440881}
   m_Layer: 0
   m_Name: Blood_splash_02
   m_TagString: Untagged
@@ -4883,7 +4883,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1950940970613502081
+--- !u!114 &262154619026440881
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4892,7 +4892,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2989052336247690466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18575bf3d3a030547963d86f01d8db64, type: 3}
+  m_Script: {fileID: 11500000, guid: d21550b883ea7174faafe5fd3967f3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_timeToLive: 3

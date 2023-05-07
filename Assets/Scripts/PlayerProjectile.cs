@@ -11,25 +11,42 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private GameObject ImpactEffect;
     [SerializeField] private int projectileDamage;
     [Tooltip("How long until projectile is destroyed if it doesn't collide with anything.")]
-    [SerializeField] private float destructionTimer = 3f;
+    [SerializeField] private float deactivationTimer = 3f;
 
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
     private Transform player;
+
+    private ObjectPoolAdvanced objectPool;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Movement>().transform;
         rb.velocity = new Vector2(player.localScale.x, rb.velocity.y).normalized * projectileSpeed;
-        Invoke("SelfDestroy", destructionTimer);
-        
+        objectPool = FindObjectOfType<ObjectPoolAdvanced>();
     }
 
-    private void SelfDestroy()
+    private void Deactivate()
     {
-        Destroy(gameObject);
+        if (objectPool != null)
+        {
+            objectPool.ReturnGameObject(gameObject);
+        }
+    }
+    private void OnEnable()
+    {
+        if (rb != null)
+        {
+            rb.velocity = new Vector2(player.localScale.x, rb.velocity.y).normalized * projectileSpeed;
+        }
+        Invoke("Deactivate", deactivationTimer);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -39,10 +56,16 @@ public class PlayerProjectile : MonoBehaviour
             //TODO instantiate impact effect
             col.GetComponent<Enemy>().TakeDamage(projectileDamage);
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
-            Destroy(gameObject);
+            if (objectPool != null)
+            {
+                objectPool.ReturnGameObject(gameObject);
+            }
         } else if (col.gameObject.layer == 6)
         {
-            Destroy(gameObject);
+            if (objectPool != null)
+            {
+                objectPool.ReturnGameObject(gameObject);
+            }
         }
     }
 }
