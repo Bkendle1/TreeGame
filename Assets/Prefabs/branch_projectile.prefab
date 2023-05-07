@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateDirection: {x: 0, y: 0, z: -1}
-  rotateSpeed: 100
+  rotateSpeed: 200
 --- !u!114 &2764495184674055138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d68d07bed8fe974d8fc8bcf77bbb348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 10
+  projectileSpeed: 15
   ImpactEffect: {fileID: 0}
   projectileDamage: 10
   destructionTimer: 3

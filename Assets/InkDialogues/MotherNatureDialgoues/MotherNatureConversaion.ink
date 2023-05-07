@@ -19,18 +19,21 @@ VAR canUpgradeRedwood = true
         ~playVoiceLine("Player", "firstofall")
         First of all, who are you!? #speaker: Mabel
     + [Upgrade Weapon]
-        //~playVoiceLine("MotherNature","letmegetthisstraight")
+        ~playVoiceLine("MotherNature","upgradewhatweapon")
         <color=\#005A04>What weapon shall I upgrade?</color> #speaker: MotherNature
         ++ [Branch ({branchUpgradePrice})]
             {
             - canUpgradeBranch == false:
-                <color=\#005A04>You already have that upgrade.</color>
+                ~playVoiceLine("MotherNature","youalreadyhavethat")
+                <color=\#005A04>You already have that upgrade.</color> #speaker: MotherNature
                 -> main
             -currentMoney < branchUpgradePrice:
-                <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
+                ~playVoiceLine("MotherNature","imsorry")
+                <color=\#005A04>I'm sorry, but you need to collect more acorns.</color> #speaker: MotherNature
                 -> main
             -else:
-                <color=\#005A04>All right, here you go!</color>
+                ~playVoiceLine("MotherNature", "hereyougo")
+                <color=\#005A04>All right, here you go!</color> #speaker: MotherNature
                 ~ canUpgradeBranch = false
                 //call method to upgrade weapon
                 ~weaponSwap(0, true, branchUpgradePrice)
@@ -39,13 +42,16 @@ VAR canUpgradeRedwood = true
         ++ [Oak ({oakUpgradePrice})]
             {
             - canUpgradeOak == false:
-                <color=\#005A04>You already have that upgrade.</color>
+                ~playVoiceLine("MotherNature","youalreadyhavethat")
+                <color=\#005A04>You already have that upgrade.</color> #speaker: MotherNature
                 -> main
             -currentMoney < oakUpgradePrice:
-                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
+                    ~playVoiceLine("MotherNature","imsorry")
+                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color> #speaker: MotherNature
                     -> main
             - else:
-                <color=\#005A04>All right, here you go!</color>
+                ~playVoiceLine("MotherNature", "hereyougo")
+                <color=\#005A04>All right, here you go!</color> #speaker: MotherNature
                 ~ canUpgradeOak = false
                 //call method to upgrade weapon
                 ~weaponSwap(1, true, oakUpgradePrice)
@@ -54,13 +60,16 @@ VAR canUpgradeRedwood = true
         ++ [Redwood ({redwoodUpgradePrice})]
             {
             - canUpgradeRedwood == false:
-                <color=\#005A04>You already have that upgrade.</color>
+                ~playVoiceLine("MotherNature","youalreadyhavethat")
+                <color=\#005A04>You already have that upgrade.</color> #speaker: MotherNature
                 -> main
             -currentMoney < redwoodUpgradePrice:
-                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
+                    ~playVoiceLine("MotherNature","imsorry")
+                    <color=\#005A04>I'm sorry, but you need to collect more acorns.</color> #speaker: MotherNature
                     -> main
             -else:
-                <color=\#005A04>All right, here you go!</color>
+                ~playVoiceLine("MotherNature", "hereyougo")
+                <color=\#005A04>All right, here you go!</color> #speaker: MotherNature
                 ~ canUpgradeRedwood = false
                 //call method to upgrade weapon
                 ~weaponSwap(2, true, redwoodUpgradePrice)
@@ -74,7 +83,7 @@ VAR canUpgradeRedwood = true
         -> WeaponSwap
     + [No thanks.]
         ~playVoiceLine("MotherNature", "farewell")
-        <color=\#005A04>Farewell child.</color>
+        <color=\#005A04>Farewell child.</color> #speaker: MotherNature
         -> END
 - ~playVoiceLine("MotherNature", "iunderstandyouhavequestions")
 <color=\#005A04>I understand you have questions but there's no time right now.</color> #speaker: Mother Nature
@@ -87,15 +96,19 @@ VAR canUpgradeRedwood = true
     + [Branch]
         ~playVoiceLine("MotherNature","isthateverything")
         ~weaponSwap(0, false, 0)
-        <color=\#005A04>Great, is that everything?</color>
+        <color=\#005A04>Great, is that everything?</color> #speaker: MotherNature
         -> main
     + [Oak]
         ~playVoiceLine("MotherNature","isthateverything")
         ~weaponSwap(1, false, 0)
-        <color=\#005A04>Great, is that everything?</color>
+        <color=\#005A04>Great, is that everything?</color> #speaker: MotherNature
         -> main
     + [Redwood]
         ~playVoiceLine("MotherNature","isthateverything")
         ~weaponSwap(2, false, 0)
-        <color=\#005A04>Great, is that everything?</color>
+        <color=\#005A04>Great, is that everything?</color> #speaker: MotherNature
+        -> main
+    + [Nevermind]
+    ~playVoiceLine("MotherNature", "allrightchild")
+            <color=\#005A04>All right child, are you ready to embark on your adventure? </color> #speaker: Mother Nature
         -> main

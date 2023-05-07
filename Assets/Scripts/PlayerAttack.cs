@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator anim;
     private PlayerControls controls;
     [SerializeField] private Transform shootPos;
-    
+    private GameObject projectile;
     void Awake()
     {
         controls = new PlayerControls();
@@ -79,12 +79,11 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
         
+
         if (attackInput && canAttack)
         {
             Attack();
             canAttack = false;
-            
-            
             Invoke("ResetAttack", playerWeaponProperties.GetTimeBtwAttacks);
         }
     }
@@ -97,16 +96,15 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        //check if the weapon has been upgraded
-        if (_weaponSpriteRenderer.sprite == playerWeaponProperties.GetUpgradedWeaponSprite)
-        {
-            Instantiate(playerWeaponProperties.GetProjectile, shootPos.transform.position, Quaternion.identity);
-        }
-
-        
         //Setup weapon in case a new weapon was equipped
         SetupWeapon();
         
+        //check if the weapon has been upgraded
+        if (_weaponSpriteRenderer.sprite == playerWeaponProperties.GetUpgradedWeaponSprite)
+        {
+            Instantiate(projectile, shootPos.transform.position, Quaternion.identity);
+        }
+
         //trigger player attack animation
         anim.SetTrigger("Attack");
         
@@ -131,6 +129,7 @@ public class PlayerAttack : MonoBehaviour
         weaponAnimator = GetComponentInChildren<Weapon>().GetComponent<Animator>();
         playerWeaponProperties = GetComponentInChildren<Weapon>().weaponProperties;
         _weaponSpriteRenderer = GetComponentInChildren<Weapon>().GetComponent<SpriteRenderer>();
-        
+        projectile = playerWeaponProperties.GetProjectile;
+
     }
 }

@@ -17760,6 +17760,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a64c25e5b3add6548b8f36377dc47111, type: 3}
   - {fileID: 8300000, guid: de43b9271921ed24781b415f2a821d01, type: 3}
   - {fileID: 8300000, guid: 3263b10b86ea13b4ca5036e4fe80d212, type: 3}
+  - {fileID: 8300000, guid: 269f934dd5ff7b44ab0a3cbd854f0df7, type: 3}
+  - {fileID: 8300000, guid: ff5b0cc2e13e256468ab50fff85418cf, type: 3}
+  - {fileID: 8300000, guid: 50a53ec70901ccb438b71e7536ec256d, type: 3}
+  - {fileID: 8300000, guid: bc85c7f9adeb2044396364f1e1674b90, type: 3}
   PlayerVoiceLines:
   - {fileID: 8300000, guid: f841c83fad7a4d747871812cecda77e9, type: 3}
   - {fileID: 8300000, guid: 20791cb7d6558834b8bbabd6552c1d6b, type: 3}

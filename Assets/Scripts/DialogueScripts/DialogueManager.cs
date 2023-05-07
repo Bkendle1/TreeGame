@@ -75,7 +75,12 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
         }
-        currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
+
+        if (currentStory.variablesState["currentMoney"] != null)
+        {
+            currentStory.variablesState["currentMoney"] = GameManager.Instance.GetCurrentExpAmount;
+        }
+        
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
