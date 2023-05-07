@@ -1460,7 +1460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastCheckPointPos: {x: -14.34, y: -2.55}
   m_expUI: {fileID: 1897497207}
-  m_exp: 50
+  m_exp: 0
   decrementRate: 0.05
   m_livesUI: {fileID: 2083028549}
   m_lives: 3

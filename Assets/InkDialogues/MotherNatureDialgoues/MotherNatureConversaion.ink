@@ -6,6 +6,10 @@ CONST oakUpgradePrice = 20
 CONST redwoodUpgradePrice = 30
 VAR currentMoney = 0
 
+VAR canUpgradeBranch = true
+VAR canUpgradeOak = true
+VAR canUpgradeRedwood = true
+
 ~playVoiceLine("MotherNature", "allrightchild")
 <color=\#005A04>All right child, are you ready to embark on your adventure? </color> #speaker: Mother Nature
 -> main
@@ -17,32 +21,47 @@ VAR currentMoney = 0
     + [Upgrade Weapon]
         //~playVoiceLine("MotherNature","letmegetthisstraight")
         <color=\#005A04>What weapon shall I upgrade?</color> #speaker: MotherNature
-        ** [Branch ({branchUpgradePrice})]
-            {currentMoney < branchUpgradePrice:
+        ++ [Branch ({branchUpgradePrice})]
+            {
+            - canUpgradeBranch == false:
+                <color=\#005A04>You already have that upgrade.</color>
+                -> main
+            -currentMoney < branchUpgradePrice:
                 <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                 -> main
             -else:
                 <color=\#005A04>All right, here you go!</color>
+                ~ canUpgradeBranch = false
                 //call method to upgrade weapon
                 ~weaponSwap(0, true, branchUpgradePrice)
                 -> main
             }
-        ** [Oak ({oakUpgradePrice})]
-            {currentMoney < oakUpgradePrice:
+        ++ [Oak ({oakUpgradePrice})]
+            {
+            - canUpgradeOak == false:
+                <color=\#005A04>You already have that upgrade.</color>
+                -> main
+            -currentMoney < oakUpgradePrice:
                     <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                     -> main
-            -else:
+            - else:
                 <color=\#005A04>All right, here you go!</color>
+                ~ canUpgradeOak = false
                 //call method to upgrade weapon
                 ~weaponSwap(1, true, oakUpgradePrice)
                 -> main
             }
-        ** [Redwood ({redwoodUpgradePrice})]
-            {currentMoney < redwoodUpgradePrice:
+        ++ [Redwood ({redwoodUpgradePrice})]
+            {
+            - canUpgradeRedwood == false:
+                <color=\#005A04>You already have that upgrade.</color>
+                -> main
+            -currentMoney < redwoodUpgradePrice:
                     <color=\#005A04>I'm sorry, but you need to collect more acorns.</color>
                     -> main
             -else:
                 <color=\#005A04>All right, here you go!</color>
+                ~ canUpgradeRedwood = false
                 //call method to upgrade weapon
                 ~weaponSwap(2, true, redwoodUpgradePrice)
                 -> main
