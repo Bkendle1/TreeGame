@@ -12,7 +12,6 @@ public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPos;
-    private float timer; // shooting frequency
     private EnemyProp enemyProperties;
     private Transform player;
     private Animator anim;
@@ -43,13 +42,17 @@ public class EnemyShooting : MonoBehaviour
         }
     }
     
+    //Gets called as an animation event
     public void Shoot()
     {
-        GameObject projectile = projectilePool.GetObject(bullet);
-        projectile.transform.rotation = bulletSpawnPos.rotation;
-        projectile.transform.position = bulletSpawnPos.position;
+       Instantiate(bullet, bulletSpawnPos.position, Quaternion.identity);
+       
+       // GameObject projectile = projectilePool.GetObject(bullet);
+       // projectile.transform.rotation = Quaternion.identity;
+       // projectile.transform.position = bulletSpawnPos.position;
     }
-
+    
+    //Gets called as an animation event
     public void ResetAttackTrigger()
     {
         anim.ResetTrigger("Attack");

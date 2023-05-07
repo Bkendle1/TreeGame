@@ -83,7 +83,6 @@ public class Enemy : MonoBehaviour
         Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
         
         SetupEnemySettings();
-        Debug.Log(enemyProperties.GetDeathEffect);
         //GameManager.Instance.LiveLost += RespawnEnemy;
     }
 

@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fb153cb3d000e448cdd5297101f5f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
+  force: 8
   damageValue: 10
-  destructionTimer: 3
+  deactivationTimer: 3
   camShakeIntensity: 4
   camShakeDuration: 0.1
 --- !u!61 &4472166968423351466

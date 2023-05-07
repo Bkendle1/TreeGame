@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -10,12 +11,12 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private int damageValue = 10;
     [Tooltip("How long before the bullet deactivates itself.")]
     [SerializeField] private float deactivationTimer = 3f;
+    
     private Transform player;
     private Rigidbody2D rb;
-    private float timer;
     private Vector2 direction;
 
-    private ObjectPoolAdvanced bulletPool;
+    //private ObjectPoolAdvanced bulletPool;
     
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
@@ -23,33 +24,28 @@ public class BulletScript : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = FindObjectOfType<Movement>().transform;
         rb = GetComponent<Rigidbody2D>();
-        bulletPool = FindObjectOfType<ObjectPoolAdvanced>();
+        //bulletPool = FindObjectOfType<ObjectPoolAdvanced>();
         
+        Vector3 direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
-        
-        direction = player.transform.position - transform.position;
         float rotationAngle = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rotationAngle + 90);
-
+        transform.rotation = Quaternion.Euler(0,0,rotationAngle + 90);
     }
 
     private void OnEnable()
     {
-        if (rb != null)
-        {
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
-        }
         Invoke("Deactivate", deactivationTimer);
     }
-
+    
     private void Deactivate()
     {
-        if (bulletPool != null)
-        {
-            bulletPool.ReturnGameObject(gameObject);
-        }
+        // if (bulletPool != null)
+        // {
+        //     bulletPool.ReturnGameObject(gameObject);
+        // }
+        Destroy(gameObject);
     }
 
     private void OnDisable()
@@ -63,6 +59,7 @@ public class BulletScript : MonoBehaviour
         {
             col.GetComponent<PlayerHealth>().TakeDamage(damageValue);
             Movement playerMovement = col.GetComponent<Movement>();
+            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
             
             playerMovement.KBTimer = playerMovement.KBDuration;
             
@@ -74,8 +71,7 @@ public class BulletScript : MonoBehaviour
             {
                 playerMovement.KnockFromRight = false;
             }
-            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
-            bulletPool.ReturnGameObject(gameObject);
+            Deactivate();
         }
     }
 }
