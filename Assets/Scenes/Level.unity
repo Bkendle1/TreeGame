@@ -1516,12 +1516,12 @@ SpriteRenderer:
   m_SortingLayerID: 217169689
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 39d96a21caa2937408ed4eb2036af49b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d56a9bb28915b8744a2efc72a8e7beea, type: 3}
   m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 200, y: 10.8}
+  m_Size: {x: 394.97632, y: 21.328722}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1535,7 +1535,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278732069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -73.68933, y: -10.798387, z: -5.0438414}
+  m_LocalPosition: {x: -75.5751, y: -5.3975, z: -5.0438414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3714,12 +3714,12 @@ SpriteRenderer:
   m_SortingLayerID: 217169689
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: b508b0b44c975044dbc44a5896e1dabe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2594d03f534f9ff4e8265ea278d72a3d, type: 3}
   m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 200, y: 10.8}
+  m_Size: {x: 394.97632, y: 21.328722}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3733,7 +3733,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634003176}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -70.26883, y: -10.748386, z: -5.0438414}
+  m_LocalPosition: {x: -68.8201, y: -5.2988, z: -5.0438414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3777,7 +3777,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641199338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 74.123566, y: 11.702052, z: 0.61434036}
+  m_LocalPosition: {x: 74.123566, y: 9.6, z: 0.61434036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -25438,12 +25438,12 @@ SpriteRenderer:
   m_SortingLayerID: 217169689
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 46e1510276c4dc14d8aebfa8e7a816ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db79f0f8dd1b568459791260f8c59dce, type: 3}
   m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 200, y: 10.8}
+  m_Size: {x: 394.97632, y: 21.328722}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -25457,7 +25457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776860949}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -73.97283, y: -10.778386, z: -5.0438414}
+  m_LocalPosition: {x: -76.135, y: -5.358, z: -5.0438414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28628,12 +28628,12 @@ SpriteRenderer:
   m_SortingLayerID: 217169689
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 0b2ee545775011d40860c9f64885c8fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71d395746152e5847bd8e340f6cb0f77, type: 3}
   m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 200, y: 10.8}
+  m_Size: {x: 394.97632, y: 21.328722}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -28647,7 +28647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369532498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -69.537025, y: -10.938386, z: -5.0438414}
+  m_LocalPosition: {x: -67.3748, y: -5.674, z: -5.0438414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84120,9 +84120,15 @@ PolygonCollider2D:
       - {x: 589, y: -4.2}
       - {x: 589, y: 15}
       - {x: -21, y: 15}
-      - {x: -21, y: -8}
-      - {x: 178, y: -8}
-      - {x: 178, y: -20}
+      - {x: -21, y: -5.5}
+      - {x: 57, y: -5.5}
+      - {x: 57, y: -7.7}
+      - {x: 84.27675, y: -7.7}
+      - {x: 90.73537, y: -5.5}
+      - {x: 125, y: -5.5}
+      - {x: 137.67857, y: -7.5}
+      - {x: 180, y: -7.5}
+      - {x: 180, y: -20.136763}
       - {x: 420, y: -20}
       - {x: 452, y: -17}
       - {x: 452, y: -6}
