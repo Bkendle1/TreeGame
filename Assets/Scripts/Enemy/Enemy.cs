@@ -80,7 +80,10 @@ public class Enemy : MonoBehaviour
         
         //Ignore collisions this gameObject's box collider and child box collider (CollisionBlocker) that has 
         //a kinematic rigid body preventing the enemy from pushing the player and vice versa
-        Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
+        if (ColliderBlocker != null)
+        {
+            Physics2D.IgnoreCollision(boxCollider, ColliderBlocker, true);
+        }
         
         SetupEnemySettings();
         //GameManager.Instance.LiveLost += RespawnEnemy;
@@ -167,15 +170,26 @@ public class Enemy : MonoBehaviour
         //to static so the enemy doesn't fall 
         //through the ground kinematic work also
         boxCollider.enabled = false;
-        rb.bodyType = RigidbodyType2D.Static;
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Static;
+        }
 
         GameObject deathEffect = deathEffectPool.GetObject(enemyProperties.GetDeathEffect);
         deathEffect.transform.rotation = transform.rotation;
         deathEffect.transform.position = transform.position;
 
         //Disable child's collision blocker collider 
-        ColliderBlocker.enabled = false;
+        if (ColliderBlocker != null)
+        {
+            ColliderBlocker.enabled = false;
+        }
         
+        //if the MalWart boss is defeated
+        if (gameObject.name == "MalWartBoss")
+        {
+            CinemachineManager.Instance.SwitchPriority();
+        }
         //Invoke("RespawnEnemy", 1f);
     }
     
@@ -204,7 +218,6 @@ public class Enemy : MonoBehaviour
         {
             //Destroy(gameObject);
             spriteRenderer.enabled = false;
-            
             enemyProperties.GetDeathEffect.SetActive(false);
         }
     }

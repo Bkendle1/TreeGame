@@ -94,6 +94,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager.Instance.UpdateLives(-1);
         //Respawn player at new position
         gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
+        CinemachineManager.Instance.SwitchPriority();
     }
     
     public void Heal(int value)
