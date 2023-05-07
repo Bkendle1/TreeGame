@@ -8,7 +8,7 @@ using UnityEngine;
 /// This is for the CEO enemy, this script and the enemy attack script shouldn't be on the same game object as they both check
 /// for the player is in the attack range.
 /// </summary>
-public class EnemyShooting : PoolObject
+public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletSpawnPos;
@@ -17,20 +17,14 @@ public class EnemyShooting : PoolObject
     private Transform player;
     private Animator anim;
 
-    private Pooling projectilePool;
+    private ObjectPoolAdvanced projectilePool;
     
     void Start()
     {
         enemyProperties = GetComponent<Enemy>().enemyProperties;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
-
-        if (!PoolManager.DoesPoolExist(bullet.gameObject.name))
-        {
-            PoolManager.CreatePool(bullet.gameObject.name, bullet, 10);
-        }
-
-        projectilePool = PoolManager.GetPool(bullet.gameObject.name);
+        projectilePool = FindObjectOfType<ObjectPoolAdvanced>();
     }
     
 
@@ -51,7 +45,9 @@ public class EnemyShooting : PoolObject
     
     public void Shoot()
     {
-        projectilePool.Get(bulletSpawnPos.position, Quaternion.identity);
+        GameObject projectile = projectilePool.GetObject(bullet);
+        projectile.transform.rotation = bulletSpawnPos.rotation;
+        projectile.transform.position = bulletSpawnPos.position;
     }
 
     public void ResetAttackTrigger()
@@ -59,12 +55,7 @@ public class EnemyShooting : PoolObject
         anim.ResetTrigger("Attack");
         // anim.speed = 1;
     }
-
-    private void OnDestroy()
-    {
-        PoolManager.DeletePool(bullet.gameObject.name);
-    }
-
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, enemyProperties.GetAttackRange);

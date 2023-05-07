@@ -57,7 +57,6 @@ public class EnemyPatrol : MonoBehaviour
         if (!GetComponent<Enemy>().isStunned)
         {
             //move enemy
-            
             rb.velocity = new Vector2(patrolSpeed, rb.velocity.y);
         }
     }

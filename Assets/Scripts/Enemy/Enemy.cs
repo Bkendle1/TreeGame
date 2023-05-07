@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-public class Enemy : PoolObject
+public class Enemy : MonoBehaviour
 {
     [SerializeField] public EnemyProp enemyProperties;
     
@@ -251,11 +251,5 @@ public class Enemy : PoolObject
     {
         spriteRenderer.sprite = enemyProperties.GetEnemySprite;
         currentHealth = enemyProperties.GetHealthAmount;
-    }
-    
-    private void OnDestroy()
-    {
-        PoolManager.DeletePool(enemyProperties.GetDeathEffect.gameObject.name);
-        PoolManager.DeletePool(expAcorn.gameObject.name);
     }
 }

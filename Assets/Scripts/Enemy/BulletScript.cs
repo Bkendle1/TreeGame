@@ -8,12 +8,14 @@ public class BulletScript : MonoBehaviour
     [SerializeField] private float force;
     [Tooltip("How much damage to deal to player.")]
     [SerializeField] private int damageValue = 10;
-    [Tooltip("How long before the bullet destroys itself.")]
-    [SerializeField] private float destructionTimer = 3f;
+    [Tooltip("How long before the bullet deactivates itself.")]
+    [SerializeField] private float deactivationTimer = 3f;
     private Transform player;
     private Rigidbody2D rb;
     private float timer;
     private Vector2 direction;
+
+    private ObjectPoolAdvanced bulletPool;
     
     [Header("Cinemachine")]                               
     [SerializeField] private float camShakeIntensity = 4f;
@@ -23,13 +25,36 @@ public class BulletScript : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
+        bulletPool = FindObjectOfType<ObjectPoolAdvanced>();
         
-        direction = player.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
         
+        direction = player.transform.position - transform.position;
         float rotationAngle = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, rotationAngle + 90);
-        
+
+    }
+
+    private void OnEnable()
+    {
+        if (rb != null)
+        {
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+        }
+        Invoke("Deactivate", deactivationTimer);
+    }
+
+    private void Deactivate()
+    {
+        if (bulletPool != null)
+        {
+            bulletPool.ReturnGameObject(gameObject);
+        }
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -50,7 +75,7 @@ public class BulletScript : MonoBehaviour
                 playerMovement.KnockFromRight = false;
             }
             CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
-            gameObject.SetActive(false);
+            bulletPool.ReturnGameObject(gameObject);
         }
     }
 }

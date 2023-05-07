@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1389366684270932820}
   - component: {fileID: 926672254697331479}
   - component: {fileID: 4472166968423351466}
-  - component: {fileID: 899629836371768273}
+  - component: {fileID: 213741851461483974}
   m_Layer: 7
   m_Name: hotDogProjectile
   m_TagString: Untagged
@@ -152,7 +152,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
---- !u!114 &899629836371768273
+--- !u!114 &213741851461483974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5666287618730057308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18575bf3d3a030547963d86f01d8db64, type: 3}
+  m_Script: {fileID: 11500000, guid: d21550b883ea7174faafe5fd3967f3a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_timeToLive: 3
