@@ -6,7 +6,8 @@ using UnityEngine;
 public class MalWartParent : MonoBehaviour
 {
     private BossBattleTrigger bossTrigger;
-
+    private bool hasSpawnedMalWart = false;
+    
     private void Start()
     {
         bossTrigger = GetComponentInChildren<BossBattleTrigger>();
@@ -14,7 +15,7 @@ public class MalWartParent : MonoBehaviour
 
     private void Update()
     {
-        if (bossTrigger.activateBossFight)
+        if (bossTrigger.activateBossFight && !hasSpawnedMalWart)
         {
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -24,6 +25,8 @@ public class MalWartParent : MonoBehaviour
                     child.SetActive(true);
                 }
             }
+
+            hasSpawnedMalWart = true;
         }
     }
 }

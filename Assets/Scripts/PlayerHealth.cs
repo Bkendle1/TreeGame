@@ -19,7 +19,9 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("How long player is invincible for make sure hurtDuration and hurt animation all match up.")]
     [SerializeField] private float iFrameDuration = 1f;
     private Color originalColor;
-    
+
+    [SerializeField] private Transform malWart;
+    [SerializeField] private float distanceFromMalWart = 10f;
     
     private Animator anim;
     private SpriteRenderer spriteRenderer;
@@ -53,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.gameObject.SetActive(true);
         }
+        Debug.Log(Vector2.Distance(malWart.transform.position, transform.position));
         
     }
 
@@ -94,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager.Instance.UpdateLives(-1);
         //Respawn player at new position
         gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
-        if (BossBattleTrigger.isBossFighting)
+        if (FindObjectOfType<BossBattleTrigger>().activateBossFight)
         {
             Debug.Log("Start fighting");
             CinemachineManager.Instance.SwitchPriority();

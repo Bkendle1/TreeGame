@@ -75,11 +75,6 @@ public class MalWartBoss : MonoBehaviour
             StopAllCoroutines();
         }
 
-        if (BossBattleTrigger.isBossFighting)
-        {
-            m_battlePhase = Phases.PhaseOne;
-            Debug.Log("Battle begun");
-        }
         else
         {
             Debug.Log("Battle hasn't started yet.");

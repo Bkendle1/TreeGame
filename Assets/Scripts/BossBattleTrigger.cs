@@ -8,8 +8,7 @@ public class BossBattleTrigger : MonoBehaviour
 {
 
     private BoxCollider2D boxCol;
-    [SerializeField] private Enemy enemy;
-    public static bool isBossFighting = false;
+    [SerializeField] private GameObject enemy;
     public bool activateBossFight;
     
     [SerializeField] private GameObject enemyHealthBar;
@@ -21,9 +20,9 @@ public class BossBattleTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (enemy.currentHealth <= 0)
+        if (enemy.GetComponent<Enemy>().currentHealth <= 0)
         {
-            isBossFighting = false;
+            Debug.Log("MALWART DEFEATED");
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;
@@ -42,7 +41,6 @@ public class BossBattleTrigger : MonoBehaviour
             Debug.Log(col.gameObject.name);
             enemyHealthBar.SetActive(true);
             activateBossFight = true;
-            isBossFighting = true;
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;

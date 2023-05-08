@@ -100047,6 +100047,8 @@ MonoBehaviour:
   healthBar: {fileID: 242949797}
   hurtDuration: 0.5
   iFrameDuration: 1
+  malWart: {fileID: 1892980488}
+  distanceFromMalWart: 29
 --- !u!114 &2077635235
 MonoBehaviour:
   m_ObjectHideFlags: 0
