@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1392,6 +1396,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1589,6 +1597,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -2220,6 +2232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -2281,6 +2297,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -2775,6 +2795,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -3409,6 +3433,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -4767,6 +4795,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -26904,6 +26936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -28209,6 +28245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -28270,6 +28310,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -29121,6 +29165,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -29349,6 +29397,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -29858,6 +29910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -29920,6 +29976,7 @@ GameObject:
   - component: {fileID: 1452610723}
   - component: {fileID: 1452610722}
   - component: {fileID: 1452610721}
+  - component: {fileID: 1452610724}
   m_Layer: 7
   m_Name: FishingRods
   m_TagString: Untagged
@@ -30007,8 +30064,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1452610720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 550.08, y: -2.52, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2.83, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 683668992}
@@ -30032,9 +30089,22 @@ Transform:
   - {fileID: 377218516}
   - {fileID: 665917287}
   - {fileID: 1300619073}
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_Father: {fileID: 1892980488}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452610724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452610720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72df12432e6b6d24e9c3bd4d556be263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageValue: 10
 --- !u!1 &1467017734
 GameObject:
   m_ObjectHideFlags: 0
@@ -30697,6 +30767,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -85824,6 +85898,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -86052,6 +86130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -86248,6 +86330,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -86621,6 +86707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FishingRodSpike (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -86835,6 +86925,7 @@ Transform:
   m_Children:
   - {fileID: 2023444784}
   - {fileID: 1328829837}
+  - {fileID: 1452610723}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86929,6 +87020,12 @@ MonoBehaviour:
   machete: {fileID: 3403714320332220208, guid: 8c3e69f93f28ce541b9d4839a26475b5, type: 3}
   spawnMachetes: 0
   macheteSpawnRate: 0.5
+  spikeAnimator: {fileID: 1452610722}
+  fishingRodDuration: 1.25
+  activateSpikes: 0
+  cashier: {fileID: 3840223158730366511, guid: 46eea185d3fe8d347b4f160b0cb6a21c, type: 3}
+  spawnCashiers: 1
+  cashierSpawnRate: 2
 --- !u!1 &1897497203
 GameObject:
   m_ObjectHideFlags: 0
@@ -87295,6 +87392,10 @@ PrefabInstance:
     - target: {fileID: 8827703412176203236, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_Name
       value: FishingRodSpike (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_RootOrder
@@ -100994,6 +101095,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203238, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}

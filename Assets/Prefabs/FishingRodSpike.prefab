@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8827703412176203289}
   - component: {fileID: 8827703412176203238}
   - component: {fileID: 8827703412176203239}
+  - component: {fileID: 4023358651623921424}
   m_Layer: 7
   m_Name: FishingRodSpike
   m_TagString: Untagged
@@ -111,3 +112,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.67822266, y: 7.25}
   m_EdgeRadius: 0
+--- !u!114 &4023358651623921424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827703412176203236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72df12432e6b6d24e9c3bd4d556be263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageValue: 10
