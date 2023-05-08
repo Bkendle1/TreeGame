@@ -73,6 +73,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private TrailRenderer trailRenderer;
+    private PlayerSfx playerSfx;
     
     //Input Actions
     private PlayerControls controls;
@@ -459,6 +460,7 @@ public class Movement : MonoBehaviour
         {
             //rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            playerSfx.JumpSFX();
         }
         jumpInput = false;
 

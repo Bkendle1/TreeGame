@@ -61,8 +61,8 @@ public class Enemy : MonoBehaviour
     private UnityEngine.Object enemyRef;
     private Vector3 startPos;
 
-    
-    
+    [SerializeField] private AudioClip[] grunts;
+    [SerializeField] private AudioClip deathSFX;
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -103,8 +103,11 @@ public class Enemy : MonoBehaviour
         healthBar.SetHealth(currentHealth);
         if (currentHealth > 0)
         {
-            Debug.Log("Been hit for: " + damage + " damage.");
-
+            int randInt = Random.Range(0, grunts.Length);
+            Debug.Log(randInt);
+            _audioSource.PlayOneShot(grunts[randInt]);
+            _audioSource.pitch = Random.Range(1, 1.2f);
+            
             // Flash Effect
             Flash();
 
@@ -159,6 +162,9 @@ public class Enemy : MonoBehaviour
             acorn.transform.rotation = transform.rotation;
             acorn.transform.position = new Vector2(transform.position.x, transform.position.y + 1);
         }
+        
+        //play sfx
+        _audioSource.PlayOneShot(deathSFX);
         
         //Disable health bar on death
         healthBar.gameObject.SetActive(false);

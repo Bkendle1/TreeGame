@@ -23,11 +23,13 @@ public class PlayerHealth : MonoBehaviour
     
     private Animator anim;
     private SpriteRenderer spriteRenderer;
-
+    private PlayerSfx playerSfx;
+    
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        playerSfx = GetComponent<PlayerSfx>();
     }
 
     private void Start()
@@ -59,6 +61,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int value)
     {
         //TODO play hurt sfx
+        playerSfx.HurtSFX();
 
         //if the damage is more than the player's max health, set it to 0 
         if (value >= maxHealth)
@@ -88,7 +91,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("YOU DIED! GAME OVER!");
+
+        playerSfx.DieSFX();
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManager.Instance.UpdateLives(-1);
         //Respawn player at new position

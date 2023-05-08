@@ -403,6 +403,12 @@ MonoBehaviour:
   expMax: 10
   ColliderBlocker: {fileID: 8379936529896882897}
   enemyName: 
+  grunts:
+  - {fileID: 8300000, guid: b532c1b52282c624c81bf1096a54e50d, type: 3}
+  - {fileID: 8300000, guid: 6ec1b85a1d37ad844bbaec012d2645a3, type: 3}
+  - {fileID: 8300000, guid: b28a6bb7d320b694e83242fceaacd5d0, type: 3}
+  - {fileID: 8300000, guid: ec87a2201aa011042bc9ddbbfc21aa63, type: 3}
+  deathSFX: {fileID: 8300000, guid: d52b27f59ab407e41876e7ee60602611, type: 3}
 --- !u!50 &6001555828268916477
 Rigidbody2D:
   serializedVersion: 4

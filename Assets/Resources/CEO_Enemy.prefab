@@ -278,9 +278,17 @@ MonoBehaviour:
   healthBar: {fileID: 5114179938185388852}
   currentHealth: 0
   isStunned: 0
+  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
+  expMin: 3
+  expMax: 10
   ColliderBlocker: {fileID: 2869823343618609018}
   enemyName: CEO_Enemy
-  expAcorn: {fileID: 1958645034281041549, guid: 29e088d7d48253c41b1872c14326683c, type: 3}
+  grunts:
+  - {fileID: 8300000, guid: b532c1b52282c624c81bf1096a54e50d, type: 3}
+  - {fileID: 8300000, guid: 6ec1b85a1d37ad844bbaec012d2645a3, type: 3}
+  - {fileID: 8300000, guid: b28a6bb7d320b694e83242fceaacd5d0, type: 3}
+  - {fileID: 8300000, guid: ec87a2201aa011042bc9ddbbfc21aa63, type: 3}
+  deathSFX: {fileID: 8300000, guid: d52b27f59ab407e41876e7ee60602611, type: 3}
 --- !u!114 &2409332605994062745
 MonoBehaviour:
   m_ObjectHideFlags: 0
