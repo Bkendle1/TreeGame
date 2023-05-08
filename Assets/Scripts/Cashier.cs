@@ -10,7 +10,7 @@ public class Cashier : MonoBehaviour
     [SerializeField] private float startAngle = 270f;
     [SerializeField] private float endAngle = 90f;
     [SerializeField] private int bulletAmount = 10;
-    [SerializeField] private GameObject cashRegister;
+    [SerializeField] private GameObject projectile;
     private Vector2 projectileDirection;
     
     [SerializeField] private float fireRate = .5f;
@@ -43,7 +43,7 @@ public class Cashier : MonoBehaviour
             Vector3 bulMoveVector = new Vector3(bulDirX, bulDirY, 0f);
             Vector2 bulDir = (bulMoveVector - transform.position).normalized;
 
-            GameObject obj = cashRegisterPool.GetObject(cashRegister);
+            GameObject obj = cashRegisterPool.GetObject(projectile);
                 obj.transform.position = transform.position;
                 obj.transform.rotation = transform.rotation;
                 obj.GetComponentInChildren<CashRegisterProjectile>().SetMoveDirection(bulDir);

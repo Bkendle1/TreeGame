@@ -96,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
         gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
         if (BossBattleTrigger.isBossFighting)
         {
+            Debug.Log("Start fighting");
             CinemachineManager.Instance.SwitchPriority();
         }
     }

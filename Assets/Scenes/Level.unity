@@ -29976,7 +29976,6 @@ GameObject:
   - component: {fileID: 1452610723}
   - component: {fileID: 1452610722}
   - component: {fileID: 1452610721}
-  - component: {fileID: 1452610724}
   m_Layer: 7
   m_Name: FishingRods
   m_TagString: Untagged
@@ -30092,19 +30091,6 @@ Transform:
   m_Father: {fileID: 1892980488}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1452610724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1452610720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72df12432e6b6d24e9c3bd4d556be263, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageValue: 10
 --- !u!1 &1467017734
 GameObject:
   m_ObjectHideFlags: 0
@@ -87022,10 +87008,16 @@ MonoBehaviour:
   macheteSpawnRate: 0.5
   spikeAnimator: {fileID: 1452610722}
   fishingRodDuration: 1.25
-  activateSpikes: 0
+  activateSpikes: 1
   cashier: {fileID: 3840223158730366511, guid: 46eea185d3fe8d347b4f160b0cb6a21c, type: 3}
-  spawnCashiers: 1
+  spawnCashiers: 0
   cashierSpawnRate: 2
+  mom: {fileID: 3840223158730366511, guid: a3342da97c06d8e4b894d1c8c03b574d, type: 3}
+  spawnMoms: 0
+  momSpawnRate: 1
+  kevin: {fileID: 3840223158730366511, guid: 33c7e82b7e48cd8438c125599f487790, type: 3}
+  spawnKevins: 1
+  kevinSpawnRate: 2
 --- !u!1 &1897497203
 GameObject:
   m_ObjectHideFlags: 0
@@ -101095,10 +101087,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203238, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8827703412176203239, guid: 51357903d4e82b54fabdda257960f45a, type: 3}
-      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8827703412176203289, guid: 51357903d4e82b54fabdda257960f45a, type: 3}

@@ -52,8 +52,8 @@ public class CashRegisterProjectile : MonoBehaviour
         {
             col.GetComponent<PlayerHealth>().TakeDamage(damageValue);
             Movement playerMovement = col.GetComponent<Movement>();
-            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
 
+            CinemachineShake.Instance.ShakeCamera(camShakeIntensity,camShakeDuration);
             playerMovement.KBTimer = playerMovement.KBDuration;
             if (col.transform.position.x <= transform.position.x)
             {

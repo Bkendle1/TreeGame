@@ -161,5 +161,5 @@ MonoBehaviour:
   startAngle: 0
   endAngle: 360
   bulletAmount: 10
-  cashRegister: {fileID: 1202045781854201949, guid: 5c8e12691bbaf544e888503778d3d745, type: 3}
+  projectile: {fileID: 1202045781854201949, guid: 5c8e12691bbaf544e888503778d3d745, type: 3}
   fireRate: 0.1

@@ -33,13 +33,27 @@ public class MalWartBoss : MonoBehaviour
     [SerializeField] private bool spawnCashiers = true;
     [SerializeField] private float cashierSpawnRate = 2f;
     private ObjectPoolAdvanced cashierPool;
+    
+    [Header("Mom")] 
+    [SerializeField] private GameObject mom;
+    [SerializeField] private bool spawnMoms = true;
+    [SerializeField] private float momSpawnRate = 2f;
+    private ObjectPoolAdvanced momPool;
 
+    [Header("Kevin")] 
+    [SerializeField] private GameObject kevin;
+    [SerializeField] private bool spawnKevins = true;
+    [SerializeField] private float kevinSpawnRate = 2f;
+    private ObjectPoolAdvanced kevinPool;
+    
 
     private void Start()
     {
         shoppingCartPool = FindObjectOfType<ObjectPoolAdvanced>();
         machetePool = FindObjectOfType<ObjectPoolAdvanced>();
         cashierPool = FindObjectOfType<ObjectPoolAdvanced>();
+        momPool = FindObjectOfType<ObjectPoolAdvanced>();
+        kevinPool = FindObjectOfType<ObjectPoolAdvanced>();
         enemy = GetComponent<Enemy>();
     }
 
@@ -48,6 +62,7 @@ public class MalWartBoss : MonoBehaviour
         //if boss is defeated, stop spawning objects
         if (enemy.currentHealth <= 0)
         {
+            spikeAnimator.gameObject.SetActive(false);
             StopAllCoroutines();
         }
 
@@ -67,6 +82,18 @@ public class MalWartBoss : MonoBehaviour
         {
             StartCoroutine(SpawnCashiers());
             spawnCashiers = false;
+        }
+
+        if (spawnMoms)
+        {
+            StartCoroutine(SpawnMoms());
+            spawnMoms = false;
+        }
+
+        if (spawnKevins)
+        {
+            StartCoroutine(SpawnKevins());
+            spawnKevins = false;
         }
 
         if (activateSpikes)
@@ -93,6 +120,23 @@ public class MalWartBoss : MonoBehaviour
         obj.transform.rotation = Quaternion.identity;
         yield return new WaitForSeconds(cartSpawnRate);
         spawnCarts = true;
+    }
+    private IEnumerator SpawnKevins()
+    {
+        GameObject obj = kevinPool.GetObject(kevin);
+        obj.transform.position = spawnPoint.position;
+        obj.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(kevinSpawnRate);
+        spawnKevins = true;
+    }
+    
+    private IEnumerator SpawnMoms()
+    {
+        GameObject obj = momPool.GetObject(mom);
+        obj.transform.position = spawnPoint.position;
+        obj.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(momSpawnRate);
+        spawnMoms = true;
     }
     
     private IEnumerator SpawnCashiers()
