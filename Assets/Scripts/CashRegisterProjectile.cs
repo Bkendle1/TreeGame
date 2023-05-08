@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// this is for projectiles spawn rom malwart's allies like kevin's bair or the cashier's cash register
+/// </summary>
 public class CashRegisterProjectile : MonoBehaviour
 {
     private Vector2 moveDirection;
