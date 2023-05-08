@@ -10,11 +10,14 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private Transform teleportPosition;
     private bool playerInRange;
     private Transform motherNature;
+    [SerializeField] private AudioClip sfx;
+    private AudioSource audioSource;
     
     private void Start()
     {
         visualCue.SetActive(false);
         motherNature = GameObject.FindGameObjectWithTag("MotherNature").transform;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -39,6 +42,10 @@ public class Checkpoint : MonoBehaviour
         if (col.GetComponent<PlayerHealth>() != null)
         {
             playerInRange = true;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(sfx);
+            }
             //int healAmt = col.GetComponent<PlayerHealth>().maxHealth;
             GameManager.Instance.lastCheckPointPos = transform.position;
             //restore player health to max

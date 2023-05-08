@@ -21,3 +21,4 @@ MonoBehaviour:
   m_upgradedWeaponSprite: {fileID: 21300000, guid: 32a89c27ba1b6634cba669d111912916, type: 3}
   m_projectile: {fileID: 428018076827201282, guid: 00c7793177bd6d14eb54e128a5429a90, type: 3}
   m_impactEffect: {fileID: 0}
+  m_hitSFX: {fileID: 8300000, guid: 264b19be0f541034f93d8608905bcd93, type: 3}

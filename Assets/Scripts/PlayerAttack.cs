@@ -14,14 +14,14 @@ public class PlayerAttack : MonoBehaviour
     private Animator weaponAnimator;
     private WeaponProp playerWeaponProperties;
     private SpriteRenderer _weaponSpriteRenderer;
-    
+    private AudioSource audioSource;
     private bool canAttack = true;
     private bool attackInput;
     
     private Animator anim;
     private PlayerControls controls;
     [SerializeField] private Transform shootPos;
-
+    [SerializeField] private AudioClip swingSfx;
     private GameObject projectile;
     private ObjectPoolAdvanced projectilePool;
     
@@ -29,6 +29,7 @@ public class PlayerAttack : MonoBehaviour
     {
         controls = new PlayerControls();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -98,7 +99,9 @@ public class PlayerAttack : MonoBehaviour
         {
             return;
         }
-
+        
+        audioSource.PlayOneShot(swingSfx);
+        
         //Setup weapon in case a new weapon was equipped
         SetupWeapon();
         

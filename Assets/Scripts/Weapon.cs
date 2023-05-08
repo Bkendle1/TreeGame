@@ -6,15 +6,17 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] public WeaponProp weaponProperties;
-
+    
     [Header("Cinemachine")] 
     [SerializeField] private float camShakeIntensity = 4f;
     [SerializeField] private float camShakeDuration = .1f;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
+    private AudioSource audioSource;
+    
     private void Start()
     {
         SetupWeapon();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void UpgradeWeapon()
@@ -33,6 +35,9 @@ public class Weapon : MonoBehaviour
             {
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.parent.parent.localScale.x,0) * weaponProperties.GetKnockBackPower, ForceMode2D.Impulse);
             }
+            audioSource.PlayOneShot(weaponProperties.GetHitSFX);
+            audioSource.pitch = UnityEngine.Random.Range(1f, 1.2f);
+
         }
     }
 

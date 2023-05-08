@@ -14,7 +14,7 @@ public class WeaponProp : ScriptableObject
     [SerializeField] private Sprite m_upgradedWeaponSprite;
     [SerializeField] private GameObject m_projectile;
     [SerializeField] private GameObject m_impactEffect;
-    
+    [SerializeField] private AudioClip m_hitSFX;
     public int GetAttackDamage => m_attackDamage;
     public float GetAttackRange => m_attackRange;
     public float GetAttackSpeed => m_attackSpeed;
@@ -24,4 +24,5 @@ public class WeaponProp : ScriptableObject
     public Sprite GetUpgradedWeaponSprite => m_upgradedWeaponSprite;
     public GameObject GetProjectile => m_projectile;
     public GameObject GetImpactEffect => m_impactEffect;
+    public AudioClip GetHitSFX => m_hitSFX;
 }

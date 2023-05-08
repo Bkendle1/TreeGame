@@ -14,9 +14,11 @@ public class ExpCollectible : MonoBehaviour
     [SerializeField] private float m_timeToLive = 3f;
     [Tooltip("How close the player must be before exp acorn flies to them.")]
     [SerializeField] private float magnetDistance = 4f;
+
     private Rigidbody2D rb;
     private Transform player;
     private ObjectPoolAdvanced objectPool;
+
     
     private void Start()
     {
@@ -24,6 +26,7 @@ public class ExpCollectible : MonoBehaviour
         player = FindObjectOfType<Movement>().transform;
         objectPool = FindObjectOfType<ObjectPoolAdvanced>();
         rb.AddForce(new Vector2(Random.Range(-5, 10), Random.Range(5,10)), ForceMode2D.Impulse);
+
     }
 
     private void FixedUpdate()
@@ -56,6 +59,7 @@ public class ExpCollectible : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
+            col.GetComponent<PlayerSfx>().CollectExp();
             GameManager.Instance.UpdateExp(pointValue);
             Deactivate();
         }
