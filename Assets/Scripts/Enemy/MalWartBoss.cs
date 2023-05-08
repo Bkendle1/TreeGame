@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 public class MalWartBoss : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
+    private Enemy enemy;
     
     [Header("Shopping Cart")]
     [SerializeField] private GameObject shoppingCart;
@@ -26,10 +27,16 @@ public class MalWartBoss : MonoBehaviour
     {
         shoppingCartPool = FindObjectOfType<ObjectPoolAdvanced>();
         machetePool = FindObjectOfType<ObjectPoolAdvanced>();
+        enemy = GetComponent<Enemy>();
     }
 
     private void Update()
     {
+        //if boss is defeated, stop spawning objects
+        if (enemy.currentHealth <= 0) {
+            StopAllCoroutines();
+        }
+
         if (spawnCarts)
         {
             StartCoroutine(SpawnShoppingCarts());

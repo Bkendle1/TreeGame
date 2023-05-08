@@ -9,7 +9,8 @@ public class BossBattleTrigger : MonoBehaviour
 
     private BoxCollider2D boxCol;
     private Enemy enemy;
-
+    public static bool isBossFighting = false; 
+    
     [SerializeField] private GameObject enemyHealthBar;
     private void Start()
     {
@@ -21,6 +22,7 @@ public class BossBattleTrigger : MonoBehaviour
     {
         if (enemy.currentHealth <= 0)
         {
+            isBossFighting = false;
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;
@@ -37,6 +39,7 @@ public class BossBattleTrigger : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             enemyHealthBar.SetActive(true);
+            isBossFighting = true;
             for (int i = 0; i < transform.childCount; i++)
             {
                 GameObject child = transform.GetChild(i).gameObject;
