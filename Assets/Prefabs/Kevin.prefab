@@ -160,6 +160,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startAngle: 0
   endAngle: 360
-  bulletAmount: 10
+  bulletAmount: 20
   projectile: {fileID: 1202045781854201949, guid: 6f0c46e0d18dcb5478555881165a1169, type: 3}
   fireRate: 0.1

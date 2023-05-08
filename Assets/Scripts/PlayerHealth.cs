@@ -20,8 +20,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float iFrameDuration = 1f;
     private Color originalColor;
 
-    [SerializeField] private Transform malWart;
-    [SerializeField] private float distanceFromMalWart = 10f;
     
     private Animator anim;
     private SpriteRenderer spriteRenderer;
@@ -55,7 +53,6 @@ public class PlayerHealth : MonoBehaviour
         {
             healthBar.gameObject.SetActive(true);
         }
-        Debug.Log(Vector2.Distance(malWart.transform.position, transform.position));
         
     }
 
@@ -84,7 +81,6 @@ public class PlayerHealth : MonoBehaviour
         
         if (currentHealth <= 0)
         {
-            //Death
             Die();
         }
 
@@ -97,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
         GameManager.Instance.UpdateLives(-1);
         //Respawn player at new position
         gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
-        if (FindObjectOfType<BossBattleTrigger>().activateBossFight)
+        if (FindObjectOfType<BossCamConfinerTrigger>().isFightingBoss)
         {
             Debug.Log("Start fighting");
             CinemachineManager.Instance.SwitchPriority();

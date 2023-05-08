@@ -10,7 +10,7 @@ public class MalWartBoss : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
     private Enemy enemy;
-    private Phases m_battlePhase = Phases.PhaseZero;
+    private Animator anim;
 
     [Header("Shopping Cart")]
     [SerializeField] private GameObject shoppingCart;
@@ -63,7 +63,7 @@ public class MalWartBoss : MonoBehaviour
         kevinPool = FindObjectOfType<ObjectPoolAdvanced>();
         karenPool = FindObjectOfType<ObjectPoolAdvanced>();
         enemy = GetComponent<Enemy>();
-        
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -75,31 +75,23 @@ public class MalWartBoss : MonoBehaviour
             StopAllCoroutines();
         }
 
-        else
+        //if malwart has less than 2/3 of their health but greater than 1/3 of their health
+        if (enemy.currentHealth <= (enemy.enemyProperties.GetHealthAmount * .66) && enemy.currentHealth > enemy.enemyProperties.GetHealthAmount * .33)
         {
-            Debug.Log("Battle hasn't started yet.");
+            anim.SetTrigger("phaseTwo");
+            Debug.Log("ENTERING PHASE TWO");
+        }
+        //else if malwart has less than 1/3 of their health
+        else if(enemy.currentHealth <= (enemy.enemyProperties.GetHealthAmount * .33))
+        {
+            anim.SetTrigger("phaseThree");
+            Debug.Log("ENTERING PHASE THREE");
         }
         
-        switch (m_battlePhase)
-        {
-            case Phases.PhaseOne:
-                Debug.Log("Phase One");
-                break;
-            case Phases.PhaseTwo:
-                Debug.Log("Phase Two");
-                break;
-            case Phases.PhaseThree:
-                Debug.Log("Phase Three");
-                break;
-            default:
-                Debug.Log("Defaulting switch case.");
-                break;
-        }
-
         if (spawnCarts)
         {
             StartCoroutine(SpawnShoppingCarts());
-            //spawnCarts = false;
+            spawnCarts = false;
         }
 
         if (spawnMachetes)
@@ -154,16 +146,9 @@ public class MalWartBoss : MonoBehaviour
         activateSpikes = true;
     }
     
-    private IEnumerator SpawnShoppingCarts()
-    {
-        GameObject obj = shoppingCartPool.GetObject(shoppingCart);
-        obj.transform.position = spawnPoint.position;
-        obj.transform.rotation = Quaternion.identity;
-        yield return new WaitForSeconds(cartSpawnRate);
-        spawnCarts = true;
-    }
     private IEnumerator SpawnKarens()
     {
+        yield return new WaitForSeconds(karenSpawnRate);
         GameObject obj = karenPool.GetObject(karen);
         obj.transform.position = spawnPoint.position;
         obj.transform.rotation = Quaternion.identity;
@@ -173,6 +158,7 @@ public class MalWartBoss : MonoBehaviour
     
     private IEnumerator SpawnKevins()
     {
+        yield return new WaitForSeconds(kevinSpawnRate);
         GameObject obj = kevinPool.GetObject(kevin);
         obj.transform.position = spawnPoint.position;
         obj.transform.rotation = Quaternion.identity;
@@ -182,6 +168,7 @@ public class MalWartBoss : MonoBehaviour
     
     private IEnumerator SpawnMoms()
     {
+        yield return new WaitForSeconds(momSpawnRate);
         GameObject obj = momPool.GetObject(mom);
         obj.transform.position = spawnPoint.position;
         obj.transform.rotation = Quaternion.identity;
@@ -198,6 +185,15 @@ public class MalWartBoss : MonoBehaviour
         yield return new WaitForSeconds(cashierSpawnRate);
         spawnCashiers = true;
     }
+    private IEnumerator SpawnShoppingCarts()
+    {
+        yield return new WaitForSeconds(cartSpawnRate);
+        GameObject obj = shoppingCartPool.GetObject(shoppingCart);
+        obj.transform.position = spawnPoint.position;
+        obj.transform.rotation = Quaternion.identity;
+        yield return new WaitForSeconds(cartSpawnRate);
+        spawnCarts = true;
+    }
     
     private IEnumerator SpawnMachetes()
     {
@@ -208,12 +204,4 @@ public class MalWartBoss : MonoBehaviour
         yield return new WaitForSeconds(macheteSpawnRate);
         spawnMachetes = true;
     }
-}
-
-public enum Phases
-{
-    PhaseZero,
-    PhaseOne, 
-    PhaseTwo,
-    PhaseThree
 }

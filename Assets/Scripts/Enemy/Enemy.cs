@@ -217,6 +217,11 @@ public class Enemy : MonoBehaviour
         if (newSpriteColor.a <= 0)
         {
             //Destroy(gameObject);
+            //if malwart is defeated, set game object inactive so the walls go down as well
+            if (gameObject.name == "MalWartBoss")
+            {
+                gameObject.SetActive(false);
+            }
             spriteRenderer.enabled = false;
             enemyProperties.GetDeathEffect.SetActive(false);
         }

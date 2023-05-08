@@ -6,11 +6,13 @@ using UnityEngine;
 public class MalWartParent : MonoBehaviour
 {
     private BossBattleTrigger bossTrigger;
+    [SerializeField] private GameObject malWart;
     private bool hasSpawnedMalWart = false;
     
     private void Start()
     {
         bossTrigger = GetComponentInChildren<BossBattleTrigger>();
+        malWart.SetActive(false);
     }
 
     private void Update()

@@ -2007,10 +2007,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lastCheckPointPos: {x: -14.34, y: -2.55}
   m_expUI: {fileID: 1897497207}
-  m_exp: 1000
+  m_exp: 0
   decrementRate: 0.05
   m_livesUI: {fileID: 2083028549}
-  m_lives: 3
+  m_lives: 5
 --- !u!1 &336448842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3317,7 +3317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 551.45996, y: 0.04633999, z: -10}
+  m_LocalPosition: {x: 500.05, y: -2.25366, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3689,7 +3689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552476269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 551.45996, y: -3.2000005, z: -10}
+  m_LocalPosition: {x: 500.05, y: -3.2000005, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28927,6 +28927,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1126037542}
   - component: {fileID: 1126037543}
+  - component: {fileID: 1126037544}
   m_Layer: 0
   m_Name: BossCamConfiner
   m_TagString: Untagged
@@ -28978,6 +28979,19 @@ PolygonCollider2D:
       - {x: -30, y: 14.5}
       - {x: -30, y: -6}
       - {x: 31.186043, y: -6}
+--- !u!114 &1126037544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126037541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0475a3c0b1a939b48aff6203e7e6d7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFightingBoss: 0
 --- !u!1001 &1128953680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29637,6 +29651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d80939d4432de4d98d8c0d1c696c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  malWart: {fileID: 1892980486}
 --- !u!1 &1369532498
 GameObject:
   m_ObjectHideFlags: 0
@@ -31480,7 +31495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636517088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85600,7 +85615,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 400, y: -4.2}
-      - {x: 589, y: -4.2}
+      - {x: 466.2933, y: -4.2}
+      - {x: 471.57852, y: -6.5}
+      - {x: 589, y: -6.5}
       - {x: 589, y: 15}
       - {x: -21, y: 15}
       - {x: -21, y: -5.5}
@@ -86837,7 +86854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1892980487
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -87009,10 +87026,10 @@ MonoBehaviour:
   momSpawnRate: 1
   kevin: {fileID: 3840223158730366511, guid: 33c7e82b7e48cd8438c125599f487790, type: 3}
   spawnKevins: 0
-  kevinSpawnRate: 2
+  kevinSpawnRate: 1
   karen: {fileID: 3840223158730366511, guid: f1f714da6f37c2e4992041e7f6579cc8, type: 3}
   spawnKarens: 0
-  karenSpawnRate: 2
+  karenSpawnRate: 1
 --- !u!1 &1897497203
 GameObject:
   m_ObjectHideFlags: 0
@@ -87571,7 +87588,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936132249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 551.45996, y: -2.4000003, z: -10}
+  m_LocalPosition: {x: 500.05, y: -2.4000003, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99385,7 +99402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023444783}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.700012, y: -31, z: 0}
+  m_LocalPosition: {x: -31.6, y: -31, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99418,7 +99435,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 51.49}
+  m_Size: {x: 3.3, y: 51.49}
   m_EdgeRadius: 0
 --- !u!114 &2023444786
 MonoBehaviour:
@@ -99432,7 +99449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f1773a97759604c824842829c60269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1892980490}
+  malWart: {fileID: 1892980492}
   activateBossFight: 0
   enemyHealthBar: {fileID: 649362596}
 --- !u!1001 &2028909831
@@ -99795,7 +99812,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077635225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 551.41, y: -3.67, z: 0}
+  m_LocalPosition: {x: 500, y: -3.67, z: 0}
   m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -100047,8 +100064,6 @@ MonoBehaviour:
   healthBar: {fileID: 242949797}
   hurtDuration: 0.5
   iFrameDuration: 1
-  malWart: {fileID: 1892980488}
-  distanceFromMalWart: 29
 --- !u!114 &2077635235
 MonoBehaviour:
   m_ObjectHideFlags: 0

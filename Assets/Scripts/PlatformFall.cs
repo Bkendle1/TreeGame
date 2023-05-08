@@ -31,7 +31,6 @@ public class PlatformFall : MonoBehaviour
         {
             if (col.gameObject.CompareTag("Player"))
             {
-                Debug.Log("about to fall");
                 StartCoroutine(DropPlatform());
             }
         }

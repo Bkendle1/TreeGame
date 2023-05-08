@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  deactivationTime: 2
+  deactivationTime: 1.25
   damageValue: 10
   camShakeIntensity: 4
   camShakeDuration: 0.1
