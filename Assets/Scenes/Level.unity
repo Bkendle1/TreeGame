@@ -28940,7 +28940,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7584eb0c47c2a844a83e94502f72a8e5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -32059,10 +32059,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ff5b0cc2e13e256468ab50fff85418cf, type: 3}
   - {fileID: 8300000, guid: 50a53ec70901ccb438b71e7536ec256d, type: 3}
   - {fileID: 8300000, guid: bc85c7f9adeb2044396364f1e1674b90, type: 3}
+  - {fileID: 8300000, guid: e42c8487c8ff9f340a4f6905202b3d98, type: 3}
+  - {fileID: 8300000, guid: 8bb8d3925b450514cbf979f49c90d98b, type: 3}
+  - {fileID: 8300000, guid: 2b53847eb907d1648801fb18815bc800, type: 3}
   PlayerVoiceLines:
   - {fileID: 8300000, guid: f841c83fad7a4d747871812cecda77e9, type: 3}
   - {fileID: 8300000, guid: 20791cb7d6558834b8bbabd6552c1d6b, type: 3}
   - {fileID: 8300000, guid: 23d8d7773738bae4081c97f974d7025e, type: 3}
+  - {fileID: 8300000, guid: e04b2a8f2778f004abf68217a54e9dd9, type: 3}
+  - {fileID: 8300000, guid: bfa625442ae956440bb6ac3e167c5720, type: 3}
+  - {fileID: 8300000, guid: d27be21908b3f0a4fadc99b882d39f71, type: 3}
   BirdVoiceLines:
   - {fileID: 8300000, guid: c2fdf953a2f2d5f40a3de2c3ec498038, type: 3}
   - {fileID: 8300000, guid: 28e869b6b5ba8bc408c5776bc27d0667, type: 3}
@@ -100446,7 +100452,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 167650324}
-  inkJSON: {fileID: 4900000, guid: 605b5775dba4b4a48b4661b50dac2eaf, type: 3}
+  nextInky: {fileID: 4900000, guid: 605b5775dba4b4a48b4661b50dac2eaf, type: 3}
+  firstInky: {fileID: 4900000, guid: bb8d8f8ba7710df41a99f17f8f4b66be, type: 3}
 --- !u!114 &2068857019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100908,10 +100915,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footSfx: {fileID: 8300000, guid: 81ca12f276403d4429d50fcf4cf8629a, type: 3}
   collectExp: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+  dieSFX: {fileID: 8300000, guid: 812fdcda23f289d4193a3b71ec90573f, type: 3}
   hurtSFX:
   - {fileID: 8300000, guid: ef1cfb777b584ac438716efda12d5654, type: 3}
   - {fileID: 8300000, guid: 990d9812459d3fc4790a206a67f5d982, type: 3}
   - {fileID: 8300000, guid: bbf0d9fb8b9028641b5518110ed2dd21, type: 3}
+  jumpSFX: {fileID: 8300000, guid: e532c55ea64a2c64887c5dd7acc098a8, type: 3}
 --- !u!1001 &2079884733
 PrefabInstance:
   m_ObjectHideFlags: 0

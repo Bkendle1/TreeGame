@@ -45,5 +45,6 @@ public class PlayerSfx : MonoBehaviour
     public void JumpSFX()
     {
         audioSource.PlayOneShot(jumpSFX);
+        audioSource.pitch = UnityEngine.Random.Range(1f, 1.2f);
     }
 }

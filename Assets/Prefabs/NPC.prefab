@@ -263,4 +263,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualCue: {fileID: 5199641572642432273}
-  inkJSON: {fileID: 0}
+  nextInky: {fileID: 4900000, guid: 2f49136ba86c77f45874819083a215e4, type: 3}
+  firstInky: {fileID: 4900000, guid: 2f49136ba86c77f45874819083a215e4, type: 3}

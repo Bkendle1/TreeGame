@@ -7,8 +7,8 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject visualCue;
-    [SerializeField] private TextAsset inkJSON;
-    
+    [SerializeField] private TextAsset nextInky;
+    [SerializeField] private TextAsset firstInky;
      
     private bool playerInRange = false;
     private void Awake()
@@ -26,7 +26,9 @@ public class DialogueTrigger : MonoBehaviour
             //start a new story
             if (Movement.Instance.GetInteractedPressed())
             {
-                DialogueManager.Instance.EnterDialogueMode(inkJSON);
+                DialogueManager.Instance.EnterDialogueMode(firstInky);
+                //this is to change the dialogue from the first conversation with mother nature to the next
+                firstInky = nextInky;
             }
         }
         else

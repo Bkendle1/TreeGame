@@ -98,6 +98,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         trailRenderer = GetComponent<TrailRenderer>();
+        playerSfx = GetComponent<PlayerSfx>();
     }
 
     private void Start()
