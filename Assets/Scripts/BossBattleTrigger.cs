@@ -8,13 +8,14 @@ public class BossBattleTrigger : MonoBehaviour
 {
 
     private BoxCollider2D boxCol;
-    private Enemy enemy;
-    public static bool isBossFighting = false; 
+    [SerializeField] private Enemy enemy;
+    public static bool isBossFighting = false;
+    public bool activateBossFight;
     
     [SerializeField] private GameObject enemyHealthBar;
     private void Start()
     {
-        enemy = GetComponentInParent<Enemy>();
+        
         boxCol = GetComponent<BoxCollider2D>();
     }
 
@@ -36,9 +37,11 @@ public class BossBattleTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player"))
+        if (col.GetComponent<Movement>() != null)
         {
+            Debug.Log(col.gameObject.name);
             enemyHealthBar.SetActive(true);
+            activateBossFight = true;
             isBossFighting = true;
             for (int i = 0; i < transform.childCount; i++)
             {

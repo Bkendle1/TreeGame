@@ -10,7 +10,7 @@ public class MalWartBoss : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
     private Enemy enemy;
-    private Phases m_battlePhase;
+    private Phases m_battlePhase = Phases.PhaseZero;
 
     [Header("Shopping Cart")]
     [SerializeField] private GameObject shoppingCart;
@@ -78,27 +78,23 @@ public class MalWartBoss : MonoBehaviour
         if (BossBattleTrigger.isBossFighting)
         {
             m_battlePhase = Phases.PhaseOne;
+            Debug.Log("Battle begun");
         }
+        else
+        {
+            Debug.Log("Battle hasn't started yet.");
+        }
+        
         switch (m_battlePhase)
         {
             case Phases.PhaseOne:
-                activateSpikes = true;
-                spawnCashiers = true;
-                spawnCarts = true;
+                Debug.Log("Phase One");
                 break;
             case Phases.PhaseTwo:
-                spawnCashiers = false;
-                spawnCarts = false;
-
-                spawnMoms = true;
-                spawnMachetes = true;
+                Debug.Log("Phase Two");
                 break;
             case Phases.PhaseThree:
-                spawnMoms = false;
-                spawnMachetes = false;
-                
-                spawnKevins = true;
-                spawnKarens = true;
+                Debug.Log("Phase Three");
                 break;
             default:
                 Debug.Log("Defaulting switch case.");
@@ -108,7 +104,7 @@ public class MalWartBoss : MonoBehaviour
         if (spawnCarts)
         {
             StartCoroutine(SpawnShoppingCarts());
-            spawnCarts = false;
+            //spawnCarts = false;
         }
 
         if (spawnMachetes)
@@ -146,6 +142,11 @@ public class MalWartBoss : MonoBehaviour
             StartCoroutine(StartRodSpikes());
         }
 
+    }
+
+    private void StopSpawning()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator StartRodSpikes()
@@ -195,6 +196,7 @@ public class MalWartBoss : MonoBehaviour
     
     private IEnumerator SpawnCashiers()
     {
+        yield return new WaitForSeconds(cashierSpawnRate);
         GameObject obj = cashierPool.GetObject(cashier);
         obj.transform.position = spawnPoint.position;
         obj.transform.rotation = Quaternion.identity;
@@ -204,6 +206,7 @@ public class MalWartBoss : MonoBehaviour
     
     private IEnumerator SpawnMachetes()
     {
+        yield return new WaitForSeconds(macheteSpawnRate);
         GameObject obj = machetePool.GetObject(machete);
         obj.transform.position = spawnPoint.position;
         obj.transform.rotation = Quaternion.identity;
@@ -214,6 +217,7 @@ public class MalWartBoss : MonoBehaviour
 
 public enum Phases
 {
+    PhaseZero,
     PhaseOne, 
     PhaseTwo,
     PhaseThree
