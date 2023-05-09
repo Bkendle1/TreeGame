@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Action GamePaused;
-    public Action GameResumed;
     public Action LiveLost;
-    public Action EndGame;
 
     public bool IsGamePaused => m_isGamePaused;
 
@@ -22,17 +19,20 @@ public class GameManager : MonoBehaviour
     public Vector2 lastCheckPointPos;
     private Vector2 startingPoint;
     
-    [SerializeField] private UIText m_expUI = null;
+    private UIText m_expUI = null;
     [Tooltip("This is exposed in the Inspector for testing purposes.")]
     [SerializeField] private int m_exp;
+
+    private int startingExp;
     [Tooltip("The rate at which the experience counter decrements.")]
     [SerializeField] private float decrementRate = .05f;
         
     public int GetCurrentExpAmount => m_exp;
     
-    [SerializeField] private UIText m_livesUI = null;
+    private UIText m_livesUI = null;
     [SerializeField] private int m_lives = 3;
-    
+    private int startingLives;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -45,13 +45,42 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
+        startingExp = m_exp;
+        startingLives = m_lives;
         startingPoint = lastCheckPointPos;
     }
 
     private void Start()
     {
+        m_expUI = GameObject.Find("ExperienceCounter").GetComponent<UIText>();
+        m_livesUI = GameObject.Find("LivesCounter").GetComponent<UIText>();
+        
         m_livesUI.UpdateUI(m_lives);
         m_expUI.UpdateUI(m_exp);
+    }
+
+    private void Update()
+    {
+        if (m_expUI == null || m_livesUI == null)
+        {
+            if (SceneManager.GetActiveScene().name == "Level")
+            {
+                m_expUI = GameObject.Find("ExperienceCounter").GetComponent<UIText>();
+                m_livesUI = GameObject.Find("LivesCounter").GetComponent<UIText>();
+                
+                //reset exp and lives
+                m_exp = startingExp;
+                m_lives = startingLives;
+            
+                //update ui
+                m_livesUI.UpdateUI(m_lives);
+                m_expUI.UpdateUI(m_exp);
+
+                //reset checkpoint to starting point
+                lastCheckPointPos = startingPoint;
+
+            }
+        }
     }
 
     public void UpdateExp(int value)
@@ -84,7 +113,16 @@ public class GameManager : MonoBehaviour
         {
             //Game Over
             m_lives = 0;
-            //reset to last checkpoint to starting point
+
+            //reset exp and lives
+            m_exp = startingExp;
+            m_lives = startingLives;
+            
+            //update ui
+            m_livesUI.UpdateUI(m_lives);
+            m_expUI.UpdateUI(m_exp);
+            
+            //reset checkpoint to starting point
             lastCheckPointPos = startingPoint;
             SceneManager.LoadScene("GameOver");
         }
@@ -97,7 +135,6 @@ public class GameManager : MonoBehaviour
         
         m_lives += value;
         m_livesUI.UpdateUI(m_lives);
-        
     }
 }
 

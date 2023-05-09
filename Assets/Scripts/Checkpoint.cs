@@ -46,8 +46,9 @@ public class Checkpoint : MonoBehaviour
             {
                 audioSource.PlayOneShot(sfx);
             }
-            //int healAmt = col.GetComponent<PlayerHealth>().maxHealth;
+            
             GameManager.Instance.lastCheckPointPos = transform.position;
+            
             //restore player health to max
             col.GetComponent<PlayerHealth>().Heal(999);
         }

@@ -51,6 +51,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private BoxCollider2D ColliderBlocker;
     [Tooltip("Name of the enemy, in the Resources folder, that you want to respawn.")]
     [SerializeField] private string enemyName;
+    [Tooltip("How long until the enemy respawns")]
+    [SerializeField] private float respawnTime = 60f;
+    
     private AudioSource _audioSource;
     private SpriteRenderer spriteRenderer;
     private Animator anim;
@@ -105,9 +108,11 @@ public class Enemy : MonoBehaviour
         {
             int randInt = Random.Range(0, grunts.Length);
             Debug.Log(randInt);
-            _audioSource.PlayOneShot(grunts[randInt]);
-            _audioSource.pitch = Random.Range(1, 1.2f);
-            
+            if (_audioSource != null)
+            {
+                _audioSource.PlayOneShot(grunts[randInt]);
+                _audioSource.pitch = Random.Range(1, 1.2f);
+            }
             // Flash Effect
             Flash();
 
@@ -196,12 +201,17 @@ public class Enemy : MonoBehaviour
         {
             CinemachineManager.Instance.SwitchPriority();
         }
-        //Invoke("RespawnEnemy", 1f);
+
+        if (gameObject.name != "MalWartBoss")
+        {
+            Invoke("RespawnEnemy", respawnTime);
+        }
     }
     
     //TODO enemy still fades away sometimes
     private void RespawnEnemy()
     {
+        Debug.Log("In respawn enemy");
         //Respawn enemy
         GameObject enemyClone = (GameObject)Instantiate(enemyRef);
         enemyClone.transform.position = startPos;

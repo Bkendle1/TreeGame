@@ -276,6 +276,7 @@ MonoBehaviour:
   expMax: 10
   ColliderBlocker: {fileID: 1632094090928237372}
   enemyName: AxeEnemy
+  respawnTime: 20
   grunts:
   - {fileID: 8300000, guid: b532c1b52282c624c81bf1096a54e50d, type: 3}
   - {fileID: 8300000, guid: 6ec1b85a1d37ad844bbaec012d2645a3, type: 3}
