@@ -42,12 +42,15 @@ public class Checkpoint : MonoBehaviour
         if (col.GetComponent<PlayerHealth>() != null)
         {
             playerInRange = true;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(sfx);
-            }
             
-            GameManager.Instance.lastCheckPointPos = transform.position;
+            if (GameManager.Instance.lastCheckPointPos.x != transform.position.x)
+            {
+                GameManager.Instance.lastCheckPointPos = transform.position;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(sfx);
+                }    
+            }
             
             //restore player health to max
             col.GetComponent<PlayerHealth>().Heal(999);

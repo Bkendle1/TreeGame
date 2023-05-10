@@ -33,6 +33,8 @@ public class BossBattleTrigger : MonoBehaviour
                     child.SetActive(false);
                 }
             }
+
+            activateBossFight = false;
         }
         
         //if player is on the left side of the trigger, deactivate walls
@@ -78,7 +80,6 @@ public class BossBattleTrigger : MonoBehaviour
                 }
             }
             boxCol.enabled = false;
-            //CinemachineManager.Instance.SwitchPriority();
         }
     }
 }

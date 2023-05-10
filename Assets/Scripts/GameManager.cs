@@ -75,11 +75,13 @@ public class GameManager : MonoBehaviour
                 //update ui
                 m_livesUI.UpdateUI(m_lives);
                 m_expUI.UpdateUI(m_exp);
-
-                //reset checkpoint to starting point
-                lastCheckPointPos = startingPoint;
-
             }
+        }
+
+        if (SceneManager.GetActiveScene().name != "Level")
+        {
+            //reset checkpoint to starting point
+            lastCheckPointPos = startingPoint;
         }
     }
 

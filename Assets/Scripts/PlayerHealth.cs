@@ -30,6 +30,9 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         playerSfx = GetComponent<PlayerSfx>();
+        
+        Debug.Log("respawning player position");
+        gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
     }
 
     private void Start()
@@ -38,7 +41,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         //set up health bar's max hp
         healthBar.SetMaxHealth(maxHealth);
-        gameObject.transform.position = GameManager.Instance.lastCheckPointPos;
+
         
         //make sure collisions between player (8) and enemies (7) are active
         //because take damage doesn't re-enable them if the player dies

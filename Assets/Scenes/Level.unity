@@ -2005,7 +2005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431933a95c7bace43914a612660ee482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastCheckPointPos: {x: -14.34, y: -2.55}
+  lastCheckPointPos: {x: -15.03644, y: -3.213166}
   m_exp: 0
   decrementRate: 0.05
   m_lives: 3
@@ -28904,6 +28904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1068993048}
   - component: {fileID: 1068993049}
+  - component: {fileID: 1068993050}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -28936,7 +28937,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7584eb0c47c2a844a83e94502f72a8e5, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
@@ -29022,6 +29023,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1068993050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068993047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb2645f62e8db74591d6d51f4acc4c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalBGM: {fileID: 8300000, guid: 7584eb0c47c2a844a83e94502f72a8e5, type: 3}
+  bossBGM: {fileID: 8300000, guid: aeebf5a0ce0adc6429ac0ce44f91e394, type: 3}
 --- !u!1001 &1082024906
 PrefabInstance:
   m_ObjectHideFlags: 0
